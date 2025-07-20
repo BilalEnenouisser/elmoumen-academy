@@ -1,42 +1,116 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Teacher;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\StudyMaterial;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use App\Models\Material;
+use App\Models\Level;
+use App\Models\Year;
+use App\Models\Field;
+use App\Models\Subject;
 
 class MaterialController extends Controller
 {
     public function index()
     {
-        $materials = StudyMaterial::where('created_by', Auth::id())->get();
+        $materials = Material::where('user_id', auth()->id())
+            ->with(['level', 'year', 'field', 'subject'])
+            ->latest()
+            ->paginate(10);
+
         return view('teacher.materials.index', compact('materials'));
     }
 
     public function create()
     {
-        return view('teacher.materials.create');
+        return view('teacher.materials.create', [
+            'levels' => Level::all(),
+            'years' => Year::all(),
+            'fields' => Field::all(),
+            'subjects' => Subject::all(),
+        ]);
     }
 
     public function store(Request $request)
     {
-        // Add validation and store logic here
+        $request->validate([
+            'name'       => 'required|string|max:255',
+            'type'       => 'required|in:Cours,Séries,Autres',
+            'pdf_path'   => 'nullable|file|mimes:pdf|max:10240',
+            'video_url'  => 'nullable|url',
+            'thumbnail'  => 'nullable|url',
+            'level_id'   => 'required|exists:levels,id',
+            'year_id'    => 'nullable|exists:years,id',
+            'field_id'   => 'nullable|exists:fields,id',
+            'subject_id' => 'nullable|exists:subjects,id',
+        ]);
+
+        $data = $request->except('pdf_path');
+
+        if ($request->hasFile('pdf_path')) {
+            $data['pdf_path'] = $request->file('pdf_path')->store('pdfs', 'public');
+        }
+
+        $data['user_id'] = auth()->id();
+
+        Material::create($data);
+
+        return redirect()->route('teacher.materials.index')->with('success', 'Matériel ajouté avec succès.');
     }
 
-    public function edit(StudyMaterial $material)
+    public function edit(Material $material)
     {
-        return view('teacher.materials.edit', compact('material'));
+        if ($material->user_id !== auth()->id()) {
+            abort(403); // Forbidden
+        }
+
+        return view('teacher.materials.edit', [
+            'material' => $material,
+            'levels' => Level::all(),
+            'years' => Year::all(),
+            'fields' => Field::all(),
+            'subjects' => Subject::all(),
+        ]);
     }
 
-    public function update(Request $request, StudyMaterial $material)
+    public function update(Request $request, Material $material)
     {
-        // Add validation and update logic here
+        if ($material->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $request->validate([
+            'name'       => 'required|string|max:255',
+            'type'       => 'required|in:Cours,Séries,Autres',
+            'pdf_path'   => 'nullable|file|mimes:pdf|max:10240',
+            'video_url'  => 'nullable|url',
+            'thumbnail'  => 'nullable|url',
+            'level_id'   => 'required|exists:levels,id',
+            'year_id'    => 'nullable|exists:years,id',
+            'field_id'   => 'nullable|exists:fields,id',
+            'subject_id' => 'nullable|exists:subjects,id',
+        ]);
+
+        $data = $request->except('pdf_path');
+
+        if ($request->hasFile('pdf_path')) {
+            $data['pdf_path'] = $request->file('pdf_path')->store('pdfs', 'public');
+        }
+
+        $material->update($data);
+
+        return redirect()->route('teacher.materials.index')->with('success', 'Matériel mis à jour.');
     }
 
-    public function destroy(StudyMaterial $material)
+    public function destroy(Material $material)
     {
-        // Add delete logic here
+        if ($material->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $material->delete();
+
+        return redirect()->route('teacher.materials.index')->with('success', 'Matériel supprimé.');
     }
 }

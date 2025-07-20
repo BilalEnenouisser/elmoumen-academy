@@ -1,50 +1,93 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Elmoumen Academy</title>
+
     @vite('resources/css/app.css')
+
+    <!-- Alpine.js for interactivity -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="font-sans antialiased text-gray-800 bg-white">
+<body class="bg-gray-100 text-gray-800">
 
     <!-- Navbar -->
-    <header class="bg-white shadow">
-        <div class="container mx-auto flex justify-between items-center p-4">
-            <!-- Left: Logo -->
-            <div class="text-xl font-bold text-blue-600">Elmoumen</div>
+    <nav class="bg-white shadow sticky top-0 z-50" x-data="{ open: false }">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="{{ url('/') }}" class="text-xl font-bold text-blue-600">Elmoumen Academy</a>
 
-            <!-- Center: Menu -->
-            <nav class="hidden md:flex space-x-6">
-                <a href="/" class="hover:text-blue-500">ACCUEIL</a>
-                <a href="/about" class="hover:text-blue-500">ABOUT</a>
-                <div class="relative group">
-                    <span class="hover:text-blue-500 cursor-pointer">COURS</span>
+            <!-- Center nav links -->
+            <ul class="hidden md:flex space-x-6 text-gray-700 font-medium">
+                <li><a href="{{ url('/') }}" class="hover:text-blue-600">ACCUEIL</a></li>
+                <li><a href="{{ url('/about') }}" class="hover:text-blue-600">ABOUT</a></li>
+
+                <li class="relative" x-data="{ mega: false }" @mouseenter="mega = true" @mouseleave="mega = false">
+                    <a href="#" class="hover:text-blue-600">COURS</a>
                     <!-- Mega Menu -->
-                    <div class="absolute left-0 top-full bg-white border shadow-md mt-2 p-4 hidden group-hover:flex space-x-4 z-10">
-                        <a href="/courses/primaire" class="hover:text-blue-500">Primaire</a>
-                        <a href="/courses/college" class="hover:text-blue-500">Collège</a>
-                        <a href="/courses/lycee" class="hover:text-blue-500">Lycée</a>
-                        <a href="/courses/concours" class="hover:text-blue-500">Concours</a>
+                    <div x-show="mega" x-transition
+                        class="absolute top-full left-0 w-64 bg-white border shadow-lg mt-2 py-2 z-50">
+                        <a href="{{ url('/courses/primaire') }}" class="block px-4 py-2 hover:bg-gray-100">Primaire</a>
+                        <a href="{{ url('/courses/college') }}" class="block px-4 py-2 hover:bg-gray-100">Collège</a>
+                        <a href="{{ url('/courses/lycee') }}" class="block px-4 py-2 hover:bg-gray-100">Lycée</a>
+                        <a href="{{ url('/courses/concours') }}" class="block px-4 py-2 hover:bg-gray-100">Concours</a>
                     </div>
-                </div>
-                <a href="/contact" class="hover:text-blue-500">CONTACT</a>
-            </nav>
+                </li>
 
-            <!-- Right: WhatsApp -->
-            <div>
-                <a href="https://wa.me/212600000000" class="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600">WhatsApp</a>
+                <li><a href="{{ url('/contact') }}" class="hover:text-blue-600">CONTACT</a></li>
+            </ul>
+
+            <!-- Right: WhatsApp or phone -->
+            <div class="flex items-center space-x-4">
+                <a href="https://wa.me/212612345678" target="_blank"
+                   class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 text-sm">
+                    WhatsApp
+                </a>
+            </div>
+
+            <!-- Mobile hamburger -->
+            <div class="md:hidden">
+                <button @click="open = !open" class="text-gray-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor"
+                         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
             </div>
         </div>
-    </header>
 
-    <!-- Main Content -->
-    <main>
+        <!-- Mobile menu -->
+        <div x-show="open" class="md:hidden bg-white border-t shadow">
+            <ul class="space-y-2 px-4 py-4">
+                <li><a href="{{ url('/') }}" class="block hover:text-blue-600">ACCUEIL</a></li>
+                <li><a href="{{ url('/about') }}" class="block hover:text-blue-600">ABOUT</a></li>
+                <li><a href="{{ url('/courses/primaire') }}" class="block hover:text-blue-600">Primaire</a></li>
+                <li><a href="{{ url('/courses/college') }}" class="block hover:text-blue-600">Collège</a></li>
+                <li><a href="{{ url('/courses/lycee') }}" class="block hover:text-blue-600">Lycée</a></li>
+                <li><a href="{{ url('/courses/concours') }}" class="block hover:text-blue-600">Concours</a></li>
+                <li><a href="{{ url('/contact') }}" class="block hover:text-blue-600">CONTACT</a></li>
+                <li>
+                    <a href="https://wa.me/212612345678" target="_blank"
+                       class="inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                        WhatsApp
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <main class="min-h-screen">
         @yield('content')
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-100 text-center py-6 mt-10">
-        &copy; {{ date('Y') }} Elmoumen Academy. Tous droits réservés.
+    <footer class="bg-white border-t mt-10">
+        <div class="max-w-7xl mx-auto px-4 py-6 text-center text-sm text-gray-500">
+            &copy; {{ date('Y') }} Elmoumen Academy. Tous droits réservés.
+        </div>
     </footer>
 </body>
 </html>

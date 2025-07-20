@@ -1,45 +1,63 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h2>Ajouter un nouveau matériel</h2>
-    
-    <form action="{{ route('teacher.materials.store') }}" method="POST" enctype="multipart/form-data">
+<div class="max-w-xl mx-auto py-8 px-4">
+    <h1 class="text-2xl font-bold mb-6">Ajouter un Matériel</h1>
+
+    <form action="{{ route('teacher.materials.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
         @csrf
-        
-        <div class="mb-3">
-            <label for="title" class="form-label">Titre</label>
-            <input type="text" class="form-control" id="title" name="title" required>
-        </div>
-        
-        <div class="mb-3">
-            <label for="type" class="form-label">Type</label>
-            <select class="form-select" id="type" name="type" required>
-                <option value="pdf">PDF</option>
-                <option value="video">Vidéo</option>
-            </select>
-        </div>
-        
-        <div class="mb-3" id="pdf-field">
-            <label for="pdf" class="form-label">Fichier PDF</label>
-            <input type="file" class="form-control" id="pdf" name="pdf" accept=".pdf">
-        </div>
-        
-        <div class="mb-3" id="video-field" style="display:none;">
-            <label for="video_link" class="form-label">Lien Vidéo</label>
-            <input type="url" class="form-control" id="video_link" name="video_link" placeholder="https://...">
-        </div>
-        
-        <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+        <x-input-label for="name" value="Nom du matériel" />
+        <x-text-input name="name" class="w-full" required />
+
+        <x-input-label for="type" value="Type" />
+        <select name="type" class="w-full rounded border-gray-300">
+            <option value="Cours">Cours</option>
+            <option value="Séries">Séries</option>
+            <option value="Autres">Autres</option>
+        </select>
+
+        <x-input-label for="level_id" value="Niveau" />
+        <select name="level_id" class="w-full rounded border-gray-300">
+            @foreach($levels as $level)
+                <option value="{{ $level->id }}">{{ $level->name }}</option>
+            @endforeach
+        </select>
+
+        <x-input-label for="year_id" value="Année (optionnel)" />
+        <select name="year_id" class="w-full rounded border-gray-300">
+            <option value="">---</option>
+            @foreach($years as $year)
+                <option value="{{ $year->id }}">{{ $year->name }}</option>
+            @endforeach
+        </select>
+
+        <x-input-label for="field_id" value="Filière (optionnel)" />
+        <select name="field_id" class="w-full rounded border-gray-300">
+            <option value="">---</option>
+            @foreach($fields as $field)
+                <option value="{{ $field->id }}">{{ $field->name }}</option>
+            @endforeach
+        </select>
+
+        <x-input-label for="subject_id" value="Matière (optionnel)" />
+        <select name="subject_id" class="w-full rounded border-gray-300">
+            <option value="">---</option>
+            @foreach($subjects as $subject)
+                <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+            @endforeach
+        </select>
+
+        <x-input-label for="pdf_path" value="Fichier PDF (facultatif)" />
+        <input type="file" name="pdf_path" class="w-full border-gray-300 rounded">
+
+        <x-input-label for="video_url" value="Lien vidéo (facultatif)" />
+        <x-text-input name="video_url" class="w-full" />
+
+        <x-input-label for="thumbnail" value="Thumbnail (URL facultatif)" />
+        <x-text-input name="thumbnail" class="w-full" />
+
+        <x-primary-button class="mt-4">Ajouter</x-primary-button>
     </form>
 </div>
-
-<script>
-    // Show/hide fields based on type selection
-    document.getElementById('type').addEventListener('change', function() {
-        const type = this.value;
-        document.getElementById('pdf-field').style.display = type === 'pdf' ? 'block' : 'none';
-        document.getElementById('video-field').style.display = type === 'video' ? 'block' : 'none';
-    });
-</script>
 @endsection
