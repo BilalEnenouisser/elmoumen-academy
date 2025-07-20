@@ -29,7 +29,12 @@ class MaterialController extends Controller
     {
         $levels = Level::all();
         $subjects = Subject::all();
-        return view('admin.materials.create', compact('levels', 'subjects'));
+        return view('admin.materials.create', [
+        'levels' => \App\Models\Level::all(),
+        'years' => \App\Models\Year::all(),
+        'fields' => \App\Models\Field::all(),
+        'subjects' => \App\Models\Subject::all()
+    ]);
     }
 
     /**

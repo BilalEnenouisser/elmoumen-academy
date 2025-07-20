@@ -1,83 +1,63 @@
 @extends('layouts.admin')
 
 @section('content')
-<h1 class="text-2xl font-bold mb-6">Ajouter un matériel</h1>
+<h1 class="text-xl font-bold mb-4">➕ Ajouter un Matériel</h1>
 
-<form action="{{ route('admin.materials.store') }}" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+@if($errors->any())
+    <div class="text-red-500 mb-4">
+        <ul>
+            @foreach($errors->all() as $e)
+                <li>{{ $e }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+<form action="{{ route('admin.materials.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
     @csrf
 
-    <!-- Level -->
-    <div>
-        <label>Niveau</label>
-        <select name="level_id" id="level-select" class="w-full border rounded p-2" required>
-            <option value="">-- Choisir niveau --</option>
-            @foreach ($levels as $level)
-                <option value="{{ $level->id }}">{{ $level->name }}</option>
-            @endforeach
-        </select>
-    </div>
+    <input name="name" type="text" placeholder="Nom du cours (ex: Mathématiques)" class="w-full p-2 border rounded" required>
 
-    <!-- Year -->
-    <div>
-        <label>Année</label>
-        <select name="year_id" id="year-select" class="w-full border rounded p-2">
-            <option value="">-- Choisir année --</option>
-        </select>
-    </div>
+    <select name="type" class="w-full p-2 border rounded" required>
+        <option value="">Type</option>
+        <option value="Cours">Cours</option>
+        <option value="Séries">Séries</option>
+        <option value="Autres">Autres</option>
+    </select>
 
-    <!-- Field -->
-    <div>
-        <label>Filière (si Lycée)</label>
-        <select name="field_id" id="field-select" class="w-full border rounded p-2">
-            <option value="">-- Choisir filière --</option>
-        </select>
-    </div>
+    <select name="level_id" class="w-full p-2 border rounded" required>
+        <option value="">Niveau</option>
+        @foreach($levels as $level)
+            <option value="{{ $level->id }}">{{ $level->name }}</option>
+        @endforeach
+    </select>
 
-    <!-- Subject -->
-    <div>
-        <label>Matière</label>
-        <select name="subject_id" class="w-full border rounded p-2" required>
-            @foreach ($subjects as $subject)
-                <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-            @endforeach
-        </select>
-    </div>
+    <select name="year_id" class="w-full p-2 border rounded">
+        <option value="">Année</option>
+        @foreach($years as $year)
+            <option value="{{ $year->id }}">{{ $year->name }}</option>
+        @endforeach
+    </select>
 
-    <!-- Type -->
-    <div>
-        <label>Type</label>
-        <select name="type" class="w-full border rounded p-2" required>
-            <option value="Cours">Cours</option>
-            <option value="Séries">Séries</option>
-        </select>
-    </div>
+    <select name="field_id" class="w-full p-2 border rounded">
+        <option value="">Filière</option>
+        @foreach($fields as $field)
+            <option value="{{ $field->id }}">{{ $field->name }}</option>
+        @endforeach
+    </select>
 
-    <!-- Title -->
-    <div>
-        <label>Titre</label>
-        <input type="text" name="title" class="w-full border rounded p-2" required>
-    </div>
+    <select name="subject_id" class="w-full p-2 border rounded">
+        <option value="">Matière</option>
+        @foreach($subjects as $subject)
+            <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+        @endforeach
+    </select>
 
-    <!-- PDF -->
-    <div>
-        <label>Fichier PDF</label>
-        <input type="file" name="pdf_path" accept="application/pdf" class="w-full border rounded p-2">
-    </div>
+    <input name="pdf_path" type="file" accept=".pdf" class="w-full p-2 border rounded">
 
-    <!-- Video -->
-    <div>
-        <label>Lien Vidéo (YouTube)</label>
-        <input type="url" name="video_link" class="w-full border rounded p-2">
-    </div>
+    <input name="video_url" type="url" placeholder="Lien vidéo YouTube (optionnel)" class="w-full p-2 border rounded">
+    <input name="thumbnail" type="url" placeholder="Lien image miniature (optionnel)" class="w-full p-2 border rounded">
 
-    <!-- Thumbnail -->
-    <div>
-        <label>Miniature Vidéo</label>
-        <input type="file" name="thumbnail_path" accept="image/*" class="w-full border rounded p-2">
-    </div>
-
-    <div class="col-span-2">
-        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Ajouter</button>
-    </div>
+    <button class="bg-green-600 text-white px-4 py-2 rounded">Enregistrer</button>
 </form>
 @endsection
