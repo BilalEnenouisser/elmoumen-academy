@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Marquee;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 
 class MarqueeController extends Controller
 {
@@ -12,7 +14,8 @@ class MarqueeController extends Controller
      */
     public function index()
     {
-        //
+        $marquees = Marquee::latest()->get();
+        return view('admin.marquees.index', compact('marquees'));
     }
 
     /**
@@ -28,7 +31,14 @@ class MarqueeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'text' => 'required|string|max:255',
+            'author' => 'nullable|string|max:255',
+        ]);
+
+        Marquee::create($request->only('text', 'author'));
+
+        return back()->with('success', 'Message ajouté.');
     }
 
     /**
@@ -60,6 +70,7 @@ class MarqueeController extends Controller
      */
     public function destroy(Marquee $marquee)
     {
-        //
+        $marquee->delete();
+        return back()->with('success', 'Message supprimé.');
     }
 }

@@ -13,6 +13,7 @@ use App\Http\Controllers\Teacher\MaterialController as TeacherMaterialController
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\Admin\MessageController as AdminMessageController;
 use App\Http\Controllers\Admin\VideoController;
+use App\Http\Controllers\Admin\MarqueeController;
 
 
 
@@ -83,6 +84,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     //  VideoController
     Route::resource('videos', VideoController::class);
+
+    //  MarqueeController
+    Route::get('marquees', [MarqueeController::class, 'index'])->name('marquees.index');
+    Route::post('marquees', [MarqueeController::class, 'store'])->name('marquees.store');
+    Route::delete('marquees/{marquee}', [MarqueeController::class, 'destroy'])->name('marquees.destroy');
 
 
     // 🏗 Structure Management Page

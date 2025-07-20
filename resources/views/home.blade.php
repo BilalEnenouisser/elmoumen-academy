@@ -101,15 +101,19 @@
 
 
 <!-- Section 3: Pub Marquee Bar -->
-<section class="bg-yellow-100 py-4 overflow-hidden">
-    <div class="flex items-center space-x-4 animate-marquee whitespace-nowrap text-lg font-medium text-gray-800 px-6">
-        <span>📅 1ère classe aujourd'hui - 22:30</span>
-        <span>📅 2ème classe aujourd'hui - 22:30</span>
-        <span>📅 3ème classe aujourd'hui - 22:30</span>
-        <span>📅 4ème classe aujourd'hui - 22:30</span>
-        <span>📅 5ème classe aujourd'hui - 22:30</span>
+@php
+    $marquees = \App\Models\Marquee::latest()->get();
+@endphp
+
+@if($marquees->count())
+    <div class="bg-yellow-100 py-4">
+        <marquee behavior="scroll" direction="left" scrollamount="6" class="text-lg text-yellow-800">
+            @foreach($marquees as $item)
+                🟡 {{ $item->text }} &nbsp;&nbsp;&nbsp;
+            @endforeach
+        </marquee>
     </div>
-</section>
+@endif
 
 
 <!-- Section 4: About the Academy -->
