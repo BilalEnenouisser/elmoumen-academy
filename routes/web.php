@@ -12,6 +12,8 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\Teacher\MaterialController as TeacherMaterialController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\Admin\MessageController as AdminMessageController;
+use App\Http\Controllers\Admin\VideoController;
+
 
 
 // ==============================
@@ -79,6 +81,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     //  Routes for Messages
     Route::resource('messages', AdminMessageController::class)->only(['index', 'show']);
 
+    //  VideoController
+    Route::resource('videos', VideoController::class);
+
 
     // 🏗 Structure Management Page
     Route::get('structure', function () {
@@ -90,6 +95,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         ]);
     })->name('structure');
 });
+
+Route::resource('videos', App\Http\Controllers\Admin\VideoController::class);
 
 // ==============================
 // 🎓 Teacher Panel

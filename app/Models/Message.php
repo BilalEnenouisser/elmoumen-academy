@@ -12,7 +12,14 @@ class Message extends Model
     protected $fillable = [
         'name',
         'email',
-        'subject', 
-        'message'
+        'subject',
+        'message',
+        'read'
     ];
+
+    // Add this scope
+    public function scopeUnread($query)
+    {
+        return $query->where('read', false);
+    }
 }

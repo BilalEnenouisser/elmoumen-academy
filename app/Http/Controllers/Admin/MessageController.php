@@ -16,8 +16,14 @@ class MessageController extends Controller
 
     public function show($id)
     {
-        $message = Message::findOrFail($id);
-        return view('admin.messages.show', compact('message'));
+    $message = Message::findOrFail($id);
+    
+    // Only update if column exists
+    if (Schema::hasColumn('messages', 'read')) {
+        $message->update(['read' => true]);
+    }
+    
+    return view('admin.messages.show', compact('message'));
     }
 
     //MessageController store method add by deepsek
