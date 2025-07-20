@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin – @yield('title', 'Elmoumen Academy')</title>
     @vite('resources/css/app.css')
-    <!-- Additional admin-specific CSS/JS -->
 </head>
 <body class="flex bg-gray-100 min-h-screen">
 
@@ -19,26 +18,26 @@
                class="flex items-center gap-2 p-2 rounded transition @if(request()->routeIs('admin.dashboard')) bg-blue-50 text-blue-600 @else text-gray-700 hover:bg-blue-50 hover:text-blue-600 @endif">
                 📊 Dashboard
             </a>
-            
+
             <!-- Messages -->
             <a href="{{ route('admin.messages.index') }}" 
                class="flex items-center gap-2 p-2 rounded transition @if(request()->routeIs('admin.messages*')) bg-blue-50 text-blue-600 @else text-gray-700 hover:bg-blue-50 hover:text-blue-600 @endif">
                 ✉️ Messages 
                 @if(method_exists(\App\Models\Message::class, 'unread'))
-                ({{ \App\Models\Message::unread()->count() }})
+                    ({{ \App\Models\Message::unread()->count() }})
                 @endif
             </a>
 
             <!-- Teachers -->
             <a href="{{ route('admin.teachers.index') }}" 
                class="flex items-center gap-2 p-2 rounded transition @if(request()->routeIs('admin.teachers*')) bg-blue-50 text-blue-600 @else text-gray-700 hover:bg-blue-50 hover:text-blue-600 @endif">
-                👨‍🏫 Enseignants
+                👨‍🏫 Teachers
             </a>
-            
+
             <!-- Materials -->
             <a href="{{ route('admin.materials.index') }}" 
                class="flex items-center gap-2 p-2 rounded transition @if(request()->routeIs('admin.materials*')) bg-blue-50 text-blue-600 @else text-gray-700 hover:bg-blue-50 hover:text-blue-600 @endif">
-                📚 Matériels
+                📚 Materials
             </a>
 
             <!-- Structure -->
@@ -46,9 +45,23 @@
                class="flex items-center gap-2 p-2 rounded transition @if(request()->routeIs('admin.structure')) bg-blue-50 text-blue-600 @else text-gray-700 hover:bg-blue-50 hover:text-blue-600 @endif">
                 🏛️ Structure
             </a>
+
+            <!-- Marquees -->
+            <a href="{{ route('admin.marquees.index') }}" 
+               class="flex items-center gap-2 p-2 rounded transition @if(request()->routeIs('admin.marquees.index')) bg-blue-50 text-blue-600 @else text-gray-700 hover:bg-blue-50 hover:text-blue-600 @endif">
+                📢 Marquee Bar
+            </a>
         </nav>
 
-        <!-- User Menu -->
+        <!-- Admin Info -->
+        @auth
+        <div class="mt-6 border-t pt-4 text-sm text-gray-600">
+            Logged in as:
+            <div class="font-semibold text-blue-700">{{ Auth::user()->name }}</div>
+        </div>
+        @endauth
+
+        <!-- Logout -->
         <div class="absolute bottom-4 left-4 right-4">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
@@ -56,7 +69,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" />
                     </svg>
-                    Déconnexion
+                    Logout
                 </button>
             </form>
         </div>

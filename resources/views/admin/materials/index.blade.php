@@ -23,8 +23,14 @@
                 <td class="p-2">{{ $material->subject->name }}</td>
                 <td class="p-2">{{ $material->type }}</td>
                 <td class="p-2 space-x-2 text-center">
-                    <!-- Future: Edit/Delete buttons -->
-                </td>
+    <a href="{{ route('admin.materials.edit', $material) }}" class="text-blue-600 hover:underline">Modifier</a>
+
+    <form action="{{ route('admin.materials.destroy', $material) }}" method="POST" class="inline-block" onsubmit="return confirm('Supprimer ce matériel ?')">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="text-red-600 hover:underline">Supprimer</button>
+    </form>
+</td>
             </tr>
         @endforeach
     </tbody>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Level extends Model
 {
@@ -13,7 +14,7 @@ class Level extends Model
 
     public function years()
     {
-        return $this->hasMany(Year::class);
+        return $this->hasMany(\App\Models\Year::class);
     }
 
     public function fields()
@@ -25,4 +26,19 @@ class Level extends Model
     {
         return $this->hasMany(StudyMaterial::class);
     }
+
+    protected static function booted()
+{
+    static::creating(function ($level) {
+        $level->slug = Str::slug($level->name);
+    });
+
+    static::updating(function ($level) {
+        $level->slug = Str::slug($level->name);
+    });
+}
+    public function getRouteKeyName()
+{
+    return 'slug';
+}
 }

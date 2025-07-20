@@ -10,6 +10,7 @@ use App\Models\Field;
 use App\Models\Subject;
 use App\Models\StudyMaterial;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class MaterialController extends Controller
 {
@@ -47,7 +48,7 @@ class MaterialController extends Controller
         'year_id' => 'nullable|exists:years,id',
         'field_id' => 'nullable|exists:fields,id',
         'subject_id' => 'required|exists:subjects,id',
-        'title' => 'required|string',
+        'title' => 'required|string|max:255',
         'type' => 'required|string',
         'pdf_path' => 'nullable|file|mimes:pdf',
         'thumbnail_path' => 'nullable|image',
@@ -85,7 +86,14 @@ class MaterialController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $material = StudyMaterial::findOrFail($id);
+    return view('admin.materials.edit', [
+        'material' => $material,
+        'levels' => Level::all(),
+        'years' => Year::all(),
+        'fields' => Field::all(),
+        'subjects' => Subject::all(),
+    ]);
     }
 
     /**
@@ -93,7 +101,47 @@ class MaterialController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $material = StudyMaterial::findOrFail($id);
+
+    $request->validate([
+        'level_id' => 'required|exists:levels,id',
+        'year_id' => 'nullable|exists:years,id',
+        'field_id' => 'nullable|exists:fields,id',
+        'subject_id' => 'required|exists:subjects,id',
+        'title' => 'required|string|max:255',
+        'type' => 'required|string',
+        'pdf_path' => 'nullable|file|mimes:pdf',
+        'thumbnail_path' => 'nullable|image',
+        'video_link' => 'nullable|url',
+    ]);
+
+    // Optional: Replace files
+    if ($request->hasFile('pdf_path')) {
+        if ($material->pdf_path) {
+            Storage::disk('public')->delete($material->pdf_path);
+        }
+        $material->pdf_path = $request->file('pdf_path')->store('pdfs', 'public');
+    }
+
+    if ($request->hasFile('thumbnail_path')) {
+        if ($material->thumbnail_path) {
+            Storage::disk('public')->delete($material->thumbnail_path);
+        }
+        $material->thumbnail_path = $request->file('thumbnail_path')->store('thumbnails', 'public');
+    }
+
+    // Update rest
+    $material->update([
+        'level_id' => $request->level_id,
+        'year_id' => $request->year_id,
+        'field_id' => $request->field_id,
+        'subject_id' => $request->subject_id,
+        'title' => $request->title,
+        'type' => $request->type,
+        'video_link' => $request->video_link,
+    ]);
+
+    return redirect()->route('admin.materials.index')->with('success', 'Matériel mis à jour.');
     }
 
     /**
@@ -101,6 +149,18 @@ class MaterialController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $material = StudyMaterial::findOrFail($id);
+
+    if ($material->pdf_path) {
+        Storage::disk('public')->delete($material->pdf_path);
+    }
+
+    if ($material->thumbnail_path) {
+        Storage::disk('public')->delete($material->thumbnail_path);
+    }
+
+    $material->delete();
+
+    return redirect()->route('admin.materials.index')->with('success', 'Matériel supprimé.');
     }
 }

@@ -1,62 +1,45 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin – Elmoumen Academy</title>
-    @vite('resources/css/app.css')
-</head>
-<body class="flex bg-gray-100 min-h-screen">
+@extends('layouts.admin')
 
-    <!-- Sidebar -->
-    <aside class="w-64 bg-white shadow h-screen p-4 space-y-4 sticky top-0">
-        <h2 class="text-xl font-bold text-blue-600 mb-6">Admin Panel</h2>
-        <nav class="space-y-2">
-            <!-- Dashboard -->
-            <a href="{{ route('admin.structure') }}" 
-               class="flex items-center gap-2 p-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded transition">
-                📊 Dashboard
-            </a>
-            
-            <!-- Teachers -->
-            <a href="{{ route('admin.teachers.index') }}" 
-               class="flex items-center gap-2 p-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded transition">
-                👨‍🏫 Gérer les enseignants
-            </a>
-            
-            <!-- Academic Structure -->
-            <a href="{{ route('admin.structure') }}" 
-               class="flex items-center gap-2 p-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded transition">
-                🏛️ Structure Académique
-            </a>
-            
-            <!-- Materials -->
-            <a href="{{ route('admin.materials.index') }}" 
-               class="flex items-center gap-2 p-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded transition">
-                📚 Matériels Pédagogiques
-            </a>
-            
-            <!-- Separator -->
-            <div class="border-t my-2"></div>
-            
-            <!-- Quick Actions -->
-            <div class="space-y-1">
-                <h3 class="text-xs uppercase text-gray-500 font-semibold px-2">Actions Rapides</h3>
-                <a href="{{ route('admin.teachers.create') }}" 
-                   class="flex items-center gap-2 p-2 text-sm text-gray-600 hover:bg-blue-50 hover:text-blue-600 rounded transition">
-                    ➕ Nouvel Enseignant
-                </a>
-                <a href="{{ route('admin.materials.create') }}" 
-                   class="flex items-center gap-2 p-2 text-sm text-gray-600 hover:bg-blue-50 hover:text-blue-600 rounded transition">
-                    ➕ Nouveau Matériel
-                </a>
-            </div>
-        </nav>
-    </aside>
+@section('title', 'Dashboard')
 
-    <!-- Main Content -->
-    <main class="flex-1 p-6">
-        @yield('content')
-    </main>
+@section('content')
+    <h1 class="text-2xl font-bold mb-6">Welcome to the Admin Panel</h1>
 
-</body>
-</html>
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <!-- Teachers -->
+        <a href="{{ route('admin.teachers.index') }}" class="p-6 bg-white rounded shadow hover:bg-blue-50 transition">
+            <h2 class="text-lg font-semibold text-blue-600">👨‍🏫 Manage Teachers</h2>
+            <p class="text-gray-600 mt-2">Add, edit, or remove teachers.</p>
+        </a>
+
+        <!-- Materials -->
+        <a href="{{ route('admin.materials.index') }}" class="p-6 bg-white rounded shadow hover:bg-blue-50 transition">
+            <h2 class="text-lg font-semibold text-blue-600">📚 Manage Materials</h2>
+            <p class="text-gray-600 mt-2">Upload PDFs, videos, or other materials.</p>
+        </a>
+
+        <!-- Marquee -->
+        <a href="{{ route('admin.marquees.index') }}" class="p-6 bg-white rounded shadow hover:bg-blue-50 transition">
+            <h2 class="text-lg font-semibold text-blue-600">📢 Manage Marquee Bar</h2>
+            <p class="text-gray-600 mt-2">Add or remove announcement messages.</p>
+        </a>
+
+        <!-- Messages -->
+        <a href="{{ route('admin.messages.index') }}" class="p-6 bg-white rounded shadow hover:bg-blue-50 transition">
+            <h2 class="text-lg font-semibold text-blue-600">✉️ View Messages</h2>
+            <p class="text-gray-600 mt-2">See contact form submissions from users.</p>
+        </a>
+
+        <!-- Structure -->
+        <a href="{{ route('admin.structure') }}" class="p-6 bg-white rounded shadow hover:bg-blue-50 transition">
+            <h2 class="text-lg font-semibold text-blue-600">🏛️ Structure Management</h2>
+            <p class="text-gray-600 mt-2">Manage levels, years, fields, and subjects.</p>
+        </a>
+
+        <!-- Videos -->
+        <a href="{{ route('admin.videos.index') }}" class="p-6 bg-white rounded shadow hover:bg-blue-50 transition">
+            <h2 class="text-lg font-semibold text-blue-600">🎬 Videos</h2>
+            <p class="text-gray-600 mt-2">Manage embedded educational videos.</p>
+        </a>
+    </div>
+@endsection
