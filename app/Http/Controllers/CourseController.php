@@ -19,28 +19,20 @@ class CourseController extends Controller
     public function showYear($levelSlug, $yearSlug)
     {
         $level = Level::where('slug', $levelSlug)->firstOrFail();
-        $year = Year::where('slug', $yearSlug)->firstOrFail(); // ✅ FIXED
+    $year = Year::where('slug', $yearSlug)->firstOrFail();
 
-        // If Lycée, redirect to choose field
-        if (strtolower($level->slug) === 'lycee') {
-            $firstField = $level->fields()->first();
-            if ($firstField) {
-                return redirect()->route('courses.field', [
-                    'level' => $level->slug,
-                    'year' => $year->slug,
-                    'field' => $firstField->slug,
-                ]);
-            } else {
-                abort(404, 'No fields found for this level.');
-            }
-        }
+    if (strtolower($level->slug) === 'lycee') {
+        // Show all fields for Lycée
+        $fields = $level->fields;
+        return view('courses.fields', compact('level', 'year', 'fields'));
+    }
 
-        // Else: return materials directly
-        $materials = StudyMaterial::where('level_id', $level->id)
-            ->where('year_id', $year->id)
-            ->get();
+    // For other levels: show materials
+    $materials = StudyMaterial::where('level_id', $level->id)
+        ->where('year_id', $year->id)
+        ->get();
 
-        return view('courses.year', compact('level', 'year', 'materials'));
+    return view('courses.year', compact('level', 'year', 'materials'));
     }
 
     public function showField($levelSlug, $yearSlug, $fieldSlug)
