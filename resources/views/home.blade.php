@@ -55,9 +55,9 @@
             </svg>
         </div>
         <div class="p-6 text-center">
-            <h3 class="text-xl font-bold mb-2">Primaire</h3>
+            <h3 class="text-xl font-bold mb-2">college</h3>
             <p class="text-gray-600 mb-4">Fondations solides pour les jeunes apprenants</p>
-            <a href="/courses/primaire" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
+            <a href="/courses/college" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
                 Voir les cours
             </a>
         </div>
@@ -72,9 +72,9 @@
             </svg>
         </div>
         <div class="p-6 text-center">
-            <h3 class="text-xl font-bold mb-2">Primaire</h3>
+            <h3 class="text-xl font-bold mb-2">lycee</h3>
             <p class="text-gray-600 mb-4">Fondations solides pour les jeunes apprenants</p>
-            <a href="/courses/primaire" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
+            <a href="/courses/lycee" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
                 Voir les cours
             </a>
         </div>
@@ -89,9 +89,9 @@
             </svg>
         </div>
         <div class="p-6 text-center">
-            <h3 class="text-xl font-bold mb-2">Primaire</h3>
+            <h3 class="text-xl font-bold mb-2">concours</h3>
             <p class="text-gray-600 mb-4">Fondations solides pour les jeunes apprenants</p>
-            <a href="/courses/primaire" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
+            <a href="/courses/concours" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
                 Voir les cours
             </a>
         </div>

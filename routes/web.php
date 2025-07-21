@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\MarqueeController;
 
 
 
+
 // ==============================
 // 🌐 Public Pages
 // ==============================
@@ -39,12 +40,15 @@ Route::post('/contact', [MessageController::class, 'store'])->name('messages.sto
 // ==============================
 
 Route::prefix('courses')->name('courses.')->group(function () {
+    // Show years for selected level
     Route::get('{level}', [CourseController::class, 'showLevel'])->name('level');
-    Route::get('{level}/year/{year}', [CourseController::class, 'showYear'])->name('year');
-    Route::get('{level}/year/{year}/field/{field}', [CourseController::class, 'showField'])->name('field');
-    Route::get('{level}/year/{year}/field/{field}/subject/{subject}', [CourseController::class, 'showSubject'])->name('subject');
-});
 
+    // Show materials for year (non-Lycée)
+    Route::get('{level}/year/{year}', [CourseController::class, 'showYear'])->name('year');
+
+    // Show materials for Lycée with field
+    Route::get('{level}/year/{year}/field/{field}', [CourseController::class, 'showField'])->name('field');
+});
 // ==============================
 // 🔐 Authenticated User Profile
 // ==============================

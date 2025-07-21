@@ -5,50 +5,55 @@ namespace App\Http\Controllers;
 use App\Models\Level;
 use App\Models\Year;
 use App\Models\Field;
-use App\Models\Subject;
-use App\Models\Material;
+use App\Models\StudyMaterial;
 
 class CourseController extends Controller
 {
     public function showLevel($levelSlug)
     {
-    $level = Level::where('slug', $levelSlug)->firstOrFail();
-    $years = $level->years; // assuming a relationship exists
-    return view('courses.level', compact('level', 'years')); // ❌ Do NOT pass $slug directly
+        $level = Level::where('slug', $levelSlug)->firstOrFail();
+        $years = $level->years;
+        return view('courses.level', compact('level', 'years'));
     }
 
     public function showYear($levelSlug, $yearSlug)
     {
         $level = Level::where('slug', $levelSlug)->firstOrFail();
-        $year = Year::where('slug', $yearSlug)->firstOrFail();
+        $year = Year::where('slug', $yearSlug)->firstOrFail(); // ✅ FIXED
 
-        $subjects = Subject::where('year_id', $year->id)->get();
+        // If Lycée, redirect to choose field
+        if (strtolower($level->slug) === 'lycee') {
+            $firstField = $level->fields()->first();
+            if ($firstField) {
+                return redirect()->route('courses.field', [
+                    'level' => $level->slug,
+                    'year' => $year->slug,
+                    'field' => $firstField->slug,
+                ]);
+            } else {
+                abort(404, 'No fields found for this level.');
+            }
+        }
 
-        return view('courses.year', compact('level', 'year', 'subjects'));
+        // Else: return materials directly
+        $materials = StudyMaterial::where('level_id', $level->id)
+            ->where('year_id', $year->id)
+            ->get();
+
+        return view('courses.year', compact('level', 'year', 'materials'));
     }
 
     public function showField($levelSlug, $yearSlug, $fieldSlug)
     {
         $level = Level::where('slug', $levelSlug)->firstOrFail();
-        $year = Year::where('slug', $yearSlug)->firstOrFail();
-        $field = Field::where('slug', $fieldSlug)->firstOrFail();
+        $year = Year::where('slug', $yearSlug)->firstOrFail();  // ✅ FIXED
+        $field = Field::where('slug', $fieldSlug)->firstOrFail(); // ✅ FIXED
 
-        $subjects = Subject::where('year_id', $year->id)
-                           ->where('field_id', $field->id)
-                           ->get();
+        $materials = StudyMaterial::where('level_id', $level->id)
+            ->where('year_id', $year->id)
+            ->where('field_id', $field->id)
+            ->get();
 
-        return view('courses.field', compact('level', 'year', 'field', 'subjects'));
-    }
-
-    public function showSubject($levelSlug, $yearSlug, $fieldSlug, $subjectSlug)
-    {
-        $level = Level::where('slug', $levelSlug)->firstOrFail();
-        $year = Year::where('slug', $yearSlug)->firstOrFail();
-        $field = Field::where('slug', $fieldSlug)->firstOrFail();
-        $subject = Subject::where('slug', $subjectSlug)->firstOrFail();
-
-        $materials = Material::where('subject_id', $subject->id)->get();
-
-        return view('courses.subject', compact('level', 'year', 'field', 'subject', 'materials'));
+        return view('courses.field', compact('level', 'year', 'field', 'materials'));
     }
 }
