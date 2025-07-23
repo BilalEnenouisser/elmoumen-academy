@@ -30,7 +30,6 @@
                     <td class="px-4 py-2">{{ $material->name }}</td>
                     <td class="px-4 py-2">{{ $material->type }}</td>
                     <td class="px-4 py-2">{{ $material->level->name ?? '-' }}</td>
-                    <td class="px-4 py-2">{{ $material->subject->name ?? '-' }}</td>
                     <td class="px-4 py-2 space-x-2">
                         <a href="{{ route('teacher.materials.edit', $material) }}"
                            class="text-blue-600 hover:underline">Modifier</a>

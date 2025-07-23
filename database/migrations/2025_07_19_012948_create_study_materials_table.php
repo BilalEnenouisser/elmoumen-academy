@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('level_id')->constrained()->onDelete('cascade');
             $table->foreignId('year_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('field_id')->nullable()->constrained()->onDelete('cascade');
-            $table->foreignId('subject_id')->constrained()->onDelete('cascade');
             $table->string('type'); // Cours, Séries, etc.
             $table->string('title');
             $table->string('pdf_path')->nullable();

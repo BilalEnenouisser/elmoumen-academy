@@ -8,14 +8,13 @@ use App\Models\Material;
 use App\Models\Level;
 use App\Models\Year;
 use App\Models\Field;
-use App\Models\Subject;
 
 class MaterialController extends Controller
 {
     public function index()
     {
         $materials = Material::where('user_id', auth()->id())
-            ->with(['level', 'year', 'field', 'subject'])
+            ->with(['level', 'year', 'field'])
             ->latest()
             ->paginate(10);
 
@@ -28,7 +27,6 @@ class MaterialController extends Controller
             'levels' => Level::all(),
             'years' => Year::all(),
             'fields' => Field::all(),
-            'subjects' => Subject::all(),
         ]);
     }
 
@@ -43,7 +41,6 @@ class MaterialController extends Controller
             'level_id'   => 'required|exists:levels,id',
             'year_id'    => 'nullable|exists:years,id',
             'field_id'   => 'nullable|exists:fields,id',
-            'subject_id' => 'nullable|exists:subjects,id',
         ]);
 
         $data = $request->except('pdf_path');
@@ -70,7 +67,6 @@ class MaterialController extends Controller
             'levels' => Level::all(),
             'years' => Year::all(),
             'fields' => Field::all(),
-            'subjects' => Subject::all(),
         ]);
     }
 
@@ -89,7 +85,6 @@ class MaterialController extends Controller
             'level_id'   => 'required|exists:levels,id',
             'year_id'    => 'nullable|exists:years,id',
             'field_id'   => 'nullable|exists:fields,id',
-            'subject_id' => 'nullable|exists:subjects,id',
         ]);
 
         $data = $request->except('pdf_path');

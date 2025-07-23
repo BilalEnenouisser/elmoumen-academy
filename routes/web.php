@@ -7,7 +7,6 @@ use App\Http\Controllers\Admin\TeacherController as AdminTeacherController;
 use App\Http\Controllers\Admin\MaterialController as AdminMaterialController;
 use App\Http\Controllers\Admin\YearController;
 use App\Http\Controllers\Admin\FieldController;
-use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\Teacher\MaterialController as TeacherMaterialController;
 use App\Http\Controllers\MessageController;
@@ -80,8 +79,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // 🧪 Fields
     Route::resource('fields', FieldController::class);
 
-    // 📘 Subjects
-    Route::resource('subjects', SubjectController::class);
 
     //  Routes for Messages
     Route::resource('messages', AdminMessageController::class)->only(['index', 'show']);
@@ -101,7 +98,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
             'levels' => \App\Models\Level::all(),
             'years' => \App\Models\Year::with('level')->get(),
             'fields' => \App\Models\Field::with('level')->get(),
-            'subjects' => \App\Models\Subject::all(),
         ]);
     })->name('structure');
 });

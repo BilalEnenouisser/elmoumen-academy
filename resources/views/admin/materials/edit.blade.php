@@ -53,14 +53,7 @@
         @endforeach
     </select>
 
-    <select name="subject_id" class="w-full p-2 border rounded" required>
-        <option value="">Matière</option>
-        @foreach($subjects as $subject)
-            <option value="{{ $subject->id }}" {{ $material->subject_id == $subject->id ? 'selected' : '' }}>
-                {{ $subject->name }}
-            </option>
-        @endforeach
-    </select>
+    
 
     <label class="block">Changer le fichier PDF (optionnel)</label>
     <input name="pdf_path" type="file" accept=".pdf" class="w-full p-2 border rounded">

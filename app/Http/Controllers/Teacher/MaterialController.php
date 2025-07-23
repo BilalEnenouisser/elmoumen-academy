@@ -8,7 +8,6 @@ use App\Models\StudyMaterial;
 use App\Models\Level;
 use App\Models\Year;
 use App\Models\Field;
-use App\Models\Subject;
 
 class MaterialController extends Controller
 {
@@ -23,8 +22,7 @@ class MaterialController extends Controller
         $levels = Level::all();
         $years = Year::all();
         $fields = Field::all();
-        $subjects = Subject::all();
-        return view('teacher.materials.create', compact('levels', 'years', 'fields', 'subjects'));
+        return view('teacher.materials.create', compact('levels', 'years', 'fields'));
     }
 
     public function store(Request $request)
@@ -33,14 +31,13 @@ class MaterialController extends Controller
             'title' => 'required|string',
             'level_id' => 'required',
             'year_id' => 'required',
-            'subject_id' => 'required',
             'type' => 'required',
             'pdf' => 'nullable|file|mimes:pdf',
             'video_link' => 'nullable|url',
             'thumbnail' => 'nullable|image',
         ]);
 
-        $data = $request->only(['title', 'level_id', 'year_id', 'field_id', 'subject_id', 'type', 'video_link']);
+        $data = $request->only(['title', 'level_id', 'year_id', 'field_id', 'type', 'video_link']);
 
         if ($request->hasFile('pdf')) {
             $data['pdf_path'] = $request->file('pdf')->store('materials', 'public');

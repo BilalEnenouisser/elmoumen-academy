@@ -20,7 +20,6 @@
             <tr class="border-b">
                 <td class="p-2">{{ $material->title }}</td>
                 <td class="p-2">{{ $material->level->name }}</td>
-                <td class="p-2">{{ $material->subject->name }}</td>
                 <td class="p-2">{{ $material->type }}</td>
                 <td class="p-2 space-x-2 text-center">
     <a href="{{ route('admin.materials.edit', $material) }}" class="text-blue-600 hover:underline">Modifier</a>

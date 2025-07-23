@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="max-w-6xl mx-auto px-4 py-8">
-    <h1 class="text-2xl font-bold mb-6">📘 {{ $subject->name }}</h1>
+    <h1 class="text-2xl font-bold mb-6">g</h1>
 
     @forelse ($materials as $type => $items)
         <h2 class="text-xl font-semibold mt-8 mb-3">{{ ucfirst($type) }}</h2>

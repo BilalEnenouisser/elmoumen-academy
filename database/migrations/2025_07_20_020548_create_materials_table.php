@@ -21,7 +21,6 @@ return new class extends Migration
             $table->foreignId('level_id')->constrained()->cascadeOnDelete();
             $table->foreignId('year_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('field_id')->nullable()->constrained()->nullOnDelete();
-            $table->foreignId('subject_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete(); // Who added it (admin or teacher)
  
             $table->timestamps();

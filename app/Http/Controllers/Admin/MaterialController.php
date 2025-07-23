@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Level;
 use App\Models\Year;
 use App\Models\Field;
-use App\Models\Subject;
 use App\Models\StudyMaterial;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -19,7 +18,7 @@ class MaterialController extends Controller
      */
     public function index()
     {
-        $materials = StudyMaterial::with(['level', 'subject'])->latest()->get();
+        $materials = StudyMaterial::with(['level'])->latest()->get();
     return view('admin.materials.index', compact('materials'));
     }
 
@@ -29,12 +28,10 @@ class MaterialController extends Controller
     public function create()
     {
         $levels = Level::all();
-        $subjects = Subject::all();
         return view('admin.materials.create', [
         'levels' => \App\Models\Level::all(),
         'years' => \App\Models\Year::all(),
         'fields' => \App\Models\Field::all(),
-        'subjects' => \App\Models\Subject::all()
     ]);
     }
 
@@ -47,7 +44,6 @@ class MaterialController extends Controller
         'level_id' => 'required|exists:levels,id',
         'year_id' => 'nullable|exists:years,id',
         'field_id' => 'nullable|exists:fields,id',
-        'subject_id' => 'required|exists:subjects,id',
         'title' => 'required|string|max:255',
         'type' => 'required|string',
         'pdf_path' => 'nullable|file|mimes:pdf',
@@ -62,7 +58,6 @@ class MaterialController extends Controller
         'level_id' => $request->level_id,
         'year_id' => $request->year_id,
         'field_id' => $request->field_id,
-        'subject_id' => $request->subject_id,
         'title' => $request->title,
         'type' => $request->type,
         'pdf_path' => $pdfPath,
@@ -92,7 +87,6 @@ class MaterialController extends Controller
         'levels' => Level::all(),
         'years' => Year::all(),
         'fields' => Field::all(),
-        'subjects' => Subject::all(),
     ]);
     }
 
@@ -107,7 +101,6 @@ class MaterialController extends Controller
         'level_id' => 'required|exists:levels,id',
         'year_id' => 'nullable|exists:years,id',
         'field_id' => 'nullable|exists:fields,id',
-        'subject_id' => 'required|exists:subjects,id',
         'title' => 'required|string|max:255',
         'type' => 'required|string',
         'pdf_path' => 'nullable|file|mimes:pdf',
@@ -135,7 +128,6 @@ class MaterialController extends Controller
         'level_id' => $request->level_id,
         'year_id' => $request->year_id,
         'field_id' => $request->field_id,
-        'subject_id' => $request->subject_id,
         'title' => $request->title,
         'type' => $request->type,
         'video_link' => $request->video_link,

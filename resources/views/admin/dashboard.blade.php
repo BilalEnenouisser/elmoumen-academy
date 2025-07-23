@@ -33,7 +33,7 @@
         <!-- Structure -->
         <a href="{{ route('admin.structure') }}" class="p-6 bg-white rounded shadow hover:bg-blue-50 transition">
             <h2 class="text-lg font-semibold text-blue-600">🏛️ Structure Management</h2>
-            <p class="text-gray-600 mt-2">Manage levels, years, fields, and subjects.</p>
+            <p class="text-gray-600 mt-2">Manage levels, years, fields</p>
         </a>
 
         <!-- Videos -->

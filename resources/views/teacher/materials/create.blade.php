@@ -40,13 +40,7 @@
             @endforeach
         </select>
 
-        <x-input-label for="subject_id" value="Matière (optionnel)" />
-        <select name="subject_id" class="w-full rounded border-gray-300">
-            <option value="">---</option>
-            @foreach($subjects as $subject)
-                <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-            @endforeach
-        </select>
+       
 
         <x-input-label for="pdf_path" value="Fichier PDF (facultatif)" />
         <input type="file" name="pdf_path" class="w-full border-gray-300 rounded">

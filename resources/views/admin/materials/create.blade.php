@@ -48,12 +48,7 @@
         </select>
     </div>
 
-    <select name="subject_id" class="w-full p-2 border rounded">
-        <option value="">Matière</option>
-        @foreach($subjects as $subject)
-            <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-        @endforeach
-    </select>
+   
 
     <input name="pdf_path" type="file" accept=".pdf" class="w-full p-2 border rounded">
 

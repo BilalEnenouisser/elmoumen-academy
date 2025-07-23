@@ -66,29 +66,6 @@
         </ul>
     </div>
 
-    <!-- Subjects Section -->
-    <div class="bg-white rounded-lg shadow p-6">
-        <h2 class="text-xl font-semibold mb-4">📘 Subjects</h2>
-        
-        <form method="POST" action="{{ route('admin.subjects.store') }}" class="mb-4">
-            @csrf
-            <div class="flex gap-2">
-                <input type="text" name="name" placeholder="Subject name" class="border rounded p-2 flex-grow" required>
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Add</button>
-            </div>
-        </form>
-
-        <ul class="divide-y">
-            @foreach($subjects as $subject)
-            <li class="py-2 flex justify-between items-center">
-                <span>{{ $subject->name }}</span>
-                <form method="POST" action="{{ route('admin.subjects.destroy', $subject) }}">
-                    @csrf @method('DELETE')
-                    <button type="submit" class="text-red-600 hover:text-red-800">Delete</button>
-                </form>
-            </li>
-            @endforeach
-        </ul>
-    </div>
+    
 </div>
 @endsection
