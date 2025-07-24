@@ -1,102 +1,81 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-blue-50 to-white py-16 px-6">
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-8">
-        <div class="md:w-1/2 space-y-6">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">
-                Excellence Éducative à <span class="text-blue-600">Elmoumen Academy</span>
+
+
+
+<!-- Hero Section -->
+    
+
+<div class="relative w-full min-h-[600px] md:min-h-[700px] flex items-center justify-center overflow-hidden" style="background: linear-gradient(120deg, #002347 0%, #0a3d62 100%);">
+    <!-- Background image overlay -->
+    <img src="{{ asset('images/bg1.jpg') }}" alt="Background" class="absolute inset-0 w-full h-full object-cover opacity-60 pointer-events-none z-0">
+
+    <!-- Centered and bottom-aligned person image - hidden on mobile -->
+    <img src="{{ asset('images/image1.png') }}" alt="Person" class="hidden md:block absolute left-[55%] bottom-0 transform -translate-x-1/2  h-[400px] lg:h-[600px] object-contain drop-shadow-2xl">
+
+    <div class="relative z-20 flex flex-col md:flex-row w-full max-w-7xl mx-auto items-center justify-between px-6 sm:px-8 py-12 md:py-16">
+        <!-- Left: Text -->
+        <div class="w-full md:w-1/2 max-w-lg text-center md:text-left text-white mb-12 md:mb-0">
+            <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-6">
+                <span class="text-cyan-400">Transforming</span> Lives<br>
+                Through Online<br>
+                Education.
             </h1>
-            <p class="text-lg text-gray-600">
-                Un accompagnement personnalisé pour la réussite scolaire de vos enfants
-            </p>
-            <div class="flex gap-4">
-                <a href="/courses" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-md transition">
-                    Explorer nos cours
-                </a>
-                <a href="#contact" class="border border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg transition">
-                    Nous contacter
-                </a>
-            </div>
+            <p class="mb-8 text-base sm:text-lg text-gray-200">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+            <a href="#" class="inline-block bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white px-6 py-3 sm:px-8 sm:py-3 rounded-full font-semibold shadow-lg transition">Learn More</a>
         </div>
-        <div class="md:w-1/2">
-            <img src="{{ asset('images/hero-image.jpg') }}" alt="Students learning" 
-                 class="rounded-xl shadow-xl w-full h-auto">
+
+        <!-- Right: Play Button - centered on mobile -->
+        <div class="w-full md:w-1/6 flex justify-center md:justify-end mt-8 md:mt-0">
+            <button class="flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-cyan-400 bg-white bg-opacity-10 hover:bg-opacity-20 transition shadow-lg">
+                <svg class="w-10 h-10 sm:w-12 sm:h-12 text-cyan-400" fill="currentColor" viewBox="0 0 48 48">
+                    <circle cx="24" cy="24" r="23" fill="none"/>
+                    <polygon points="20,16 34,24 20,32" fill="currentColor"/>
+                </svg>
+            </button>
         </div>
     </div>
-</section>
+</div>
 
 
-    <!-- Section 2: Academic Level Cards -->
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-    <!-- Primaire Card -->
-    <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden">
-        <div class="bg-blue-100 p-4 text-center">
-            <svg class="w-12 h-12 mx-auto text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-            </svg>
-        </div>
-        <div class="p-6 text-center">
-            <h3 class="text-xl font-bold mb-2">Primaire</h3>
-            <p class="text-gray-600 mb-4">Fondations solides pour les jeunes apprenants</p>
-            <a href="/courses/primaire" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
-                Voir les cours
+
+
+<!-- Section 2: Academic Level Cards -->
+
+
+
+
+@php
+    $cards = [
+        ['title' => 'Primaire', 'images' => 'primaire.jpg', 'link' => '/courses/primaire'],
+        ['title' => 'Collège', 'images' => 'college.jpg', 'link' => '/courses/college'],
+        ['title' => 'Lycée', 'images' => 'lycee.jpg', 'link' => '/courses/lycee'],
+        ['title' => 'Concours', 'images' => 'concours.jpg', 'link' => '/courses/concours'],
+    ];
+@endphp
+
+<div class="w-full bg-[#001226] py-20 px-2">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        @foreach($cards as $card)
+            <a href="{{ $card['link'] }}" class="block group">
+                <div class="relative rounded-2xl overflow-hidden border-2 border-[#001226]">
+                    <!-- Background image - now clearly visible -->
+                    <img src="{{ asset('images/' . $card['images']) }}" 
+                         alt="{{ $card['title'] }}" 
+                         class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    
+                    <!-- Reduced opacity gradient (now using 70% opacity) -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#001226ee] to-[#00122600]"></div>
+                    
+                    <!-- Text -->
+                    <div class="absolute bottom-4 left-0 w-full text-center z-10">
+                        <span class="text-white text-xl font-semibold drop-shadow-lg">{{ $card['title'] }}</span>
+                    </div>
+                </div>
             </a>
-        </div>
+        @endforeach
     </div>
-
-
-    <!-- Primaire Card -->
-    <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden">
-        <div class="bg-blue-100 p-4 text-center">
-            <svg class="w-12 h-12 mx-auto text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-            </svg>
-        </div>
-        <div class="p-6 text-center">
-            <h3 class="text-xl font-bold mb-2">college</h3>
-            <p class="text-gray-600 mb-4">Fondations solides pour les jeunes apprenants</p>
-            <a href="/courses/college" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
-                Voir les cours
-            </a>
-        </div>
-    </div>
-
-
-    <!-- Primaire Card -->
-    <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden">
-        <div class="bg-blue-100 p-4 text-center">
-            <svg class="w-12 h-12 mx-auto text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-            </svg>
-        </div>
-        <div class="p-6 text-center">
-            <h3 class="text-xl font-bold mb-2">lycee</h3>
-            <p class="text-gray-600 mb-4">Fondations solides pour les jeunes apprenants</p>
-            <a href="/courses/lycee" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
-                Voir les cours
-            </a>
-        </div>
-    </div>
-
-
-    <!-- Primaire Card -->
-    <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden">
-        <div class="bg-blue-100 p-4 text-center">
-            <svg class="w-12 h-12 mx-auto text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-            </svg>
-        </div>
-        <div class="p-6 text-center">
-            <h3 class="text-xl font-bold mb-2">concours</h3>
-            <p class="text-gray-600 mb-4">Fondations solides pour les jeunes apprenants</p>
-            <a href="/courses/concours" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
-                Voir les cours
-            </a>
-        </div>
-    </div>
-    <!-- Repeat for other levels with different colors/icons -->
 </div>
 
 
@@ -106,14 +85,29 @@
 @endphp
 
 @if($marquees->count())
-    <div class="bg-yellow-100 py-4">
-        <marquee behavior="scroll" direction="left" scrollamount="6" class="text-lg text-yellow-800">
-            @foreach($marquees as $item)
-                🟡 {{ $item->text }} &nbsp;&nbsp;&nbsp;
-            @endforeach
-        </marquee>
+    <div class="bg-[#DEE7F1] py-4 px-6 rounded-lg shadow-sm">
+        <!-- Centered Title -->
+        <div class="text-center mb-3">
+            <h3 class="text-[#1E3A8A]  text-lg tracking-wide">Les Annonces</h3>
+        </div>
+        
+        <!-- Marquee Content -->
+        <div class="bg-white p-3 rounded-md border border-blue-100">
+            <marquee behavior="scroll" direction="left" scrollamount="6" class="text-blue-900">
+                @foreach($marquees as $item)
+                    <span class="inline-flex items-center mr-8">
+                        <svg class="w-4 h-4 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        {{ $item->text }}
+                    </span>
+                @endforeach
+            </marquee>
+        </div>
     </div>
 @endif
+
+
 
 
 <!-- Section 4: About the Academy -->
