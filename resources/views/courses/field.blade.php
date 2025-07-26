@@ -13,7 +13,7 @@
                 @foreach ($materials as $material)
                     <div class="bg-white p-4 rounded-lg shadow">
                         <h2 class="text-xl font-semibold">{{ $material->title }}</h2>
-                        <p class="text-sm text-gray-500 mb-2">Type: {{ $material->type }}</p>
+                        <p class="text-sm text-gray-500 mb-2">Type: {{ $material->blocks->first()?->type ?? 'N/A' }}</p>
 
                         @if ($material->pdf_path)
                             <a href="{{ asset('storage/' . $material->pdf_path) }}" target="_blank"

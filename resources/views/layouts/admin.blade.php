@@ -51,6 +51,12 @@
                class="flex items-center gap-2 p-2 rounded transition @if(request()->routeIs('admin.marquees.index')) bg-blue-50 text-blue-600 @else text-gray-700 hover:bg-blue-50 hover:text-blue-600 @endif">
                 📢 Marquee Bar
             </a>
+
+            <!-- Videos -->
+            <a href="{{ route('admin.category-videos.index') }}" 
+               class="flex items-center gap-2 p-2 rounded transition @if(request()->routeIs('admin.category-videos*')) bg-blue-50 text-blue-600 @else text-gray-700 hover:bg-blue-50 hover:text-blue-600 @endif">
+                🎬 Videos
+            </a>
         </nav>
 
         <!-- Admin Info -->

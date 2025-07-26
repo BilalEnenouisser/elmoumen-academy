@@ -17,13 +17,13 @@
     <div class="relative z-20 flex flex-col md:flex-row w-full max-w-7xl mx-auto items-center justify-between px-6 sm:px-8 py-12 md:py-16">
         <!-- Left: Text -->
         <div class="w-full md:w-1/2 max-w-lg text-center md:text-left text-white mb-12 md:mb-0">
-            <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-6">
+            <h1 class="text-4xl sm:text-5xl font-normal	leading-[1.3] mb-6">
                 <span class="text-cyan-400">Transforming</span> Lives<br>
                 Through Online<br>
                 Education.
             </h1>
-            <p class="mb-8 text-base sm:text-lg text-gray-200">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
-            <a href="#" class="inline-block bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white px-6 py-3 sm:px-8 sm:py-3 rounded-full font-semibold shadow-lg transition">Learn More</a>
+            <p class="mb-8 text-base sm:text-sm text-gray-200">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit <br>tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+            <a href="#" class="inline-block bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white px-6 py-3 sm:px-8 sm:py-3 rounded-full   shadow-lg transition">Learn More</a>
         </div>
 
         <!-- Right: Play Button - centered on mobile -->
@@ -70,7 +70,7 @@
                     
                     <!-- Text -->
                     <div class="absolute bottom-4 left-0 w-full text-center z-10">
-                        <span class="text-white text-xl font-semibold drop-shadow-lg">{{ $card['title'] }}</span>
+                        <span class="text-white text-xl font-medium	 drop-shadow-lg">{{ $card['title'] }}</span>
                     </div>
                 </div>
             </a>
@@ -85,10 +85,10 @@
 @endphp
 
 @if($marquees->count())
-    <div class="bg-[#DEE7F1] py-4 px-6 rounded-lg shadow-sm">
+    <div class="bg-[#DEE7F1] pt-14   px-6 rounded-lg shadow-sm">
         <!-- Centered Title -->
         <div class="text-center mb-3">
-            <h3 class="text-[#1E3A8A]  text-lg tracking-wide">Les Annonces</h3>
+            <h3 class="text-[#1E3A8A]  text-xl font-normal tracking-wide">Les Annonces</h3>
         </div>
         
         <!-- Marquee Content -->
@@ -109,8 +109,82 @@
 
 
 
+<section class="w-full py-32" style="background-color: #DEE7F1;">
+    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-10 px-4">
+        <!-- Left: Image and Info -->
+        <div class="flex-1 flex flex-col">
+            <div class="rounded-2xl overflow-hidden mb-6">
+                <img src="{{ asset('images/about-us.jpg') }}" alt="About Us" class="w-full h-64 md:h-80 object-cover" />
+            </div>
+            <h2 class="text-3xl md:text-4xl font-normal  mb-2 text-gray-800 font-[Montserrat]">Empowering Growth Through</h2>
+            <p class="text-gray-600 mb-6">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <div class="flex-1 flex flex-col items-center border-r border-gray-300 last:border-none">
+                    <span class="text-3xl font-bold text-gray-800">24</span>
+                    <span class="text-gray-500">Company</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center border-r border-gray-300 last:border-none">
+                    <span class="text-3xl font-bold text-gray-800">75+</span>
+                    <span class="text-gray-500">Team</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center">
+                    <span class="text-3xl font-bold text-gray-800">24</span>
+                    <span class="text-gray-500">Experience</span>
+                </div>
+            </div>
+        </div>
+        <!-- Right: Vision, Mission, Social -->
+        <div class="flex-1 flex flex-col justify-center">
+            <h2 class="text-4xl md:text-5xl font-normal mb-8 text-gray-800 font-[Montserrat] leading-tight">
+                Empowering Growth<br>Through Online Learning
+            </h2>
+            <div class="space-y-6 mb-8">
+                <div class="flex items-center bg-white rounded-2xl shadow-md p-6 gap-6">
+                    <div class="bg-[#0F2239] rounded-full p-4 flex items-center justify-center">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"></path>
+                            <path d="M2 20c0-4.418 7.163-8 10-8s10 3.582 10 8"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl   text-gray-800 mb-1">EduByte Vision</h3>
+                        <p class="text-gray-600 text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+                    </div>
+                </div>
+                <div class="flex items-center bg-white rounded-2xl shadow-md p-6 gap-6">
+                    <div class="bg-[#0F2239] rounded-full p-4 flex items-center justify-center">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M12 8v4l3 3"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl   text-gray-800 mb-1">EduByte Mission</h3>
+                        <p class="text-gray-600 text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+                    </div>
+                </div>
+            </div>
+            <hr class="mb-4 border-gray-300">
+            <div class="flex items-center justify-between">
+                <span class="text-lg text-gray-700 font-medium">Social Media :</span>
+                <div class="flex gap-4">
+                    <a href="#" class="bg-[#0F2239] text-white rounded-full p-2 hover:bg-blue-700 transition">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.59-2.47.7a4.3 4.3 0 0 0 1.88-2.37 8.59 8.59 0 0 1-2.72 1.04A4.28 4.28 0 0 0 16.11 4c-2.37 0-4.29 1.92-4.29 4.29 0 .34.04.67.11.99C7.69 9.13 4.07 7.38 1.64 4.7c-.37.64-.58 1.39-.58 2.19 0 1.51.77 2.84 1.95 3.62-.72-.02-1.4-.22-1.99-.55v.06c0 2.11 1.5 3.87 3.5 4.27-.36.1-.74.16-1.13.16-.28 0-.54-.03-.8-.08.54 1.68 2.11 2.9 3.97 2.93A8.6 8.6 0 0 1 2 19.54a12.13 12.13 0 0 0 6.56 1.92c7.88 0 12.2-6.53 12.2-12.2 0-.19 0-.37-.01-.56A8.7 8.7 0 0 0 24 4.59a8.5 8.5 0 0 1-2.54.7z"/></svg>
+                    </a>
+                    <a href="#" class="bg-[#0F2239] text-white rounded-full p-2 hover:bg-blue-700 transition">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0zM7.12 20.45H3.56V9h3.56v11.45zM5.34 7.67a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zm15.11 12.78h-3.56v-5.6c0-1.33-.03-3.05-1.86-3.05-1.86 0-2.15 1.45-2.15 2.95v5.7h-3.56V9h3.42v1.56h.05c.48-.91 1.65-1.86 3.4-1.86 3.64 0 4.31 2.4 4.31 5.51v6.24z"/></svg>
+                    </a>
+                    <a href="#" class="bg-[#0F2239] text-white rounded-full p-2 hover:bg-blue-700 transition">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M21.8 8.001c-.2-1.5-.8-2.7-2.1-3.5-1.2-.8-2.6-1-4.1-1.1-2.1-.1-4.2-.1-6.3 0-1.5.1-2.9.3-4.1 1.1-1.3.8-1.9 2-2.1 3.5-.2 1.5-.2 3.1-.2 4.6s0 3.1.2 4.6c.2 1.5.8 2.7 2.1 3.5 1.2.8 2.6 1 4.1 1.1 2.1.1 4.2.1 6.3 0 1.5-.1 2.9-.3 4.1-1.1 1.3-.8 1.9-2 2.1-3.5.2-1.5.2-3.1.2-4.6s0-3.1-.2-4.6zm-12.8 7.2v-6.4l6.4 3.2-6.4 3.2z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-<!-- Section 4: About the Academy -->
 <section class="py-12 px-6 bg-white">
     <div class="max-w-4xl mx-auto text-center">
         <h2 class="text-2xl font-bold mb-4">Pourquoi Elmoumen Academy ?</h2>
@@ -118,6 +192,57 @@
         <img src="https://placehold.co/600x300" class="mx-auto rounded shadow" alt="Academy Presentation">
     </div>
 </section>
+
+
+<section class="relative w-full py-20">
+    <!-- Background image -->
+    <div class="absolute inset-0">
+        <img src="{{ asset('images/bgsec.jpg') }}" alt="Background" class="w-full h-full object-cover object-center" />
+        <div class="absolute inset-0" style="background: rgba(0,7,25,0.72);"></div>
+    </div>
+    <!-- Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-4">
+        <h2 class="text-white text-4xl md:text-5xl font-bold text-center mb-16 leading-tight font-[Montserrat]">
+            Check Out Educate Features<br>Win Any Exam
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            @for ($i = 0; $i < 4; $i++)
+            <div class="backdrop-blur-lg bg-white/10 rounded-2xl p-10 flex flex-col items-center shadow-lg">
+                <!-- Icon -->
+                <div class="w-20 h-20 mb-6 flex items-center justify-center rounded-full border-2 border-dashed border-white">
+                    <!-- Example SVG icon (replace as needed) -->
+                    <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 48 48">
+                        <circle cx="24" cy="24" r="22" stroke-dasharray="4 2"/>
+                        <rect x="14" y="20" width="20" height="10" rx="2" fill="none" stroke="currentColor"/>
+                        <path d="M18 30v2a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-2" stroke="currentColor"/>
+                        <circle cx="19" cy="25" r="1.5" fill="currentColor"/>
+                        <circle cx="24" cy="25" r="1.5" fill="currentColor"/>
+                        <circle cx="29" cy="25" r="1.5" fill="currentColor"/>
+                    </svg>
+                </div>
+                <!-- Title -->
+                <h3 class="text-white text-2xl font-bold mb-3 text-center">Best Coaching</h3>
+                <!-- Description -->
+                <p class="text-white text-opacity-80 text-center mb-8">
+                    In pellentesque massa vida placerat duis. Cursus sit amet dictum sit amet.
+                </p>
+                <!-- Button -->
+                <a href="#" class="flex items-center gap-2 bg-[#0F2239] text-white px-6 py-3 rounded-full font-medium shadow hover:bg-[#1a335c] transition">
+                    View Details
+                    <span class="bg-white text-[#0F2239] rounded-full p-1 ml-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+            @endfor
+        </div>
+    </div>
+</section>
+
+
+
 
 <!-- Section 5: Animated Numbers or Counters (Optional with JS later) -->
 <section class="py-12 px-6 bg-gray-100 text-center">
@@ -130,32 +255,100 @@
 </section>
 
 <!-- Section 6: Testimonials or Quotes -->
-<section class="py-16 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-6">
-        <h2 class="text-3xl font-bold text-center mb-12">Ce que disent nos parents</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Testimonial 1 -->
-            <div class="bg-white p-8 rounded-xl shadow-md">
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
-                        <span class="text-blue-600 font-bold">A</span>
-                    </div>
-                    <div class="ml-4">
-                        <h4 class="font-bold">Amina B.</h4>
-                        <p class="text-gray-500 text-sm">Mère de Youssef (CM2)</p>
-                    </div>
-                </div>
-                <p class="text-gray-700 italic">
-                    "Grâce à Elmoumen Academy, mon fils a retrouvé confiance en lui et ses résultats se sont nettement améliorés."
-                </p>
-                <div class="mt-4 flex text-yellow-400">
-                    ★★★★★
+<!-- FAQ Section with Accordion -->
+<section class="py-20 bg-[#DEE7F1]">
+    <div class="max-w-4xl mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-[#0F2239]">Frequently Asked Questions</h2>
+        <div class="space-y-6" x-data="{ open: 0 }">
+            <div class="bg-white rounded-xl shadow p-6 cursor-pointer" @click="open === 1 ? open = 0 : open = 1">
+                <h3 class="font-semibold text-lg mb-2 flex items-center justify-between">
+                    How do I register?
+                    <span x-show="open !== 1">+</span>
+                    <span x-show="open === 1">-</span>
+                </h3>
+                <div x-show="open === 1" class="text-gray-600 mt-2" x-transition>
+                    Click the "Get Started" button and fill out the registration form to join our academy.
                 </div>
             </div>
-            <!-- Add 2 more testimonials -->
+            <div class="bg-white rounded-xl shadow p-6 cursor-pointer" @click="open === 2 ? open = 0 : open = 2">
+                <h3 class="font-semibold text-lg mb-2 flex items-center justify-between">
+                    Are the courses free?
+                    <span x-show="open !== 2">+</span>
+                    <span x-show="open === 2">-</span>
+                </h3>
+                <div x-show="open === 2" class="text-gray-600 mt-2" x-transition>
+                    We offer both free and premium courses. Check the course details for more information.
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow p-6 cursor-pointer" @click="open === 3 ? open = 0 : open = 3">
+                <h3 class="font-semibold text-lg mb-2 flex items-center justify-between">
+                    Can I contact the teachers?
+                    <span x-show="open !== 3">+</span>
+                    <span x-show="open === 3">-</span>
+                </h3>
+                <div x-show="open === 3" class="text-gray-600 mt-2" x-transition>
+                    Yes, you can message teachers directly through your dashboard after registering.
+                </div>
+            </div>
         </div>
     </div>
 </section>
+<!-- Alpine.js CDN (if not already included) -->
+<script src="//unpkg.com/alpinejs" defer></script>
+
+
+<!-- Advice Cards section  - RTL Adjusted -->
+<section class="py-20 bg-[#F8FAFC]" dir="rtl">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-[#0F2239]">نصائح</h2>
+      
+       
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Card 1 -->
+            <div class="bg-white rounded-2xl shadow p-6 flex flex-col text-right cursor-pointer hover:shadow-lg transition-shadow" onclick="window.location.href='{{ route('videos.category', 'abaa') }}'">
+                <img src="{{ asset('images/blog/1.jpeg') }}" alt="مدونة 1" class="rounded-xl mb-4 h-40 w-full object-cover">
+                <span class="text-sm text-blue-700 font-semibold mb-2">آباء</span>
+                <h3 class="text-xl font-bold mb-2">فضاء خاص بالآباء</h3>
+                <p class="text-gray-600 mb-4">اكتشف استراتيجيات فعالة للتميز في دوراتك عبر الإنترنت والحفاظ على التحفيز.</p>
+                <span class="text-blue-700 font-semibold hover:underline mt-auto flex items-center justify-end">
+                    شاهد الفيديوهات 
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </span>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="bg-white rounded-2xl shadow p-6 flex flex-col text-right cursor-pointer hover:shadow-lg transition-shadow" onclick="window.location.href='{{ route('videos.category', 'talamid') }}'">
+                <img src="{{ asset('images/blog/3.jpg') }}" alt="مدونة 2" class="rounded-xl mb-4 h-40 w-full object-cover">
+                <span class="text-sm text-blue-700 font-semibold mb-2">تلاميذ</span>
+                <h3 class="text-xl font-bold mb-2">فضاء خاص بالتلاميذ</h3>
+                <p class="text-gray-600 mb-4">زِدْ إنتاجيتك وقدرتك على الاستيعاب باستخدام هذه التقنيات المجربة.</p>
+                <span class="text-blue-700 font-semibold hover:underline mt-auto flex items-center justify-end">
+                    شاهد الفيديوهات 
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </span>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="bg-white rounded-2xl shadow p-6 flex flex-col text-right cursor-pointer hover:shadow-lg transition-shadow" onclick="window.location.href='{{ route('videos.category', 'ajji') }}'">
+                <img src="{{ asset('images/blog/2.jpg') }}" alt="مدونة 3" class="rounded-xl mb-4 h-40 w-full object-cover">
+                <span class="text-sm text-blue-700 font-semibold mb-2">أجي تغير حياتك</span>
+                <h3 class="text-xl font-bold mb-2">فضاء خاص بالتلاميذ الذين يريدون تغيير حياتهم</h3>
+                <p class="text-gray-600 mb-4">انضم إلى ندوتنا المجانية لتعلم كيفية التحضير والنجاح في اختباراتك.</p>
+                <span class="text-blue-700 font-semibold hover:underline mt-auto flex items-center justify-end">
+                    شاهد الفيديوهات 
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 <!-- Section 7: Call to Action -->
 <section class="py-12 px-6 bg-blue-50 text-center">
@@ -168,7 +361,7 @@
 <h2 class="text-xl font-bold my-4">Nos vidéos</h2>
 
 @foreach(['mothers', 'parents', 'students'] as $category)
-    <h3 class="text-lg font-semibold mt-4 mb-2 capitalize">{{ $category }}</h3>
+    <h3 class="text-lg   mt-4 mb-2 capitalize">{{ $category }}</h3>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         @foreach(\App\Models\Video::where('category', $category)->latest()->take(3)->get() as $video)

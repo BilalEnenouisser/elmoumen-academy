@@ -10,8 +10,9 @@
         <tr>
             <th class="p-2">Titre</th>
             <th class="p-2">Niveau</th>
-            <th class="p-2">Matière</th>
             <th class="p-2">Type</th>
+            <th class="p-2">PDFs</th>
+            <th class="p-2">Vidéos</th>
             <th class="p-2">Actions</th>
         </tr>
     </thead>
@@ -20,16 +21,22 @@
             <tr class="border-b">
                 <td class="p-2">{{ $material->title }}</td>
                 <td class="p-2">{{ $material->level->name }}</td>
-                <td class="p-2">{{ $material->type }}</td>
+                <td class="p-2">{{ $material->blocks->first()?->type ?? 'N/A' }}</td>
+                <td class="p-2 text-center">
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">{{ $material->blocks->sum(function($block) { return $block->pdfs->count(); }) }} PDF(s)</span>
+                </td>
+                <td class="p-2 text-center">
+                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">{{ $material->blocks->sum(function($block) { return $block->videos->count(); }) }} Vidéo(s)</span>
+                </td>
                 <td class="p-2 space-x-2 text-center">
-    <a href="{{ route('admin.materials.edit', $material) }}" class="text-blue-600 hover:underline">Modifier</a>
+                    <a href="{{ route('admin.materials.edit', $material) }}" class="text-blue-600 hover:underline">Modifier</a>
 
-    <form action="{{ route('admin.materials.destroy', $material) }}" method="POST" class="inline-block" onsubmit="return confirm('Supprimer ce matériel ?')">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="text-red-600 hover:underline">Supprimer</button>
-    </form>
-</td>
+                    <form action="{{ route('admin.materials.destroy', $material) }}" method="POST" class="inline-block" onsubmit="return confirm('Supprimer ce matériel ?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-red-600 hover:underline">Supprimer</button>
+                    </form>
+                </td>
             </tr>
         @endforeach
     </tbody>

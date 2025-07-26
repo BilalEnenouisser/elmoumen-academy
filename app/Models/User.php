@@ -47,4 +47,30 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // Analytics relationships
+    public function pageViews()
+    {
+        return $this->hasMany(PageView::class);
+    }
+
+    public function pdfDownloads()
+    {
+        return $this->hasMany(PdfDownload::class);
+    }
+
+    public function videoClicks()
+    {
+        return $this->hasMany(VideoClick::class);
+    }
+
+    public function sessions()
+    {
+        return $this->hasMany(UserSession::class);
+    }
+
+    public function teacherActivities()
+    {
+        return $this->hasMany(TeacherActivity::class);
+    }
 }

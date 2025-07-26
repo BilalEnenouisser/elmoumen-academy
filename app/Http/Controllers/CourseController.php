@@ -28,7 +28,8 @@ class CourseController extends Controller
     }
 
     // For other levels: show materials
-    $materials = StudyMaterial::where('level_id', $level->id)
+    $materials = StudyMaterial::with(['blocks.pdfs', 'blocks.videos'])
+        ->where('level_id', $level->id)
         ->where('year_id', $year->id)
         ->get();
 
@@ -41,7 +42,8 @@ class CourseController extends Controller
         $year = Year::where('slug', $yearSlug)->firstOrFail();  // ✅ FIXED
         $field = Field::where('slug', $fieldSlug)->firstOrFail(); // ✅ FIXED
 
-        $materials = StudyMaterial::where('level_id', $level->id)
+        $materials = StudyMaterial::with(['blocks.pdfs', 'blocks.videos'])
+            ->where('level_id', $level->id)
             ->where('year_id', $year->id)
             ->where('field_id', $field->id)
             ->get();

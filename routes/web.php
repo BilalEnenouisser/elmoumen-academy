@@ -13,6 +13,8 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\Admin\MessageController as AdminMessageController;
 use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\Admin\MarqueeController;
+use App\Http\Controllers\Admin\CategoryVideoController as AdminCategoryVideoController;
+use App\Http\Controllers\VideoController as PublicVideoController;
 
 
 
@@ -64,7 +66,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', function () {
-        return view('admin.dashboard');
+        $stats = \App\Services\AnalyticsService::getDashboardStats();
+        return view('admin.dashboard', compact('stats'));
     })->name('dashboard');
 
     // 👥 Teachers
@@ -72,6 +75,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     // 📁 Materials
     Route::resource('materials', AdminMaterialController::class);
+    Route::delete('materials/pdf/{pdf}', [AdminMaterialController::class, 'deletePdf'])->name('materials.pdf.delete');
+    Route::delete('materials/video/{video}', [AdminMaterialController::class, 'deleteVideo'])->name('materials.video.delete');
 
     // 📆 Years
     Route::resource('years', YearController::class);
@@ -83,8 +88,13 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     //  Routes for Messages
     Route::resource('messages', AdminMessageController::class)->only(['index', 'show']);
 
-    //  VideoController
-    Route::resource('videos', VideoController::class);
+    //  VideoController (Old) - Removed in favor of CategoryVideoController
+    // Route::resource('videos', VideoController::class);
+
+    //  CategoryVideoController (New)
+    Route::resource('category-videos', AdminCategoryVideoController::class)->parameters([
+        'category-videos' => 'video'
+    ]);
 
     //  MarqueeController
     Route::get('marquees', [MarqueeController::class, 'index'])->name('marquees.index');
@@ -102,7 +112,30 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     })->name('structure');
 });
 
-Route::resource('videos', App\Http\Controllers\Admin\VideoController::class);
+// Removed old video routes - using CategoryVideoController instead
+
+// ==============================
+// 📹 Public Video Routes
+// ==============================
+
+Route::prefix('videos')->name('videos.')->group(function () {
+    Route::get('category/{slug}', [PublicVideoController::class, 'category'])->name('category');
+    Route::get('show/{video}', [PublicVideoController::class, 'show'])->name('show');
+});
+
+// ==============================
+// 📊 Analytics Tracking Routes
+// ==============================
+
+Route::post('track/pdf-download/{pdf}', function (Request $request, $pdf) {
+    \App\Services\AnalyticsService::trackPdfDownload($request, $pdf);
+    return response()->json(['success' => true]);
+})->name('track.pdf-download');
+
+Route::post('track/video-click/{video}', function (Request $request, $video) {
+    \App\Services\AnalyticsService::trackVideoClick($request, $video);
+    return response()->json(['success' => true]);
+})->name('track.video-click');
 
 // ==============================
 // 🎓 Teacher Panel

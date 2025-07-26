@@ -10,7 +10,7 @@ class StudyMaterial extends Model
     use HasFactory;
     protected $fillable = [
         'level_id', 'year_id', 'field_id',
-        'title', 'type', 'pdf_path', 'video_link', 'thumbnail_path'
+        'title'
     ];
 
     public function level()
@@ -28,5 +28,18 @@ class StudyMaterial extends Model
         return $this->belongsTo(Field::class);
     }
 
-    
+    public function blocks()
+    {
+        return $this->hasMany(MaterialBlock::class)->orderBy('order');
+    }
+
+    public function pdfs()
+    {
+        return $this->hasManyThrough(MaterialPdf::class, MaterialBlock::class);
+    }
+
+    public function videos()
+    {
+        return $this->hasManyThrough(MaterialVideo::class, MaterialBlock::class);
+    }
 }
