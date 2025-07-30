@@ -77,6 +77,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('materials', AdminMaterialController::class);
     Route::delete('materials/pdf/{pdf}', [AdminMaterialController::class, 'deletePdf'])->name('materials.pdf.delete');
     Route::delete('materials/video/{video}', [AdminMaterialController::class, 'deleteVideo'])->name('materials.video.delete');
+    Route::get('materials/years/{level}', [AdminMaterialController::class, 'getYearsByLevel'])->name('materials.years.by.level');
 
     // 📆 Years
     Route::resource('years', YearController::class);

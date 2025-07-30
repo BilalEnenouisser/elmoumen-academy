@@ -29,7 +29,7 @@
             @endforeach
         </select>
 
-        <select name="year_id" class="w-full p-2 border rounded mb-3">
+        <select name="year_id" id="year_id" class="w-full p-2 border rounded mb-3">
             <option value="">Année</option>
             @foreach($years as $year)
                 <option value="{{ $year->id }}">{{ $year->name }}</option>
@@ -55,7 +55,32 @@
                 <button type="button" onclick="removeBlock(this)" class="bg-red-500 text-white px-3 py-1 rounded text-sm">Supprimer le bloc</button>
             </div>
             
-            <input name="block_types[]" type="text" placeholder="Type (ex: Cours, Séries, Autres)" class="w-full p-2 border rounded mb-4" required>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <select name="semesters[]" class="w-full p-2 border rounded" required>
+                    <option value="">Semestre</option>
+                    <option value="Semestre 1">Semestre 1</option>
+                    <option value="Semestre 2">Semestre 2</option>
+                </select>
+                
+                <select name="material_types[]" class="material-type-select w-full p-2 border rounded" required>
+                    <option value="">Type de matériel</option>
+                    <option value="Cours">Cours</option>
+                    <option value="Séries">Séries</option>
+                    <option value="Devoirs semestre 1">Devoirs semestre 1</option>
+                    <option value="Devoirs semestre 2">Devoirs semestre 2</option>
+                    <option value="Examens">Examens</option>
+                </select>
+                
+                <select name="exam_types[]" class="exam-type-select w-full p-2 border rounded hidden">
+                    <option value="">Type d'examen</option>
+                    <option value="إمتحانات محلية">إمتحانات محلية</option>
+                    <option value="إمتحانات إقليمية">إمتحانات إقليمية</option>
+                    <option value="Examens Locaux">Examens Locaux</option>
+                    <option value="Examens Régionaux">Examens Régionaux</option>
+                    <option value="Examens Nationaux Blanc">Examens Nationaux Blanc</option>
+                    <option value="Examens Nationaux">Examens Nationaux</option>
+                </select>
+            </div>
 
             <!-- PDFs Section -->
             <div class="mb-4">
@@ -99,6 +124,7 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         const levelSelect = document.getElementById('level_id');
+        const yearSelect = document.getElementById('year_id');
         const fieldWrapper = document.getElementById('field-wrapper');
 
         function toggleField() {
@@ -111,8 +137,65 @@
             }
         }
 
-        levelSelect.addEventListener('change', toggleField);
+        function updateYears() {
+            const selectedLevelId = levelSelect.value;
+            if (selectedLevelId) {
+                fetch(`/admin/materials/years/${selectedLevelId}`)
+                    .then(response => response.json())
+                    .then(years => {
+                        yearSelect.innerHTML = '<option value="">Année</option>';
+                        years.forEach(year => {
+                            yearSelect.innerHTML += `<option value="${year.id}">${year.name}</option>`;
+                        });
+                    });
+            } else {
+                yearSelect.innerHTML = '<option value="">Année</option>';
+            }
+        }
+
+        function setupMaterialTypeListeners() {
+            document.querySelectorAll('.material-type-select').forEach(select => {
+                select.addEventListener('change', function() {
+                    const block = this.closest('.block-container');
+                    const examTypeSelect = block.querySelector('.exam-type-select');
+                    
+                    if (this.value === 'Examens') {
+                        examTypeSelect.classList.remove('hidden');
+                        examTypeSelect.required = true;
+                    } else {
+                        examTypeSelect.classList.add('hidden');
+                        examTypeSelect.required = false;
+                        examTypeSelect.value = '';
+                    }
+                });
+            });
+        }
+
+        levelSelect.addEventListener('change', function() {
+            toggleField();
+            updateYears();
+        });
+        
+        // Initial setup
         toggleField();
+        setupMaterialTypeListeners();
+        
+        // Setup listeners for dynamically added blocks
+        document.addEventListener('change', function(e) {
+            if (e.target.classList.contains('material-type-select')) {
+                const block = e.target.closest('.block-container');
+                const examTypeSelect = block.querySelector('.exam-type-select');
+                
+                if (e.target.value === 'Examens') {
+                    examTypeSelect.classList.remove('hidden');
+                    examTypeSelect.required = true;
+                } else {
+                    examTypeSelect.classList.add('hidden');
+                    examTypeSelect.required = false;
+                    examTypeSelect.value = '';
+                }
+            }
+        });
     });
 
     function addBlock() {
@@ -126,7 +209,32 @@
                 <button type="button" onclick="removeBlock(this)" class="bg-red-500 text-white px-3 py-1 rounded text-sm">Supprimer le bloc</button>
             </div>
             
-            <input name="block_types[]" type="text" placeholder="Type (ex: Cours, Séries, Autres)" class="w-full p-2 border rounded mb-4" required>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <select name="semesters[]" class="w-full p-2 border rounded" required>
+                    <option value="">Semestre</option>
+                    <option value="Semestre 1">Semestre 1</option>
+                    <option value="Semestre 2">Semestre 2</option>
+                </select>
+                
+                <select name="material_types[]" class="material-type-select w-full p-2 border rounded" required>
+                    <option value="">Type de matériel</option>
+                    <option value="Cours">Cours</option>
+                    <option value="Séries">Séries</option>
+                    <option value="Devoirs semestre 1">Devoirs semestre 1</option>
+                    <option value="Devoirs semestre 2">Devoirs semestre 2</option>
+                    <option value="Examens">Examens</option>
+                </select>
+                
+                <select name="exam_types[]" class="exam-type-select w-full p-2 border rounded hidden">
+                    <option value="">Type d'examen</option>
+                    <option value="إمتحانات محلية">إمتحانات محلية</option>
+                    <option value="إمتحانات إقليمية">إمتحانات إقليمية</option>
+                    <option value="Examens Locaux">Examens Locaux</option>
+                    <option value="Examens Régionaux">Examens Régionaux</option>
+                    <option value="Examens Nationaux Blanc">Examens Nationaux Blanc</option>
+                    <option value="Examens Nationaux">Examens Nationaux</option>
+                </select>
+            </div>
 
             <!-- PDFs Section -->
             <div class="mb-4">

@@ -48,8 +48,12 @@ class MaterialController extends Controller
             'year_id' => 'nullable|exists:years,id',
             'field_id' => 'nullable|exists:fields,id',
             'title' => 'required|string|max:255',
-            'block_types' => 'required|array',
-            'block_types.*' => 'required|string',
+            'semesters' => 'required|array',
+            'semesters.*' => 'required|in:Semestre 1,Semestre 2',
+            'material_types' => 'required|array',
+            'material_types.*' => 'required|in:Cours,Séries,Devoirs semestre 1,Devoirs semestre 2,Examens',
+            'exam_types' => 'nullable|array',
+            'exam_types.*' => 'nullable|in:إمتحانات محلية,إمتحانات إقليمية,Examens Locaux,Examens Régionaux,Examens Nationaux Blanc,Examens Nationaux',
             'pdfs.*.*' => 'nullable|file|mimes:pdf',
             'video_links.*.*' => 'nullable|url',
         ]);
@@ -63,9 +67,12 @@ class MaterialController extends Controller
         ]);
 
         // Create blocks and their content
-        foreach ($request->block_types as $blockIndex => $blockType) {
+        foreach ($request->material_types as $blockIndex => $materialType) {
             $block = $material->blocks()->create([
-                'type' => $blockType,
+                'type' => $materialType,
+                'semester' => $request->semesters[$blockIndex],
+                'material_type' => $request->material_types[$blockIndex],
+                'exam_type' => $request->exam_types[$blockIndex] ?? null,
                 'order' => $blockIndex,
             ]);
 
@@ -111,7 +118,7 @@ class MaterialController extends Controller
      */
     public function edit(string $id)
     {
-        $material = StudyMaterial::with(['pdfs', 'videos'])->findOrFail($id);
+        $material = StudyMaterial::with(['blocks.pdfs', 'blocks.videos'])->findOrFail($id);
         return view('admin.materials.edit', [
             'material' => $material,
             'levels' => Level::all(),
@@ -132,9 +139,14 @@ class MaterialController extends Controller
             'year_id' => 'nullable|exists:years,id',
             'field_id' => 'nullable|exists:fields,id',
             'title' => 'required|string|max:255',
-            'type' => 'required|string',
-            'pdfs.*' => 'nullable|file|mimes:pdf',
-            'video_links.*' => 'nullable|url',
+            'semesters' => 'required|array',
+            'semesters.*' => 'required|in:Semestre 1,Semestre 2',
+            'material_types' => 'required|array',
+            'material_types.*' => 'required|in:Cours,Séries,Devoirs semestre 1,Devoirs semestre 2,Examens',
+            'exam_types' => 'nullable|array',
+            'exam_types.*' => 'nullable|in:إمتحانات محلية,إمتحانات إقليمية,Examens Locaux,Examens Régionaux,Examens Nationaux Blanc,Examens Nationaux',
+            'pdfs.*.*' => 'nullable|file|mimes:pdf',
+            'video_links.*.*' => 'nullable|url',
         ]);
 
         // Update material basic info
@@ -143,33 +155,73 @@ class MaterialController extends Controller
             'year_id' => $request->year_id,
             'field_id' => $request->field_id,
             'title' => $request->title,
-            'type' => $request->type,
         ]);
 
-        // Store new PDFs
-        if ($request->hasFile('pdfs')) {
-            foreach ($request->file('pdfs') as $index => $pdf) {
-                if ($pdf) {
-                    $path = $pdf->store('pdfs', 'public');
-                    $material->pdfs()->create([
-                        'pdf_path' => $path,
-                        'title' => $request->pdf_titles[$index] ?? null,
-                    ]);
+        // Get existing blocks
+        $existingBlocks = $material->blocks()->orderBy('order')->get();
+        
+        // Update or create blocks
+        foreach ($request->material_types as $blockIndex => $materialType) {
+            // Update existing block or create new one
+            if (isset($existingBlocks[$blockIndex])) {
+                $block = $existingBlocks[$blockIndex];
+                $block->update([
+                    'type' => $materialType,
+                    'semester' => $request->semesters[$blockIndex],
+                    'material_type' => $request->material_types[$blockIndex],
+                    'exam_type' => $request->exam_types[$blockIndex] ?? null,
+                ]);
+            } else {
+                $block = $material->blocks()->create([
+                    'type' => $materialType,
+                    'semester' => $request->semesters[$blockIndex],
+                    'material_type' => $request->material_types[$blockIndex],
+                    'exam_type' => $request->exam_types[$blockIndex] ?? null,
+                    'order' => $blockIndex,
+                ]);
+            }
+
+            // Handle PDFs for this block
+            if (isset($request->file('pdfs')[$blockIndex])) {
+                foreach ($request->file('pdfs')[$blockIndex] as $pdfIndex => $pdf) {
+                    if ($pdf) {
+                        $path = $pdf->store('pdfs', 'public');
+                        $block->pdfs()->create([
+                            'pdf_path' => $path,
+                            'title' => $request->pdf_titles[$blockIndex][$pdfIndex] ?? null,
+                        ]);
+                    }
+                }
+            }
+
+            // Handle Videos for this block
+            if (isset($request->video_links[$blockIndex])) {
+                foreach ($request->video_links[$blockIndex] as $videoIndex => $link) {
+                    if ($link) {
+                        $block->videos()->create([
+                            'video_link' => $link,
+                            'title' => $request->video_titles[$blockIndex][$videoIndex] ?? null,
+                        ]);
+                    }
                 }
             }
         }
 
-        // Store new Videos
-        if ($request->video_links) {
-            foreach ($request->video_links as $index => $link) {
-                if ($link) {
-                    $material->videos()->create([
-                        'video_link' => $link,
-                        'title' => $request->video_titles[$index] ?? null,
-                    ]);
-                }
+        // Remove blocks that are no longer in the form
+        $newBlockCount = count($request->material_types);
+        $existingBlocks->slice($newBlockCount)->each(function($block) {
+            // Delete PDFs
+            foreach ($block->pdfs as $pdf) {
+                Storage::disk('public')->delete($pdf->pdf_path);
             }
-        }
+            $block->pdfs()->delete();
+            
+            // Delete videos
+            $block->videos()->delete();
+            
+            // Delete block
+            $block->delete();
+        });
 
         return redirect()->route('admin.materials.index')->with('success', 'Matériel mis à jour.');
     }
@@ -215,5 +267,14 @@ class MaterialController extends Controller
         $video->delete();
 
         return response()->json(['success' => true]);
+    }
+
+    /**
+     * Get years by level for dynamic filtering
+     */
+    public function getYearsByLevel(string $levelId)
+    {
+        $years = Year::where('level_id', $levelId)->get();
+        return response()->json($years);
     }
 }

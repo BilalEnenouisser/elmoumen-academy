@@ -12,6 +12,9 @@ class MaterialBlock extends Model
     protected $fillable = [
         'study_material_id',
         'type',
+        'semester',
+        'material_type',
+        'exam_type',
         'order'
     ];
 
