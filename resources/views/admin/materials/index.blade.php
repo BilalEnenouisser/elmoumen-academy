@@ -87,14 +87,22 @@
                                         return $block->pdfs->whereNotNull('teacher_id'); 
                                     });
                                 @endphp
-                                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
-                                    {{ $totalPdfs }} PDF(s)
+                                <div class="space-y-1">
+                                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
+                                        {{ $totalPdfs }} PDF(s)
+                                    </span>
                                     @if($teacherPdfs->count() > 0)
-                                        <br><span class="text-xs text-gray-600">
-                                            {{ $teacherPdfs->count() }} par enseignants
-                                        </span>
+                                        <div class="text-xs text-gray-600">
+                                            <div class="font-medium mb-1">Par enseignants:</div>
+                                            @foreach($teacherPdfs->take(3) as $pdf)
+                                                <div class="text-xs">• {{ $pdf->teacher->name ?? 'Enseignant inconnu' }}</div>
+                                            @endforeach
+                                            @if($teacherPdfs->count() > 3)
+                                                <div class="text-xs text-gray-500">+{{ $teacherPdfs->count() - 3 }} autres</div>
+                                            @endif
+                                        </div>
                                     @endif
-                                </span>
+                                </div>
                             </td>
                             <td class="p-4 text-center">
                                 <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">

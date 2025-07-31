@@ -66,6 +66,42 @@
                class="flex items-center gap-2 p-2 rounded transition @if(request()->routeIs('admin.category-videos*')) bg-green-50 text-green-600 @else text-gray-700 hover:bg-green-50 hover:text-green-600 @endif">
                 🎬 Vidéos
             </a>
+
+            <!-- Books Dropdown -->
+            <div class="relative" x-data="{ open: false }">
+                <button @click="open = !open" 
+                        class="flex items-center gap-2 p-2 rounded transition w-full text-left @if(request()->routeIs('admin.books*')) bg-green-50 text-green-600 @else text-gray-700 hover:bg-green-50 hover:text-green-600 @endif">
+                    📚 Livres
+                    <svg class="w-4 h-4 ml-auto transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div x-show="open" 
+                     x-transition:enter="transition ease-out duration-200"
+                     x-transition:enter-start="opacity-0 transform scale-95"
+                     x-transition:enter-end="opacity-100 transform scale-100"
+                     x-transition:leave="transition ease-in duration-150"
+                     x-transition:leave-start="opacity-100 transform scale-100"
+                     x-transition:leave-end="opacity-0 transform scale-95"
+                     class="absolute left-0 right-0 mt-1 bg-white rounded-md shadow-lg z-50">
+                    <a href="{{ route('admin.books.index') }}" 
+                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600">
+                        📖 Tous les Livres
+                    </a>
+                    <a href="{{ route('admin.books.categories.index') }}" 
+                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600">
+                        🏷️ Catégories
+                    </a>
+                    <a href="{{ route('admin.books.create') }}" 
+                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600">
+                        ➕ Ajouter un Livre
+                    </a>
+                    <a href="{{ route('admin.whatsapp.index') }}" 
+                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600">
+                        📱 Numéro WhatsApp
+                    </a>
+                </div>
+            </div>
         </nav>
 
         <!-- Admin Info -->

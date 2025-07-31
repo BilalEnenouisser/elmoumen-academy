@@ -102,6 +102,20 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('marquees', [MarqueeController::class, 'store'])->name('marquees.store');
     Route::delete('marquees/{marquee}', [MarqueeController::class, 'destroy'])->name('marquees.destroy');
 
+    // 📚 Books Management
+    Route::resource('books', App\Http\Controllers\Admin\BookController::class);
+    
+    // Book Categories Management (separate from books)
+    Route::get('book-categories', [App\Http\Controllers\Admin\BookCategoryController::class, 'index'])->name('books.categories.index');
+    Route::post('book-categories', [App\Http\Controllers\Admin\BookCategoryController::class, 'store'])->name('books.categories.store');
+    Route::put('book-categories/{category}', [App\Http\Controllers\Admin\BookCategoryController::class, 'update'])->name('books.categories.update');
+    Route::delete('book-categories/{category}', [App\Http\Controllers\Admin\BookCategoryController::class, 'destroy'])->name('books.categories.destroy');
+
+    // WhatsApp Number Management
+    Route::get('whatsapp', [App\Http\Controllers\Admin\WhatsAppNumberController::class, 'index'])->name('whatsapp.index');
+    Route::post('whatsapp', [App\Http\Controllers\Admin\WhatsAppNumberController::class, 'store'])->name('whatsapp.store');
+    Route::put('whatsapp/{whatsappNumber}', [App\Http\Controllers\Admin\WhatsAppNumberController::class, 'update'])->name('whatsapp.update');
+
 
     // 🏗 Structure Management Page
     Route::get('structure', function () {
@@ -122,6 +136,20 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 Route::prefix('videos')->name('videos.')->group(function () {
     Route::get('category/{slug}', [PublicVideoController::class, 'category'])->name('category');
     Route::get('show/{video}', [PublicVideoController::class, 'show'])->name('show');
+});
+
+// ==============================
+// 📚 Public Book Routes
+// ==============================
+
+Route::prefix('books')->name('books.')->group(function () {
+    Route::get('/', [App\Http\Controllers\BookController::class, 'index'])->name('index');
+    Route::get('/category/{category:slug}', [App\Http\Controllers\BookController::class, 'category'])->name('category');
+    Route::get('/{book:slug}', [App\Http\Controllers\BookController::class, 'show'])->name('show');
+    
+    // Book Click Tracking
+    Route::post('/{book}/click', [App\Http\Controllers\BookClickController::class, 'track'])->name('click');
+    Route::get('/stats', [App\Http\Controllers\BookClickController::class, 'getStats'])->name('stats');
 });
 
 // ==============================

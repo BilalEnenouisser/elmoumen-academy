@@ -7,6 +7,8 @@ use App\Models\PdfDownload;
 use App\Models\VideoClick;
 use App\Models\UserSession;
 use App\Models\TeacherActivity;
+use App\Models\BookClick;
+use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -113,6 +115,13 @@ class AnalyticsService
             ->limit(5)
             ->get();
 
+        // Book statistics
+        $totalBooks = Book::count();
+        $totalBookClicks = BookClick::getTotalClicks();
+        $bookClicksToday = BookClick::getClicksToday();
+        $bookClicksThisWeek = BookClick::getClicksThisWeek();
+        $topBooks = BookClick::getTopBooks(5);
+
         return [
             'total_users' => $totalUsers,
             'total_teachers' => $totalTeachers,
@@ -124,6 +133,11 @@ class AnalyticsService
             'top_downloaded_pdfs' => $topDownloadedPdfs,
             'top_clicked_videos' => $topClickedVideos,
             'teacher_upload_stats' => $teacherUploadStats,
+            'total_books' => $totalBooks,
+            'total_book_clicks' => $totalBookClicks,
+            'book_clicks_today' => $bookClicksToday,
+            'book_clicks_this_week' => $bookClicksThisWeek,
+            'top_books' => $topBooks,
         ];
     }
 } 

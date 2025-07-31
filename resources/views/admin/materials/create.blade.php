@@ -1,322 +1,352 @@
 @extends('layouts.admin')
 
+@section('title', 'Ajouter un Nouveau Matériel')
+
 @section('content')
-<h1 class="text-xl font-bold mb-4">➕ Ajouter un Matériel</h1>
-
-@if($errors->any())
-    <div class="text-red-500 mb-4">
-        <ul>
-            @foreach($errors->all() as $e)
-                <li>{{ $e }}</li>
-            @endforeach
-        </ul>
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold text-gray-900">Ajouter un Nouveau Matériel</h1>
+        <p class="text-gray-600">Créer de nouveaux matériels éducatifs avec plusieurs blocs</p>
     </div>
-@endif
 
-<form action="{{ route('admin.materials.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
-    @csrf
-
-    <!-- Basic Material Info -->
-    <div class="bg-gray-50 p-4 rounded-lg">
-        <h2 class="text-lg font-semibold mb-4">Informations de base</h2>
-        
-        <input name="title" type="text" placeholder="Nom du cours (ex: Mathématiques)" class="w-full p-2 border rounded mb-3" required>
-
-        <select name="level_id" id="level_id" class="w-full p-2 border rounded mb-3" required>
-            <option value="">Niveau</option>
-            @foreach($levels as $level)
-                <option value="{{ $level->id }}">{{ $level->name }}</option>
-            @endforeach
-        </select>
-
-        <select name="year_id" id="year_id" class="w-full p-2 border rounded mb-3">
-            <option value="">Année</option>
-            @foreach($years as $year)
-                <option value="{{ $year->id }}">{{ $year->name }}</option>
-            @endforeach
-        </select>
-
-        <div id="field-wrapper" class="hidden">
-            <select name="field_id" id="field_id" class="w-full p-2 border rounded">
-                <option value="">Filière</option>
-                @foreach($fields as $field)
-                    <option value="{{ $field->id }}">{{ $field->name }}</option>
+    @if($errors->any())
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+            <ul class="list-disc list-inside">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
                 @endforeach
-            </select>
+            </ul>
         </div>
-    </div>
+    @endif
 
-    <!-- Material Blocks -->
-    <div id="blocks-wrapper" class="space-y-6">
-        <!-- Block 1 -->
-        <div class="block-container border-2 border-blue-200 rounded-lg p-4 bg-blue-50">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-lg font-semibold text-blue-800">Bloc 1</h3>
-                <button type="button" onclick="removeBlock(this)" class="bg-red-500 text-white px-3 py-1 rounded text-sm">Supprimer le bloc</button>
-            </div>
+    <form action="{{ route('admin.materials.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+        @csrf
+
+        <!-- Basic Information -->
+        <div class="bg-white rounded-lg shadow p-4 md:p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">📋 Informations de Base</h3>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                <select name="semesters[]" class="w-full p-2 border rounded" required>
-                    <option value="">Semestre</option>
-                    <option value="Semestre 1">Semestre 1</option>
-                    <option value="Semestre 2">Semestre 2</option>
-                </select>
-                
-                <select name="material_types[]" class="material-type-select w-full p-2 border rounded" required>
-                    <option value="">Type de matériel</option>
-                    <option value="Cours">Cours</option>
-                    <option value="Séries">Séries</option>
-                    <option value="Devoirs semestre 1">Devoirs semestre 1</option>
-                    <option value="Devoirs semestre 2">Devoirs semestre 2</option>
-                    <option value="Examens">Examens</option>
-                </select>
-                
-                <select name="exam_types[]" class="exam-type-select w-full p-2 border rounded hidden">
-                    <option value="">Type d'examen</option>
-                    <option value="إمتحانات محلية">إمتحانات محلية</option>
-                    <option value="إمتحانات إقليمية">إمتحانات إقليمية</option>
-                    <option value="Examens Locaux">Examens Locaux</option>
-                    <option value="Examens Régionaux">Examens Régionaux</option>
-                    <option value="Examens Nationaux Blanc">Examens Nationaux Blanc</option>
-                    <option value="Examens Nationaux">Examens Nationaux</option>
-                </select>
-            </div>
-
-            <!-- PDFs Section -->
-            <div class="mb-4">
-                <h4 class="font-semibold mb-2">📄 PDFs Matériel</h4>
-                <div class="pdfs-wrapper space-y-2">
-                    <div class="pdf-group flex gap-2">
-                        <input type="file" name="pdfs[0][]" accept=".pdf" class="flex-1 p-2 border rounded">
-                        <input type="text" name="pdf_titles[0][]" placeholder="Titre du PDF" class="flex-1 p-2 border rounded">
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                <!-- Course Name -->
+                <div>
+                    <label for="title" class="block text-sm font-medium text-gray-700 mb-2">
+                        Nom du cours (ex: Mathématiques) *
+                    </label>
+                    <input type="text" name="title" id="title" required 
+                           value="{{ old('title') }}"
+                           class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                           placeholder="Entrez le nom du cours">
+                    @error('title')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
-                <button type="button" onclick="addPdf(this)" class="mt-2 bg-blue-500 text-white px-3 py-1 rounded text-sm">+ Ajouter un autre PDF</button>
-            </div>
 
-            <!-- Videos Section -->
-            <div>
-                <h4 class="font-semibold mb-2">🎥 Liens Vidéo YouTube</h4>
-                <div class="videos-wrapper space-y-2">
-                    <div class="video-group flex gap-2">
-                        <input type="url" name="video_links[0][]" placeholder="Lien vidéo YouTube" class="flex-1 p-2 border rounded">
-                        <input type="text" name="video_titles[0][]" placeholder="Titre de la vidéo" class="flex-1 p-2 border rounded">
-                        <button type="button" onclick="removeVideo(this)" class="bg-red-500 text-white px-3 py-1 rounded">Supprimer</button>
-                    </div>
+                <!-- Level -->
+                <div>
+                    <label for="level_id" class="block text-sm font-medium text-gray-700 mb-2">
+                        Niveau *
+                    </label>
+                    <select name="level_id" id="level_id" required 
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <option value="">Sélectionner le niveau...</option>
+                        @foreach($levels as $level)
+                            <option value="{{ $level->id }}" {{ old('level_id') == $level->id ? 'selected' : '' }}>
+                                {{ $level->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('level_id')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
-                <button type="button" onclick="addVideo(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded text-sm">+ Ajouter une vidéo</button>
+
+                <!-- Year -->
+                <div>
+                    <label for="year_id" class="block text-sm font-medium text-gray-700 mb-2">
+                        Année
+                    </label>
+                    <select name="year_id" id="year_id" 
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <option value="">Sélectionner l'année...</option>
+                        @foreach($years as $year)
+                            <option value="{{ $year->id }}" {{ old('year_id') == $year->id ? 'selected' : '' }}>
+                                {{ $year->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('year_id')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Field -->
+                <div>
+                    <label for="field_id" class="block text-sm font-medium text-gray-700 mb-2">
+                        Filière
+                    </label>
+                    <select name="field_id" id="field_id" disabled
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-100 text-gray-500">
+                        <option value="">Sélectionner la filière...</option>
+                        @foreach($fields as $field)
+                            <option value="{{ $field->id }}" {{ old('field_id') == $field->id ? 'selected' : '' }}>
+                                {{ $field->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('field_id')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Add New Block Button -->
-    <div class="text-center">
-        <button type="button" onclick="addBlock()" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold">
-            ➕ Ajouter un nouveau bloc
-        </button>
-    </div>
+        <!-- Material Blocks -->
+        <div class="bg-white rounded-lg shadow p-4 md:p-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
+                <h3 class="text-lg font-semibold text-gray-900">📚 Blocs de Matériel</h3>
+                <button type="button" onclick="addBlock()" 
+                        class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition w-full sm:w-auto">
+                    ➕ Ajouter un Bloc
+                </button>
+            </div>
 
-    <button type="submit" class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold w-full">Enregistrer le matériel</button>
-</form>
+            <div id="blocks-container" class="space-y-4 md:space-y-6">
+                <!-- Block template will be added here -->
+            </div>
+        </div>
 
-<script>
-    let blockCounter = 1;
+        <!-- Submit Button -->
+        <div class="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-3">
+            <a href="{{ route('admin.materials.index') }}" 
+               class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition text-center">
+                Annuler
+            </a>
+            <button type="submit" 
+                    class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                Créer le Matériel
+            </button>
+        </div>
+    </form>
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const levelSelect = document.getElementById('level_id');
-        const yearSelect = document.getElementById('year_id');
-        const fieldWrapper = document.getElementById('field-wrapper');
+    <script>
+        let blockIndex = 0;
+        const blockColors = [
+            'border-blue-200 bg-blue-50',
+            'border-green-200 bg-green-50', 
+            'border-purple-200 bg-purple-50',
+            'border-yellow-200 bg-yellow-50',
+            'border-pink-200 bg-pink-50',
+            'border-indigo-200 bg-indigo-50'
+        ];
 
-        function toggleField() {
-            const selectedText = levelSelect.options[levelSelect.selectedIndex]?.text.toLowerCase();
-            if (selectedText.includes('lycée')) {
-                fieldWrapper.classList.remove('hidden');
+        // Initialize with one block
+        document.addEventListener('DOMContentLoaded', function() {
+            addBlock();
+        });
+
+        // Add new block
+        function addBlock() {
+            const container = document.getElementById('blocks-container');
+            const blockDiv = document.createElement('div');
+            const colorClass = blockColors[blockIndex % blockColors.length];
+            blockDiv.className = `block-item border-2 rounded-lg p-4 ${colorClass}`;
+            blockDiv.innerHTML = `
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
+                    <h4 class="font-medium text-gray-900">Bloc ${blockIndex + 1}</h4>
+                    <button type="button" onclick="removeBlock(this)" 
+                            class="text-red-600 hover:text-red-800 text-sm">
+                        🗑️ Supprimer le Bloc
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <!-- Semester -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Semestre *</label>
+                        <select name="semesters[${blockIndex}]" required 
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <option value="">Sélectionner le semestre...</option>
+                            <option value="Semestre 1">Semestre 1</option>
+                            <option value="Semestre 2">Semestre 2</option>
+                        </select>
+                    </div>
+
+                    <!-- Material Type -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Type de Matériel *</label>
+                        <select name="material_types[${blockIndex}]" required 
+                                onchange="toggleExamType(this, ${blockIndex})"
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <option value="">Sélectionner le type...</option>
+                            <option value="Cours">Cours</option>
+                            <option value="Séries">Séries</option>
+                            <option value="Devoirs semestre 1">Devoirs semestre 1</option>
+                            <option value="Devoirs semestre 2">Devoirs semestre 2</option>
+                            <option value="Examens">Examens</option>
+                        </select>
+                    </div>
+
+                    <!-- Exam Type (conditional) -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Type d'Examen</label>
+                        <select name="exam_types[${blockIndex}]" id="exam_type_${blockIndex}"
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-100 text-gray-500 exam-type-select" style="display: none;" disabled>
+                            <option value="">Sélectionner le type d'examen...</option>
+                            <option value="إمتحانات محلية">إمتحانات محلية</option>
+                            <option value="إمتحانات إقليمية">إمتحانات إقليمية</option>
+                            <option value="Examens Locaux">Examens Locaux</option>
+                            <option value="Examens Régionaux">Examens Régionaux</option>
+                            <option value="Examens Nationaux Blanc">Examens Nationaux Blanc</option>
+                            <option value="Examens Nationaux">Examens Nationaux</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- PDFs -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">📄 PDFs Matériel</label>
+                    <div class="pdf-container space-y-2">
+                        <div class="pdf-row flex flex-col sm:flex-row gap-2 sm:gap-3">
+                            <input type="file" name="pdfs[${blockIndex}][]" accept=".pdf" 
+                                   class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <input type="text" name="pdf_titles[${blockIndex}][]" placeholder="Titre du PDF (optionnel)" 
+                                   class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <button type="button" onclick="removePdfRow(this)" 
+                                    class="px-2 py-2 text-red-600 hover:text-red-800 self-center">🗑️</button>
+                        </div>
+                    </div>
+                    <button type="button" onclick="addPdfRow(${blockIndex})" 
+                            class="mt-2 text-green-600 hover:text-green-800 text-sm">
+                        ➕ Ajouter un autre PDF
+                    </button>
+                </div>
+
+                <!-- Video Links -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">🎥 Liens Vidéo YouTube</label>
+                    <div class="video-container space-y-2">
+                        <div class="video-row flex flex-col sm:flex-row gap-2 sm:gap-3">
+                            <input type="url" name="video_links[${blockIndex}][]" placeholder="URL de la vidéo" 
+                                   class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <input type="text" name="video_titles[${blockIndex}][]" placeholder="Titre de la vidéo (optionnel)" 
+                                   class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <button type="button" onclick="removeVideoRow(this)" 
+                                    class="px-2 py-2 text-red-600 hover:text-red-800 self-center">🗑️</button>
+                        </div>
+                    </div>
+                    <button type="button" onclick="addVideoRow(${blockIndex})" 
+                            class="mt-2 text-green-600 hover:text-green-800 text-sm">
+                        ➕ Ajouter une autre vidéo
+                    </button>
+                </div>
+            `;
+            
+            container.appendChild(blockDiv);
+            blockIndex++;
+        }
+
+        // Remove block
+        function removeBlock(button) {
+            button.closest('.block-item').remove();
+        }
+
+        // Toggle exam type visibility
+        function toggleExamType(select, blockIndex) {
+            const examTypeSelect = document.getElementById(`exam_type_${blockIndex}`);
+            if (select.value === 'Examens') {
+                examTypeSelect.style.display = 'block';
+                examTypeSelect.disabled = false;
+                examTypeSelect.classList.remove('bg-gray-100', 'text-gray-500');
+                examTypeSelect.classList.add('bg-white', 'text-gray-900');
+                examTypeSelect.required = true;
             } else {
-                fieldWrapper.classList.add('hidden');
-                document.getElementById('field_id').value = '';
+                examTypeSelect.style.display = 'none';
+                examTypeSelect.disabled = true;
+                examTypeSelect.classList.add('bg-gray-100', 'text-gray-500');
+                examTypeSelect.classList.remove('bg-white', 'text-gray-900');
+                examTypeSelect.required = false;
+                examTypeSelect.value = '';
             }
         }
 
-        function updateYears() {
-            const selectedLevelId = levelSelect.value;
-            if (selectedLevelId) {
-                fetch(`/admin/materials/years/${selectedLevelId}`)
+        // Add PDF row
+        function addPdfRow(blockIndex) {
+            const container = document.querySelector(`[name="pdfs[${blockIndex}][]"]`).closest('.pdf-container');
+            const newRow = document.createElement('div');
+            newRow.className = 'pdf-row flex flex-col sm:flex-row gap-2 sm:gap-3';
+            newRow.innerHTML = `
+                <input type="file" name="pdfs[${blockIndex}][]" accept=".pdf" 
+                       class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                <input type="text" name="pdf_titles[${blockIndex}][]" placeholder="Titre du PDF (optionnel)" 
+                       class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                <button type="button" onclick="removePdfRow(this)" 
+                        class="px-2 py-2 text-red-600 hover:text-red-800 self-center">🗑️</button>
+            `;
+            container.appendChild(newRow);
+        }
+
+        // Remove PDF row
+        function removePdfRow(button) {
+            button.closest('.pdf-row').remove();
+        }
+
+        // Add video row
+        function addVideoRow(blockIndex) {
+            const container = document.querySelector(`[name="video_links[${blockIndex}][]"]`).closest('.video-container');
+            const newRow = document.createElement('div');
+            newRow.className = 'video-row flex flex-col sm:flex-row gap-2 sm:gap-3';
+            newRow.innerHTML = `
+                <input type="url" name="video_links[${blockIndex}][]" placeholder="URL de la vidéo" 
+                       class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                <input type="text" name="video_titles[${blockIndex}][]" placeholder="Titre de la vidéo (optionnel)" 
+                       class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                <button type="button" onclick="removeVideoRow(this)" 
+                        class="px-2 py-2 text-red-600 hover:text-red-800 self-center">🗑️</button>
+            `;
+            container.appendChild(newRow);
+        }
+
+        // Remove video row
+        function removeVideoRow(button) {
+            button.closest('.video-row').remove();
+        }
+
+        // Dynamic year loading based on level
+        document.getElementById('level_id').addEventListener('change', function() {
+            const levelId = this.value;
+            const yearSelect = document.getElementById('year_id');
+            const fieldSelect = document.getElementById('field_id');
+            
+            // Reset year dropdown
+            yearSelect.innerHTML = '<option value="">Sélectionner l\'année...</option>';
+            
+            // Handle field dropdown visibility
+            if (levelId) {
+                const selectedLevel = this.options[this.selectedIndex].text.toLowerCase();
+                if (selectedLevel.includes('lycée') || selectedLevel.includes('lycee')) {
+                    fieldSelect.disabled = false;
+                    fieldSelect.classList.remove('bg-gray-100', 'text-gray-500');
+                    fieldSelect.classList.add('bg-white', 'text-gray-900');
+                } else {
+                    fieldSelect.disabled = true;
+                    fieldSelect.classList.add('bg-gray-100', 'text-gray-500');
+                    fieldSelect.classList.remove('bg-white', 'text-gray-900');
+                    fieldSelect.value = '';
+                }
+                
+                // Load years for selected level
+                fetch(`/admin/materials/years/${levelId}`)
                     .then(response => response.json())
                     .then(years => {
-                        yearSelect.innerHTML = '<option value="">Année</option>';
                         years.forEach(year => {
                             yearSelect.innerHTML += `<option value="${year.id}">${year.name}</option>`;
                         });
                     });
             } else {
-                yearSelect.innerHTML = '<option value="">Année</option>';
-            }
-        }
-
-        function setupMaterialTypeListeners() {
-            document.querySelectorAll('.material-type-select').forEach(select => {
-                select.addEventListener('change', function() {
-                    const block = this.closest('.block-container');
-                    const examTypeSelect = block.querySelector('.exam-type-select');
-                    
-                    if (this.value === 'Examens') {
-                        examTypeSelect.classList.remove('hidden');
-                        examTypeSelect.required = true;
-                    } else {
-                        examTypeSelect.classList.add('hidden');
-                        examTypeSelect.required = false;
-                        examTypeSelect.value = '';
-                    }
-                });
-            });
-        }
-
-        levelSelect.addEventListener('change', function() {
-            toggleField();
-            updateYears();
-        });
-        
-        // Initial setup
-        toggleField();
-        setupMaterialTypeListeners();
-        
-        // Setup listeners for dynamically added blocks
-        document.addEventListener('change', function(e) {
-            if (e.target.classList.contains('material-type-select')) {
-                const block = e.target.closest('.block-container');
-                const examTypeSelect = block.querySelector('.exam-type-select');
-                
-                if (e.target.value === 'Examens') {
-                    examTypeSelect.classList.remove('hidden');
-                    examTypeSelect.required = true;
-                } else {
-                    examTypeSelect.classList.add('hidden');
-                    examTypeSelect.required = false;
-                    examTypeSelect.value = '';
-                }
+                fieldSelect.disabled = true;
+                fieldSelect.classList.add('bg-gray-100', 'text-gray-500');
+                fieldSelect.classList.remove('bg-white', 'text-gray-900');
+                fieldSelect.value = '';
             }
         });
-    });
-
-    function addBlock() {
-        blockCounter++;
-        const wrapper = document.getElementById('blocks-wrapper');
-        const block = document.createElement('div');
-        block.className = 'block-container border-2 border-blue-200 rounded-lg p-4 bg-blue-50';
-        block.innerHTML = `
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-lg font-semibold text-blue-800">Bloc ${blockCounter}</h3>
-                <button type="button" onclick="removeBlock(this)" class="bg-red-500 text-white px-3 py-1 rounded text-sm">Supprimer le bloc</button>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                <select name="semesters[]" class="w-full p-2 border rounded" required>
-                    <option value="">Semestre</option>
-                    <option value="Semestre 1">Semestre 1</option>
-                    <option value="Semestre 2">Semestre 2</option>
-                </select>
-                
-                <select name="material_types[]" class="material-type-select w-full p-2 border rounded" required>
-                    <option value="">Type de matériel</option>
-                    <option value="Cours">Cours</option>
-                    <option value="Séries">Séries</option>
-                    <option value="Devoirs semestre 1">Devoirs semestre 1</option>
-                    <option value="Devoirs semestre 2">Devoirs semestre 2</option>
-                    <option value="Examens">Examens</option>
-                </select>
-                
-                <select name="exam_types[]" class="exam-type-select w-full p-2 border rounded hidden">
-                    <option value="">Type d'examen</option>
-                    <option value="إمتحانات محلية">إمتحانات محلية</option>
-                    <option value="إمتحانات إقليمية">إمتحانات إقليمية</option>
-                    <option value="Examens Locaux">Examens Locaux</option>
-                    <option value="Examens Régionaux">Examens Régionaux</option>
-                    <option value="Examens Nationaux Blanc">Examens Nationaux Blanc</option>
-                    <option value="Examens Nationaux">Examens Nationaux</option>
-                </select>
-            </div>
-
-            <!-- PDFs Section -->
-            <div class="mb-4">
-                <h4 class="font-semibold mb-2">📄 PDFs Matériel</h4>
-                <div class="pdfs-wrapper space-y-2">
-                    <div class="pdf-group flex gap-2">
-                        <input type="file" name="pdfs[${blockCounter-1}][]" accept=".pdf" class="flex-1 p-2 border rounded">
-                        <input type="text" name="pdf_titles[${blockCounter-1}][]" placeholder="Titre du PDF" class="flex-1 p-2 border rounded">
-                    </div>
-                </div>
-                <button type="button" onclick="addPdf(this)" class="mt-2 bg-blue-500 text-white px-3 py-1 rounded text-sm">+ Ajouter un autre PDF</button>
-            </div>
-
-            <!-- Videos Section -->
-            <div>
-                <h4 class="font-semibold mb-2">🎥 Liens Vidéo YouTube</h4>
-                <div class="videos-wrapper space-y-2">
-                    <div class="video-group flex gap-2">
-                        <input type="url" name="video_links[${blockCounter-1}][]" placeholder="Lien vidéo YouTube" class="flex-1 p-2 border rounded">
-                        <input type="text" name="video_titles[${blockCounter-1}][]" placeholder="Titre de la vidéo" class="flex-1 p-2 border rounded">
-                        <button type="button" onclick="removeVideo(this)" class="bg-red-500 text-white px-3 py-1 rounded">Supprimer</button>
-                    </div>
-                </div>
-                <button type="button" onclick="addVideo(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded text-sm">+ Ajouter une vidéo</button>
-            </div>
-        `;
-        wrapper.appendChild(block);
-    }
-
-    function removeBlock(button) {
-        if (document.querySelectorAll('.block-container').length > 1) {
-            button.closest('.block-container').remove();
-            updateBlockNumbers();
-        } else {
-            alert('Vous devez avoir au moins un bloc.');
-        }
-    }
-
-    function updateBlockNumbers() {
-        const blocks = document.querySelectorAll('.block-container');
-        blocks.forEach((block, index) => {
-            const title = block.querySelector('h3');
-            title.textContent = `Bloc ${index + 1}`;
-        });
-    }
-
-    function addPdf(button) {
-        const block = button.closest('.block-container');
-        const wrapper = block.querySelector('.pdfs-wrapper');
-        const blockIndex = Array.from(document.querySelectorAll('.block-container')).indexOf(block);
-        
-        const group = document.createElement('div');
-        group.className = 'pdf-group flex gap-2';
-        group.innerHTML = `
-            <input type="file" name="pdfs[${blockIndex}][]" accept=".pdf" class="flex-1 p-2 border rounded">
-            <input type="text" name="pdf_titles[${blockIndex}][]" placeholder="Titre du PDF" class="flex-1 p-2 border rounded">
-            <button type="button" onclick="removePdf(this)" class="bg-red-500 text-white px-3 py-1 rounded">Supprimer</button>
-        `;
-        wrapper.appendChild(group);
-    }
-
-    function removePdf(button) {
-        button.parentElement.remove();
-    }
-
-    function addVideo(button) {
-        const block = button.closest('.block-container');
-        const wrapper = block.querySelector('.videos-wrapper');
-        const blockIndex = Array.from(document.querySelectorAll('.block-container')).indexOf(block);
-        
-        const group = document.createElement('div');
-        group.className = 'video-group flex gap-2';
-        group.innerHTML = `
-            <input type="url" name="video_links[${blockIndex}][]" placeholder="Lien vidéo YouTube" class="flex-1 p-2 border rounded">
-            <input type="text" name="video_titles[${blockIndex}][]" placeholder="Titre de la vidéo" class="flex-1 p-2 border rounded">
-            <button type="button" onclick="removeVideo(this)" class="bg-red-500 text-white px-3 py-1 rounded">Supprimer</button>
-        `;
-        wrapper.appendChild(group);
-    }
-
-    function removeVideo(button) {
-        button.parentElement.remove();
-    }
-</script>
+    </script>
 @endsection

@@ -107,6 +107,9 @@
     </div>
 @endif
 
+<!-- Section 3.5: Book Slider -->
+@include('components.book-slider')
+
 
 
 <section class="w-full py-32" style="background-color: #DEE7F1;">
