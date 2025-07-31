@@ -12,7 +12,8 @@ class MaterialPdf extends Model
     protected $fillable = [
         'material_block_id',
         'pdf_path',
-        'title'
+        'title',
+        'teacher_id'
     ];
 
     public function materialBlock()
@@ -28,5 +29,10 @@ class MaterialPdf extends Model
     public function downloads()
     {
         return $this->hasMany(PdfDownload::class);
+    }
+
+    public function teacher()
+    {
+        return $this->belongsTo(User::class, 'teacher_id');
     }
 } 

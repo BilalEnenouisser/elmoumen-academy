@@ -1,40 +1,78 @@
 @extends('layouts.admin')
 
+@section('title', 'Gestion des Enseignants')
+
 @section('content')
 <div x-data="{ 
     showDeleteModal: false, 
     teacherToDelete: null,
     teacherName: ''
 }">
-    <h1 class="text-2xl font-bold mb-6">👨‍🏫 Liste des enseignants</h1>
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        <h1 class="text-2xl font-bold">👨‍🏫 Liste des Enseignants</h1>
+        <a href="{{ route('admin.teachers.create') }}" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">
+            ➕ Ajouter un Enseignant
+        </a>
+    </div>
 
-    <a href="{{ route('admin.teachers.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded mb-4 inline-block hover:bg-blue-700 transition-colors">Ajouter enseignant</a>
+    <!-- Mobile Cards View -->
+    <div class="lg:hidden space-y-4">
+        @foreach ($teachers as $teacher)
+            <div class="bg-white rounded-lg shadow p-4">
+                <div class="flex justify-between items-start mb-3">
+                    <div class="flex-1">
+                        <h3 class="font-semibold text-gray-900">{{ $teacher->name }}</h3>
+                        <p class="text-sm text-gray-600">{{ $teacher->email }}</p>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <a href="{{ route('admin.teachers.edit', $teacher) }}" 
+                       class="flex-1 text-center bg-blue-100 text-blue-700 px-3 py-2 rounded text-sm hover:bg-blue-200 transition-colors">
+                        Modifier
+                    </a>
+                    <button 
+                        @click="teacherToDelete = {{ $teacher->id }}; teacherName = '{{ addslashes($teacher->name) }}'; showDeleteModal = true"
+                        class="flex-1 text-center bg-red-100 text-red-700 px-3 py-2 rounded text-sm hover:bg-red-200 transition-colors">
+                        Supprimer
+                    </button>
+                </div>
+            </div>
+        @endforeach
+    </div>
 
-    <table class="w-full bg-white rounded shadow overflow-hidden">
-        <thead class="bg-gray-100">
-            <tr>
-                <th class="p-3 text-left">Nom</th>
-                <th class="p-3 text-left">Email</th>
-                <th class="p-3">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($teachers as $teacher)
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="p-3">{{ $teacher->name }}</td>
-                    <td class="p-3">{{ $teacher->email }}</td>
-                    <td class="p-3 text-center space-x-2">
-                        <a href="{{ route('admin.teachers.edit', $teacher) }}" class="text-blue-600 hover:text-blue-800 transition-colors">Modifier</a>
-                        <button 
-                            @click="teacherToDelete = {{ $teacher->id }}; teacherName = '{{ addslashes($teacher->name) }}'; showDeleteModal = true"
-                            class="text-red-600 hover:text-red-800 transition-colors cursor-pointer">
-                            Supprimer
-                        </button>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <!-- Desktop Table View -->
+    <div class="hidden lg:block">
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <table class="w-full">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="p-4 text-left text-sm font-medium text-gray-900">Nom</th>
+                        <th class="p-4 text-left text-sm font-medium text-gray-900">Email</th>
+                        <th class="p-4 text-center text-sm font-medium text-gray-900">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    @foreach ($teachers as $teacher)
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-4 text-sm text-gray-900">{{ $teacher->name }}</td>
+                            <td class="p-4 text-sm text-gray-600">{{ $teacher->email }}</td>
+                            <td class="p-4 text-center space-x-2">
+                                <a href="{{ route('admin.teachers.edit', $teacher) }}" 
+                                   class="text-blue-600 hover:text-blue-800 transition-colors">
+                                    Modifier
+                                </a>
+                                <button 
+                                    @click="teacherToDelete = {{ $teacher->id }}; teacherName = '{{ addslashes($teacher->name) }}'; showDeleteModal = true"
+                                    class="text-red-600 hover:text-red-800 transition-colors cursor-pointer">
+                                    Supprimer
+                                </button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <!-- Delete Confirmation Modal -->
     <div x-show="showDeleteModal" 
@@ -76,7 +114,7 @@
                 <!-- Modal Content -->
                 <div class="text-center">
                     <h3 class="text-lg font-medium text-gray-900 mb-2">
-                        Confirmer la suppression
+                        Confirmer la Suppression
                     </h3>
                     <p class="text-sm text-gray-500 mb-6">
                         Êtes-vous sûr de vouloir supprimer l'enseignant <span class="font-semibold text-gray-900" x-text="teacherName"></span> ? 

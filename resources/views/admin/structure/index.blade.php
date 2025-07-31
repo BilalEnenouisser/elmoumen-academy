@@ -1,71 +1,93 @@
 @extends('layouts.admin')
 
+@section('title', 'Gestion de la Structure Académique')
+
 @section('content')
-<div class="container mx-auto px-4 py-6">
-    <h1 class="text-2xl font-bold mb-6">Academic Structure Management</h1>
+    <h1 class="text-2xl font-bold mb-6">🏛️ Gestion de la Structure Académique</h1>
 
     <!-- Years Section -->
-    <div class="bg-white rounded-lg shadow p-6 mb-6">
-        <h2 class="text-xl font-semibold mb-4">🎓 Years</h2>
+    <div class="bg-white rounded-lg shadow p-4 lg:p-6 mb-6">
+        <h2 class="text-xl font-semibold mb-4">🎓 Années</h2>
         
-        <form method="POST" action="{{ route('admin.years.store') }}" class="mb-4">
+        <form method="POST" action="{{ route('admin.years.store') }}" class="mb-6">
             @csrf
-            <div class="flex gap-2">
-                <input type="text" name="name" placeholder="Year name" class="border rounded p-2 flex-grow" required>
-                <select name="level_id" class="border rounded p-2" required>
-                    <option value="">Select Level</option>
+            <div class="flex flex-col sm:flex-row gap-3">
+                <input type="text" 
+                       name="name" 
+                       placeholder="Nom de l'année" 
+                       class="border border-gray-300 rounded-md p-3 flex-grow focus:ring-2 focus:ring-green-500 focus:border-green-500" 
+                       required>
+                <select name="level_id" 
+                        class="border border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-green-500 focus:border-green-500" 
+                        required>
+                    <option value="">Sélectionner un Niveau</option>
                     @foreach($levels as $level)
                         <option value="{{ $level->id }}">{{ $level->name }}</option>
                     @endforeach
                 </select>
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Add</button>
+                <button type="submit" class="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition-colors">
+                    ➕ Ajouter
+                </button>
             </div>
         </form>
 
-        <ul class="divide-y">
+        <div class="space-y-2">
             @foreach($years as $year)
-            <li class="py-2 flex justify-between items-center">
-                <span>{{ $year->name }} ({{ $year->level->name }})</span>
-                <form method="POST" action="{{ route('admin.years.destroy', $year) }}">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                <span class="font-medium text-gray-900">{{ $year->name }} ({{ $year->level->name }})</span>
+                <form method="POST" action="{{ route('admin.years.destroy', $year) }}" class="flex-shrink-0">
                     @csrf @method('DELETE')
-                    <button type="submit" class="text-red-600 hover:text-red-800">Delete</button>
+                    <button type="submit" 
+                            class="bg-red-100 text-red-700 px-3 py-1 rounded text-sm hover:bg-red-200 transition-colors"
+                            onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette année ?')">
+                        Supprimer
+                    </button>
                 </form>
-            </li>
+            </div>
             @endforeach
-        </ul>
+        </div>
     </div>
 
     <!-- Fields Section -->
-    <div class="bg-white rounded-lg shadow p-6 mb-6">
-        <h2 class="text-xl font-semibold mb-4">🔬 Fields</h2>
+    <div class="bg-white rounded-lg shadow p-4 lg:p-6 mb-6">
+        <h2 class="text-xl font-semibold mb-4">🔬 Filières</h2>
         
-        <form method="POST" action="{{ route('admin.fields.store') }}" class="mb-4">
+        <form method="POST" action="{{ route('admin.fields.store') }}" class="mb-6">
             @csrf
-            <div class="flex gap-2">
-                <input type="text" name="name" placeholder="Field name" class="border rounded p-2 flex-grow" required>
-                <select name="level_id" class="border rounded p-2" required>
-                    <option value="">Select Level</option>
+            <div class="flex flex-col sm:flex-row gap-3">
+                <input type="text" 
+                       name="name" 
+                       placeholder="Nom de la filière" 
+                       class="border border-gray-300 rounded-md p-3 flex-grow focus:ring-2 focus:ring-green-500 focus:border-green-500" 
+                       required>
+                <select name="level_id" 
+                        class="border border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-green-500 focus:border-green-500" 
+                        required>
+                    <option value="">Sélectionner un Niveau</option>
                     @foreach($levels as $level)
                         <option value="{{ $level->id }}">{{ $level->name }}</option>
                     @endforeach
                 </select>
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Add</button>
+                <button type="submit" class="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition-colors">
+                    ➕ Ajouter
+                </button>
             </div>
         </form>
 
-        <ul class="divide-y">
+        <div class="space-y-2">
             @foreach($fields as $field)
-            <li class="py-2 flex justify-between items-center">
-                <span>{{ $field->name }} ({{ $field->level->name }})</span>
-                <form method="POST" action="{{ route('admin.fields.destroy', $field) }}">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                <span class="font-medium text-gray-900">{{ $field->name }} ({{ $field->level->name }})</span>
+                <form method="POST" action="{{ route('admin.fields.destroy', $field) }}" class="flex-shrink-0">
                     @csrf @method('DELETE')
-                    <button type="submit" class="text-red-600 hover:text-red-800">Delete</button>
+                    <button type="submit" 
+                            class="bg-red-100 text-red-700 px-3 py-1 rounded text-sm hover:bg-red-200 transition-colors"
+                            onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette filière ?')">
+                        Supprimer
+                    </button>
                 </form>
-            </li>
+            </div>
             @endforeach
-        </ul>
+        </div>
     </div>
-
-    
-</div>
 @endsection

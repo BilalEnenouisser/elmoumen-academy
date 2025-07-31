@@ -104,10 +104,11 @@ class AnalyticsService
             ->limit(5)
             ->get();
             
-        $teacherUploadStats = TeacherActivity::where('action', 'upload_pdf')
-            ->with('user')
-            ->selectRaw('user_id, COUNT(*) as upload_count')
-            ->groupBy('user_id')
+        // Get teacher upload stats with teacher names
+        $teacherUploadStats = \App\Models\MaterialPdf::whereNotNull('teacher_id')
+            ->with('teacher')
+            ->selectRaw('teacher_id, COUNT(*) as upload_count')
+            ->groupBy('teacher_id')
             ->orderBy('upload_count', 'desc')
             ->limit(5)
             ->get();

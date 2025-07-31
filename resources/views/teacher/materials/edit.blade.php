@@ -1,70 +1,181 @@
-@extends('layouts.app')
+@extends('layouts.teacher')
+
+@section('title', 'Edit Material')
 
 @section('content')
-<div class="max-w-xl mx-auto py-8 px-4">
-    <h1 class="text-2xl font-bold mb-6">Modifier le Matériel</h1>
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold text-gray-900">Edit Material</h1>
+        <p class="text-gray-600">Add more PDFs and videos to: {{ $material->title }}</p>
+    </div>
 
-    <form action="{{ route('teacher.materials.update', $material) }}" method="POST" enctype="multipart/form-data" class="space-y-4">
-        @csrf
-        @method('PUT')
+    @if(session('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
 
-        <x-input-label for="name" value="Nom du matériel" />
-        <x-text-input name="name" class="w-full" value="{{ old('name', $material->name) }}" required />
+    @if(session('error'))
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            {{ session('error') }}
+        </div>
+    @endif
 
-        <x-input-label for="type" value="Type" />
-        <select name="type" class="w-full rounded border-gray-300">
-            <option value="Cours" {{ $material->type == 'Cours' ? 'selected' : '' }}>Cours</option>
-            <option value="Séries" {{ $material->type == 'Séries' ? 'selected' : '' }}>Séries</option>
-            <option value="Autres" {{ $material->type == 'Autres' ? 'selected' : '' }}>Autres</option>
-        </select>
+    <!-- Current Material Info -->
+    <div class="bg-gray-50 rounded-lg p-4 mb-6">
+        <h3 class="font-semibold text-gray-900 mb-2">Material Information</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <div>
+                <span class="font-medium">Title:</span> {{ $material->title }}
+            </div>
+            <div>
+                <span class="font-medium">Level:</span> {{ $material->level->name }}
+            </div>
+            <div>
+                <span class="font-medium">Year:</span> {{ $material->year->name }}
+            </div>
+            @if($material->field)
+                <div>
+                    <span class="font-medium">Field:</span> {{ $material->field->name }}
+                </div>
+            @endif
+        </div>
+    </div>
 
-        <x-input-label for="level_id" value="Niveau" />
-        <select name="level_id" class="w-full rounded border-gray-300">
-            @foreach($levels as $level)
-                <option value="{{ $level->id }}" {{ $material->level_id == $level->id ? 'selected' : '' }}>
-                    {{ $level->name }}
-                </option>
-            @endforeach
-        </select>
+    <!-- Your Current PDFs -->
+    @if($teacherPdfs->count() > 0)
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Your Current PDFs</h3>
+            <div class="space-y-3">
+                @foreach($teacherPdfs as $pdf)
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded">
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M4 18h12V6l-4-4H4v16z"/>
+                            </svg>
+                            <div>
+                                <div class="font-medium">{{ $pdf->title }}</div>
+                                <div class="text-sm text-gray-500">{{ $pdf->materialBlock->type }} - {{ $pdf->materialBlock->semester }}</div>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <a href="{{ asset('storage/' . $pdf->pdf_path) }}" 
+                               target="_blank" 
+                               class="text-blue-600 hover:text-blue-800 text-sm">
+                                👁️ View
+                            </a>
+                            <form action="{{ route('teacher.materials.pdf.delete', $pdf) }}" 
+                                  method="POST" 
+                                  onsubmit="return confirm('Delete this PDF?')" 
+                                  class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-600 hover:text-red-800 text-sm">
+                                    🗑️ Delete
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
 
-        <x-input-label for="year_id" value="Année (optionnel)" />
-        <select name="year_id" class="w-full rounded border-gray-300">
-            <option value="">---</option>
-            @foreach($years as $year)
-                <option value="{{ $year->id }}" {{ $material->year_id == $year->id ? 'selected' : '' }}>
-                    {{ $year->name }}
-                </option>
-            @endforeach
-        </select>
-
-        <x-input-label for="field_id" value="Filière (optionnel)" />
-        <select name="field_id" class="w-full rounded border-gray-300">
-            <option value="">---</option>
-            @foreach($fields as $field)
-                <option value="{{ $field->id }}" {{ $material->field_id == $field->id ? 'selected' : '' }}>
-                    {{ $field->name }}
-                </option>
-            @endforeach
-        </select>
-
+    <!-- Add New Content Form -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Add New Content</h3>
         
+        <form action="{{ route('teacher.materials.update', $material) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+            @csrf
+            @method('PUT')
 
-        <x-input-label for="pdf_path" value="Nouveau PDF (facultatif)" />
-        <input type="file" name="pdf_path" class="w-full border-gray-300 rounded">
+            <!-- PDF Uploads -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Upload New PDFs
+                </label>
+                <div id="pdf_uploads" class="space-y-3">
+                    <div class="pdf-upload-row flex gap-3">
+                        <input type="file" name="pdfs[]" accept=".pdf" 
+                               class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <input type="text" name="pdf_titles[]" placeholder="PDF Title (optional)" 
+                               class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                </div>
+                <button type="button" onclick="addPdfRow()" 
+                        class="mt-2 text-green-600 hover:text-green-800 text-sm">
+                    ➕ Add another PDF
+                </button>
+            </div>
 
-        @if($material->pdf_path)
-            <p class="text-sm text-gray-500 mt-1">
-                Fichier actuel: <a href="{{ asset('storage/' . $material->pdf_path) }}" target="_blank" class="text-blue-500 underline">Voir PDF</a>
-            </p>
-        @endif
+            <!-- Video Links -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Add Video Links
+                </label>
+                <div id="video_links" class="space-y-3">
+                    <div class="video-link-row flex gap-3">
+                        <input type="url" name="video_links[]" placeholder="Video URL" 
+                               class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <input type="text" name="video_titles[]" placeholder="Video Title (optional)" 
+                               class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                </div>
+                <button type="button" onclick="addVideoRow()" 
+                        class="mt-2 text-green-600 hover:text-green-800 text-sm">
+                    ➕ Add another video
+                </button>
+            </div>
 
-        <x-input-label for="video_url" value="Lien vidéo (facultatif)" />
-        <x-text-input name="video_url" class="w-full" value="{{ old('video_url', $material->video_url) }}" />
+            <!-- Submit Button -->
+            <div class="flex justify-end space-x-3">
+                <a href="{{ route('teacher.materials.index') }}" 
+                   class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                    Cancel
+                </a>
+                <button type="submit" 
+                        class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                    Add Content
+                </button>
+            </div>
+        </form>
+    </div>
 
-        <x-input-label for="thumbnail" value="Thumbnail (URL facultatif)" />
-        <x-text-input name="thumbnail" class="w-full" value="{{ old('thumbnail', $material->thumbnail) }}" />
+    <script>
+        // Add PDF row
+        function addPdfRow() {
+            const container = document.getElementById('pdf_uploads');
+            const newRow = document.createElement('div');
+            newRow.className = 'pdf-upload-row flex gap-3';
+            newRow.innerHTML = `
+                <input type="file" name="pdfs[]" accept=".pdf" 
+                       class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                <input type="text" name="pdf_titles[]" placeholder="PDF Title (optional)" 
+                       class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                <button type="button" onclick="removeRow(this)" 
+                        class="px-2 py-2 text-red-600 hover:text-red-800">🗑️</button>
+            `;
+            container.appendChild(newRow);
+        }
 
-        <x-primary-button class="mt-4">Mettre à jour</x-primary-button>
-    </form>
-</div>
+        // Add video row
+        function addVideoRow() {
+            const container = document.getElementById('video_links');
+            const newRow = document.createElement('div');
+            newRow.className = 'video-link-row flex gap-3';
+            newRow.innerHTML = `
+                <input type="url" name="video_links[]" placeholder="Video URL" 
+                       class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                <input type="text" name="video_titles[]" placeholder="Video Title (optional)" 
+                       class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                <button type="button" onclick="removeRow(this)" 
+                        class="px-2 py-2 text-red-600 hover:text-red-800">🗑️</button>
+            `;
+            container.appendChild(newRow);
+        }
+
+        // Remove row
+        function removeRow(button) {
+            button.parentElement.remove();
+        }
+    </script>
 @endsection

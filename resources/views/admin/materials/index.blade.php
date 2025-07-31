@@ -1,50 +1,123 @@
 @extends('layouts.admin')
 
+@section('title', 'Gestion des Matériels')
+
 @section('content')
 <div x-data="{ 
     showDeleteModal: false, 
     materialToDelete: null,
     materialName: ''
 }">
-    <h1 class="text-2xl font-bold mb-6">📚 Liste des Matériaux</h1>
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        <h1 class="text-2xl font-bold">📚 Liste des Matériels</h1>
+        <a href="{{ route('admin.materials.create') }}" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">
+            ➕ Ajouter un Matériel
+        </a>
+    </div>
 
-    <a href="{{ route('admin.materials.create') }}" class="bg-green-600 text-white px-4 py-2 rounded mb-4 inline-block hover:bg-green-700 transition-colors">➕ Ajouter</a>
+    <!-- Mobile Cards View -->
+    <div class="lg:hidden space-y-4">
+        @foreach ($materials as $material)
+            <div class="bg-white rounded-lg shadow p-4">
+                <div class="mb-3">
+                    <h3 class="font-semibold text-gray-900 mb-1">{{ $material->title }}</h3>
+                    <p class="text-sm text-gray-600">{{ $material->level->name }}</p>
+                    <p class="text-sm text-gray-500">{{ $material->blocks->first()?->type ?? 'N/A' }}</p>
+                </div>
+                
+                <div class="flex gap-2 mb-3">
+                    @php
+                        $totalPdfs = $material->blocks->sum(function($block) { return $block->pdfs->count(); });
+                        $teacherPdfs = $material->blocks->flatMap(function($block) { 
+                            return $block->pdfs->whereNotNull('teacher_id'); 
+                        });
+                    @endphp
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
+                        {{ $totalPdfs }} PDF(s)
+                        @if($teacherPdfs->count() > 0)
+                            <br><span class="text-xs text-gray-600">
+                                {{ $teacherPdfs->count() }} par enseignants
+                            </span>
+                        @endif
+                    </span>
+                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">
+                        {{ $material->blocks->sum(function($block) { return $block->videos->count(); }) }} Vidéo(s)
+                    </span>
+                </div>
+                
+                <div class="flex gap-2">
+                    <a href="{{ route('admin.materials.edit', $material) }}" 
+                       class="flex-1 text-center bg-blue-100 text-blue-700 px-3 py-2 rounded text-sm hover:bg-blue-200 transition-colors">
+                        Modifier
+                    </a>
+                    <button 
+                        @click="materialToDelete = {{ $material->id }}; materialName = '{{ addslashes($material->title) }}'; showDeleteModal = true"
+                        class="flex-1 text-center bg-red-100 text-red-700 px-3 py-2 rounded text-sm hover:bg-red-200 transition-colors">
+                        Supprimer
+                    </button>
+                </div>
+            </div>
+        @endforeach
+    </div>
 
-    <table class="w-full bg-white rounded shadow overflow-hidden text-sm">
-        <thead class="bg-gray-100">
-            <tr>
-                <th class="p-2">Titre</th>
-                <th class="p-2">Niveau</th>
-                <th class="p-2">Type</th>
-                <th class="p-2">PDFs</th>
-                <th class="p-2">Vidéos</th>
-                <th class="p-2">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($materials as $material)
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="p-2">{{ $material->title }}</td>
-                    <td class="p-2">{{ $material->level->name }}</td>
-                    <td class="p-2">{{ $material->blocks->first()?->type ?? 'N/A' }}</td>
-                    <td class="p-2 text-center">
-                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">{{ $material->blocks->sum(function($block) { return $block->pdfs->count(); }) }} PDF(s)</span>
-                    </td>
-                    <td class="p-2 text-center">
-                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">{{ $material->blocks->sum(function($block) { return $block->videos->count(); }) }} Vidéo(s)</span>
-                    </td>
-                    <td class="p-2 space-x-2 text-center">
-                        <a href="{{ route('admin.materials.edit', $material) }}" class="text-blue-600 hover:text-blue-800 transition-colors">Modifier</a>
-                        <button 
-                            @click="materialToDelete = {{ $material->id }}; materialName = '{{ addslashes($material->title) }}'; showDeleteModal = true"
-                            class="text-red-600 hover:text-red-800 transition-colors cursor-pointer">
-                            Supprimer
-                        </button>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <!-- Desktop Table View -->
+    <div class="hidden lg:block">
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <table class="w-full">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="p-4 text-left text-sm font-medium text-gray-900">Titre</th>
+                        <th class="p-4 text-left text-sm font-medium text-gray-900">Niveau</th>
+                        <th class="p-4 text-left text-sm font-medium text-gray-900">Type</th>
+                        <th class="p-4 text-center text-sm font-medium text-gray-900">PDFs</th>
+                        <th class="p-4 text-center text-sm font-medium text-gray-900">Vidéos</th>
+                        <th class="p-4 text-center text-sm font-medium text-gray-900">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    @foreach ($materials as $material)
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-4 text-sm text-gray-900">{{ $material->title }}</td>
+                            <td class="p-4 text-sm text-gray-600">{{ $material->level->name }}</td>
+                            <td class="p-4 text-sm text-gray-600">{{ $material->blocks->first()?->type ?? 'N/A' }}</td>
+                            <td class="p-4 text-center">
+                                @php
+                                    $totalPdfs = $material->blocks->sum(function($block) { return $block->pdfs->count(); });
+                                    $teacherPdfs = $material->blocks->flatMap(function($block) { 
+                                        return $block->pdfs->whereNotNull('teacher_id'); 
+                                    });
+                                @endphp
+                                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
+                                    {{ $totalPdfs }} PDF(s)
+                                    @if($teacherPdfs->count() > 0)
+                                        <br><span class="text-xs text-gray-600">
+                                            {{ $teacherPdfs->count() }} par enseignants
+                                        </span>
+                                    @endif
+                                </span>
+                            </td>
+                            <td class="p-4 text-center">
+                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">
+                                    {{ $material->blocks->sum(function($block) { return $block->videos->count(); }) }} Vidéo(s)
+                                </span>
+                            </td>
+                            <td class="p-4 text-center space-x-2">
+                                <a href="{{ route('admin.materials.edit', $material) }}" 
+                                   class="text-blue-600 hover:text-blue-800 transition-colors">
+                                    Modifier
+                                </a>
+                                <button 
+                                    @click="materialToDelete = {{ $material->id }}; materialName = '{{ addslashes($material->title) }}'; showDeleteModal = true"
+                                    class="text-red-600 hover:text-red-800 transition-colors cursor-pointer">
+                                    Supprimer
+                                </button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <!-- Delete Confirmation Modal -->
     <div x-show="showDeleteModal" 
@@ -86,7 +159,7 @@
                 <!-- Modal Content -->
                 <div class="text-center">
                     <h3 class="text-lg font-medium text-gray-900 mb-2">
-                        Confirmer la suppression
+                        Confirmer la Suppression
                     </h3>
                     <p class="text-sm text-gray-500 mb-6">
                         Êtes-vous sûr de vouloir supprimer le matériel <span class="font-semibold text-gray-900" x-text="materialName"></span> ? 

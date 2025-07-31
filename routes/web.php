@@ -143,12 +143,15 @@ Route::post('track/video-click/{video}', function (Request $request, $video) {
 // ==============================
 
 Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Teacher\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/materials', [TeacherMaterialController::class, 'index'])->name('materials.index');
     Route::get('/materials/create', [TeacherMaterialController::class, 'create'])->name('materials.create');
     Route::post('/materials', [TeacherMaterialController::class, 'store'])->name('materials.store');
     Route::get('/materials/{material}/edit', [TeacherMaterialController::class, 'edit'])->name('materials.edit');
     Route::put('/materials/{material}', [TeacherMaterialController::class, 'update'])->name('materials.update');
     Route::delete('/materials/{material}', [TeacherMaterialController::class, 'destroy'])->name('materials.destroy');
+    Route::delete('/materials/pdf/{pdf}', [TeacherMaterialController::class, 'deletePdf'])->name('materials.pdf.delete');
+    Route::get('/materials/years/{level}', [TeacherMaterialController::class, 'getYearsByLevel'])->name('materials.years.by.level');
 });
 
 // ==============================
@@ -156,6 +159,11 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
 // ==============================
 
 Route::get('/dashboard', function () {
+    if (auth()->user()->hasRole('admin')) {
+        return redirect()->route('admin.dashboard');
+    } elseif (auth()->user()->hasRole('teacher')) {
+        return redirect()->route('teacher.dashboard');
+    }
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
