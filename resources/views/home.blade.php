@@ -88,7 +88,7 @@
     <div class="bg-[#DEE7F1] pt-14   px-6 rounded-lg shadow-sm">
         <!-- Centered Title -->
         <div class="text-center mb-3">
-            <h3 class="text-[#1E3A8A]  text-xl font-normal tracking-wide">Les Annonces</h3>
+            <h3 class="text-gray-600  text-4xl md:text-5xl font-bold text-center mb-16 leading-tight font-[Montserrat]">Les Annonces</h3>
         </div>
         
         <!-- Marquee Content -->
@@ -106,11 +106,6 @@
         </div>
     </div>
 @endif
-
-<!-- Section 3.5: Book Slider -->
-@include('components.book-slider')
-
-
 
 <section class="w-full py-32" style="background-color: #DEE7F1;">
     <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-10 px-4">
@@ -197,6 +192,163 @@
 </section>
 
 
+
+
+
+
+<!-- Section 3: Advice Cards section  - RTL Adjusted -->
+<section class="relative w-full py-20" dir="rtl">
+    <!-- Background image -->
+    <div class="absolute inset-0">
+        <img src="{{ asset('images/bgsec.jpg') }}" alt="Background" class="w-full h-full object-cover object-center" />
+        <div class="absolute inset-0" style="background: rgba(0,7,25,0.72);"></div>
+    </div>
+    <!-- Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-4">
+        <h2 class="text-white text-4xl md:text-5xl font-bold text-center mb-16 leading-tight font-[Montserrat]">
+            نصـــــائــــــح
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-8">
+            <!-- Card 1 -->
+            <div class="backdrop-blur-lg bg-white/10 cursor-pointer rounded-2xl p-6 flex flex-col text-right shadow-lg" onclick="window.location.href='{{ route('videos.category', 'abaa') }}'">
+                <!-- Image -->
+                <div class="relative mb-4">
+                    <img src="{{ asset('images/blog/1.jpeg') }}" alt="مدونة 1" class="w-full h-60 object-cover rounded-xl">
+                    <!-- Tag -->
+                    <div class="absolute bottom-2 right-2 bg-white text-blue-800 px-3 py-1 rounded-lg text-sm font-semibold">آباء</div>
+                </div>
+                <!-- Title -->
+                <h3 class="text-white text-xl font-bold mb-2">فضاء خاص بالآباء</h3>
+                <!-- Description -->
+                <p class="text-blue-100 mb-4 text-sm">
+                    اكتشف استراتيجيات فعالة للتميز في دوراتك عبر الإنترنت والحفاظ على التحفيز.
+                </p>
+                <!-- Button -->
+                <button class="bg-white text-blue-800 px-4 py-2 rounded-lg font-semibold mt-auto flex items-center justify-center transition-colors duration-200 hover:bg-gray-100">
+                    شاهد الفيديوهات
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="backdrop-blur-lg bg-white/10 cursor-pointer rounded-2xl p-6 flex flex-col text-right shadow-lg" onclick="window.location.href='{{ route('videos.category', 'talamid') }}'">
+                <!-- Image -->
+                <div class="relative mb-4">
+                    <img src="{{ asset('images/blog/3.jpg') }}" alt="مدونة 2" class="w-full h-60 object-cover rounded-xl">
+                    <!-- Tag -->
+                    <div class="absolute bottom-2 right-2 bg-white text-blue-800 px-3 py-1 rounded-lg text-sm font-semibold">تلاميذ</div>
+                </div>
+                <!-- Title -->
+                <h3 class="text-white text-xl font-bold mb-2">فضاء خاص بالتلاميذ</h3>
+                <!-- Description -->
+                <p class="text-blue-100 mb-4 text-sm">
+                    زِدْ إنتاجيتك وقدرتك على الاستيعاب باستخدام هذه التقنيات المجربة.
+                </p>
+                <!-- Button -->
+                <button class="bg-white text-blue-800 px-4 py-2 rounded-lg font-semibold mt-auto flex items-center justify-center transition-colors duration-200 hover:bg-gray-100">
+                    شاهد الفيديوهات
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="backdrop-blur-lg bg-white/10 cursor-pointer rounded-2xl p-6 flex flex-col text-right shadow-lg" onclick="window.location.href='{{ route('videos.category', 'ajji') }}'">
+                <!-- Image -->
+                <div class="relative mb-4">
+                    <img src="{{ asset('images/blog/2.jpg') }}" alt="مدونة 3" class="w-full h-60 object-cover rounded-xl">
+                    <!-- Tag -->
+                    <div class="absolute bottom-2 right-2 bg-white text-blue-800 px-3 py-1 rounded-lg text-sm font-semibold">أجي تغير حياتك</div>
+                </div>
+                <!-- Title -->
+                <h3 class="text-white text-xl font-bold mb-2">فضاء خاص بالتلاميذ الذين يريدون تغيير حياتهم</h3>
+                <!-- Description -->
+                <p class="text-blue-100 mb-4 text-sm">
+                    انضم إلى ندوتنا المجانية لتعلم كيفية التحضير والنجاح في اختباراتك.
+                </p>
+                <!-- Button -->
+                <button class="bg-white text-blue-800 px-4 py-2 rounded-lg font-semibold mt-auto flex items-center justify-center transition-colors duration-200 hover:bg-gray-100">
+                    شاهد الفيديوهات
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Section 5: Animated Numbers or Counters -->
+<section class="py-20 px-6 bg-white">
+    <div class="max-w-7xl mx-auto">
+        <div class="bg-[#001226] rounded-2xl p-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Counter 1: Successfully Trained -->
+                <div class="flex items-center">
+                    <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mr-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-3xl md:text-4xl font-bold text-white">3K+</div>
+                        <div class="text-white text-sm">Formés avec succès</div>
+                    </div>
+                </div>
+
+                <!-- Counter 2: Classes Completed -->
+                <div class="flex items-center">
+                    <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mr-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                        </svg>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-3xl md:text-4xl font-bold text-white">15K+</div>
+                        <div class="text-white text-sm">Cours terminés</div>
+                    </div>
+                </div>
+
+                <!-- Counter 3: Satisfaction Rate -->
+                <div class="flex items-center">
+                    <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mr-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-3xl md:text-4xl font-bold text-white">97K+</div>
+                        <div class="text-white text-sm">Taux de satisfaction</div>
+                    </div>
+                </div>
+
+                <!-- Counter 4: Students Community -->
+                <div class="flex items-center">
+                    <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mr-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-3xl md:text-4xl font-bold text-white">102K+</div>
+                        <div class="text-white text-sm">Communauté d'étudiants</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section 3.5: Book Slider -->
+@include('components.book-slider')
+
+<!-- Section 4: Best Coaching -->
+
 <section class="relative w-full py-20">
     <!-- Background image -->
     <div class="absolute inset-0">
@@ -247,15 +399,7 @@
 
 
 
-<!-- Section 5: Animated Numbers or Counters (Optional with JS later) -->
-<section class="py-12 px-6 bg-gray-100 text-center">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-xl font-bold text-blue-700">
-        <div><span>+1000</span><p class="text-sm font-normal text-gray-500">Étudiants</p></div>
-        <div><span>+30</span><p class="text-sm font-normal text-gray-500">Enseignants</p></div>
-        <div><span>100%</span><p class="text-sm font-normal text-gray-500">Succès</p></div>
-        <div><span>24/7</span><p class="text-sm font-normal text-gray-500">Support</p></div>
-    </div>
-</section>
+
 
 <!-- Section 6: Testimonials or Quotes -->
 <!-- FAQ Section with Accordion -->
@@ -300,58 +444,6 @@
 <script src="//unpkg.com/alpinejs" defer></script>
 
 
-<!-- Advice Cards section  - RTL Adjusted -->
-<section class="py-20 bg-[#F8FAFC]" dir="rtl">
-    <div class="max-w-7xl mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-[#0F2239]">نصائح</h2>
-      
-       
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Card 1 -->
-            <div class="bg-white rounded-2xl shadow p-6 flex flex-col text-right cursor-pointer hover:shadow-lg transition-shadow" onclick="window.location.href='{{ route('videos.category', 'abaa') }}'">
-                <img src="{{ asset('images/blog/1.jpeg') }}" alt="مدونة 1" class="rounded-xl mb-4 h-40 w-full object-cover">
-                <span class="text-sm text-blue-700 font-semibold mb-2">آباء</span>
-                <h3 class="text-xl font-bold mb-2">فضاء خاص بالآباء</h3>
-                <p class="text-gray-600 mb-4">اكتشف استراتيجيات فعالة للتميز في دوراتك عبر الإنترنت والحفاظ على التحفيز.</p>
-                <span class="text-blue-700 font-semibold hover:underline mt-auto flex items-center justify-end">
-                    شاهد الفيديوهات 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                </span>
-            </div>
-            
-            <!-- Card 2 -->
-            <div class="bg-white rounded-2xl shadow p-6 flex flex-col text-right cursor-pointer hover:shadow-lg transition-shadow" onclick="window.location.href='{{ route('videos.category', 'talamid') }}'">
-                <img src="{{ asset('images/blog/3.jpg') }}" alt="مدونة 2" class="rounded-xl mb-4 h-40 w-full object-cover">
-                <span class="text-sm text-blue-700 font-semibold mb-2">تلاميذ</span>
-                <h3 class="text-xl font-bold mb-2">فضاء خاص بالتلاميذ</h3>
-                <p class="text-gray-600 mb-4">زِدْ إنتاجيتك وقدرتك على الاستيعاب باستخدام هذه التقنيات المجربة.</p>
-                <span class="text-blue-700 font-semibold hover:underline mt-auto flex items-center justify-end">
-                    شاهد الفيديوهات 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                </span>
-            </div>
-            
-            <!-- Card 3 -->
-            <div class="bg-white rounded-2xl shadow p-6 flex flex-col text-right cursor-pointer hover:shadow-lg transition-shadow" onclick="window.location.href='{{ route('videos.category', 'ajji') }}'">
-                <img src="{{ asset('images/blog/2.jpg') }}" alt="مدونة 3" class="rounded-xl mb-4 h-40 w-full object-cover">
-                <span class="text-sm text-blue-700 font-semibold mb-2">أجي تغير حياتك</span>
-                <h3 class="text-xl font-bold mb-2">فضاء خاص بالتلاميذ الذين يريدون تغيير حياتهم</h3>
-                <p class="text-gray-600 mb-4">انضم إلى ندوتنا المجانية لتعلم كيفية التحضير والنجاح في اختباراتك.</p>
-                <span class="text-blue-700 font-semibold hover:underline mt-auto flex items-center justify-end">
-                    شاهد الفيديوهات 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                </span>
-            </div>
-        </div>
-    </div>
-</section>
-
 
 <!-- Section 7: Call to Action -->
 <section class="py-12 px-6 bg-blue-50 text-center">
@@ -360,23 +452,7 @@
     <a href="/contact" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Contactez-nous</a>
 </section>
 
-<!-- Section 8: 3 Cards (Mothers, Parents, Students) -->
-<h2 class="text-xl font-bold my-4">Nos vidéos</h2>
-
-@foreach(['mothers', 'parents', 'students'] as $category)
-    <h3 class="text-lg   mt-4 mb-2 capitalize">{{ $category }}</h3>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        @foreach(\App\Models\Video::where('category', $category)->latest()->take(3)->get() as $video)
-            <div class="border p-3 rounded shadow">
-                <img src="{{ $video->thumbnail }}" class="w-full h-40 object-cover rounded mb-2">
-                <h4 class="font-bold">{{ $video->title }}</h4>
-                <a href="{{ $video->video_url }}" target="_blank" class="text-blue-500 block mt-2">Voir 🎬</a>
-            </div>
-        @endforeach
-    </div>
-@endforeach
-
+<
 
 <!-- Contact Section -->
 <section id="contact" class="py-16 bg-white">
