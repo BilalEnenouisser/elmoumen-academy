@@ -1,16 +1,132 @@
 @extends('layouts.app')
 
 @section('content')
-<section class="px-6 py-12 bg-white">
-    <h1 class="text-2xl font-bold text-center mb-8">Niveaux - Lycée</h1>
+<!-- Hero Section -->
+<section class="bg-gradient-to-br from-purple-900 via-purple-800 to-purple-700 text-white py-20">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                Niveaux Lycée
+            </h1>
+            <p class="text-xl md:text-2xl text-purple-100 mb-8 max-w-3xl mx-auto">
+                Formation spécialisée pour préparer l'enseignement supérieur
+            </p>
+            <div class="w-24 h-1 bg-purple-400 mx-auto rounded-full"></div>
+        </div>
+    </div>
+</section>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        @foreach (['1ère année', '2ème année', '3ème année'] as $index => $year)
-            <a href="{{ url('/courses/lycee/year/' . ($index + 1)) }}" class="block bg-gray-100 rounded shadow p-4 text-center hover:shadow-md transition">
-                <img src="https://placehold.co/400x200?text={{ urlencode($year) }}" alt="{{ $year }}" class="rounded mb-4">
-                <h3 class="text-lg font-semibold">{{ $year }}</h3>
-            </a>
-        @endforeach
+<!-- Years Section -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Choisissez Votre Année
+            </h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                Sélectionnez l'année scolaire correspondant au niveau de votre enfant
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            @foreach (['1ère année', '2ème année', '3ème année'] as $index => $year)
+                <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
+                    <div class="relative">
+                        <div class="h-48 bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <div class="text-6xl font-bold mb-2">{{ $index + 1 }}</div>
+                                <div class="text-xl font-medium">Année</div>
+                            </div>
+                        </div>
+                        <div class="absolute top-4 right-4">
+                            <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm font-medium">
+                                Lycée
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">{{ $year }}</h3>
+                        <p class="text-gray-600 mb-6">
+                            Programme spécialisé pour les étudiants de {{ $year }} du lycée
+                        </p>
+                        
+                        <div class="space-y-3 mb-6">
+                            <div class="flex items-center text-sm text-gray-500">
+                                <svg class="w-4 h-4 mr-2 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                Filières spécialisées
+                            </div>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <svg class="w-4 h-4 mr-2 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                Préparation au bac
+                            </div>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <svg class="w-4 h-4 mr-2 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                Orientation universitaire
+                            </div>
+                        </div>
+                        
+                        <a href="{{ url('/courses/lycee/year/' . ($index + 1)) }}" 
+                           class="block w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white text-center py-3 px-6 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105">
+                            Voir les matières
+                        </a>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Pourquoi Choisir Notre Lycée ?
+            </h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                Une formation d'excellence pour préparer l'enseignement supérieur
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Filières Spécialisées</h3>
+                <p class="text-gray-600">Formation adaptée selon les filières choisies</p>
+            </div>
+
+            <div class="text-center">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Préparation au Bac</h3>
+                <p class="text-gray-600">Entraînement intensif pour réussir l'examen du baccalauréat</p>
+            </div>
+
+            <div class="text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Orientation Universitaire</h3>
+                <p class="text-gray-600">Guidance pour choisir les études supérieures</p>
+            </div>
+        </div>
     </div>
 </section>
 @endsection

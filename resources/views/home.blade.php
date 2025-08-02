@@ -18,12 +18,12 @@
         <!-- Left: Text -->
         <div class="w-full md:w-1/2 max-w-lg text-center md:text-left text-white mb-12 md:mb-0">
             <h1 class="text-4xl sm:text-5xl font-normal	leading-[1.3] mb-6">
-                <span class="text-cyan-400">Transforming</span> Lives<br>
-                Through Online<br>
-                Education.
+                <span class="text-cyan-400">Transformer</span> les Vies<br>
+                Par l'Éducation<br>
+                En Ligne.
             </h1>
-            <p class="mb-8 text-base sm:text-sm text-gray-200">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit <br>tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
-            <a href="#" class="inline-block bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white px-6 py-3 sm:px-8 sm:py-3 rounded-full   shadow-lg transition">Learn More</a>
+            <p class="mb-8 text-base sm:text-sm text-gray-200">Rejoignez Elmoumen Academy pour une éducation d'excellence adaptée à tous les niveaux : Primaire, Collège, Lycée et Concours.</p>
+            <a href="#" class="inline-block bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white px-6 py-3 sm:px-8 sm:py-3 rounded-full   shadow-lg transition">En Savoir Plus</a>
         </div>
 
         <!-- Right: Play Button - centered on mobile -->
@@ -88,7 +88,7 @@
     <div class="bg-[#DEE7F1] pt-14   px-6 rounded-lg shadow-sm">
         <!-- Centered Title -->
         <div class="text-center mb-3">
-            <h3 class="text-gray-600  text-4xl md:text-5xl font-bold text-center mb-16 leading-tight font-[Montserrat]">Les Annonces</h3>
+            <h3 class="text-gray-800 text-2xl md:text-3xl text-center mb-16 leading-tight font-[Montserrat]">Les Annonces</h3>
         </div>
         
         <!-- Marquee Content -->
@@ -112,31 +112,31 @@
         <!-- Left: Image and Info -->
         <div class="flex-1 flex flex-col">
             <div class="rounded-2xl overflow-hidden mb-6">
-                <img src="{{ asset('images/about-us.jpg') }}" alt="About Us" class="w-full h-64 md:h-80 object-cover" />
+                <img src="{{ asset('images/about-us.jpg') }}" alt="À Propos" class="w-full h-64 md:h-80 object-cover" />
             </div>
-            <h2 class="text-3xl md:text-4xl font-normal  mb-2 text-gray-800 font-[Montserrat]">Empowering Growth Through</h2>
+            <h2 class="text-3xl md:text-4xl font-normal  mb-2 text-gray-800 font-[Montserrat]">Développer l'Excellence</h2>
             <p class="text-gray-600 mb-6">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+                Elmoumen Academy s'engage à fournir une éducation de qualité supérieure avec des professeurs expérimentés et des méthodes d'apprentissage innovantes.
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
                 <div class="flex-1 flex flex-col items-center border-r border-gray-300 last:border-none">
-                    <span class="text-3xl font-bold text-gray-800">24</span>
-                    <span class="text-gray-500">Company</span>
+                    <span class="text-3xl font-bold text-gray-800">5+</span>
+                    <span class="text-gray-500">Années d'Expérience</span>
                 </div>
                 <div class="flex-1 flex flex-col items-center border-r border-gray-300 last:border-none">
-                    <span class="text-3xl font-bold text-gray-800">75+</span>
-                    <span class="text-gray-500">Team</span>
+                    <span class="text-3xl font-bold text-gray-800">50+</span>
+                    <span class="text-gray-500">Professeurs Qualifiés</span>
                 </div>
                 <div class="flex-1 flex flex-col items-center">
-                    <span class="text-3xl font-bold text-gray-800">24</span>
-                    <span class="text-gray-500">Experience</span>
+                    <span class="text-3xl font-bold text-gray-800">1000+</span>
+                    <span class="text-gray-500">Étudiants Satisfaits</span>
                 </div>
             </div>
         </div>
         <!-- Right: Vision, Mission, Social -->
         <div class="flex-1 flex flex-col justify-center">
             <h2 class="text-4xl md:text-5xl font-normal mb-8 text-gray-800 font-[Montserrat] leading-tight">
-                Empowering Growth<br>Through Online Learning
+                Développer l'Excellence<br>Par l'Apprentissage en Ligne
             </h2>
             <div class="space-y-6 mb-8">
                 <div class="flex items-center bg-white rounded-2xl shadow-md p-6 gap-6">
@@ -147,8 +147,8 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-2xl   text-gray-800 mb-1">EduByte Vision</h3>
-                        <p class="text-gray-600 text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+                        <h3 class="text-2xl   text-gray-800 mb-1">Notre Vision</h3>
+                        <p class="text-gray-600 text-base">Devenir la référence en matière d'éducation en ligne au Maroc, en offrant des programmes d'excellence accessibles à tous.</p>
                     </div>
                 </div>
                 <div class="flex items-center bg-white rounded-2xl shadow-md p-6 gap-6">
@@ -159,14 +159,14 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-2xl   text-gray-800 mb-1">EduByte Mission</h3>
-                        <p class="text-gray-600 text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+                        <h3 class="text-2xl   text-gray-800 mb-1">Notre Mission</h3>
+                        <p class="text-gray-600 text-base">Former les leaders de demain en offrant une éducation de qualité adaptée aux besoins de chaque étudiant.</p>
                     </div>
                 </div>
             </div>
             <hr class="mb-4 border-gray-300">
             <div class="flex items-center justify-between">
-                <span class="text-lg text-gray-700 font-medium">Social Media :</span>
+                <span class="text-lg text-gray-700 font-medium">Réseaux Sociaux :</span>
                 <div class="flex gap-4">
                     <a href="#" class="bg-[#0F2239] text-white rounded-full p-2 hover:bg-blue-700 transition">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.59-2.47.7a4.3 4.3 0 0 0 1.88-2.37 8.59 8.59 0 0 1-2.72 1.04A4.28 4.28 0 0 0 16.11 4c-2.37 0-4.29 1.92-4.29 4.29 0 .34.04.67.11.99C7.69 9.13 4.07 7.38 1.64 4.7c-.37.64-.58 1.39-.58 2.19 0 1.51.77 2.84 1.95 3.62-.72-.02-1.4-.22-1.99-.55v.06c0 2.11 1.5 3.87 3.5 4.27-.36.1-.74.16-1.13.16-.28 0-.54-.03-.8-.08.54 1.68 2.11 2.9 3.97 2.93A8.6 8.6 0 0 1 2 19.54a12.13 12.13 0 0 0 6.56 1.92c7.88 0 12.2-6.53 12.2-12.2 0-.19 0-.37-.01-.56A8.7 8.7 0 0 0 24 4.59a8.5 8.5 0 0 1-2.54.7z"/></svg>
@@ -183,11 +183,11 @@
     </div>
 </section>
 
-<section class="py-12 px-6 bg-white">
-    <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-2xl font-bold mb-4">Pourquoi Elmoumen Academy ?</h2>
+<section class="py-32 px-6 bg-white">
+    <div class="max-w-4xl  mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-4 font-[Montserrat]">Pourquoi Elmoumen Academy ?</h2>
         <p class="text-gray-600 mb-6">Nous fournissons une éducation de haute qualité avec des professeurs certifiés et une approche interactive de l’apprentissage.</p>
-        <img src="https://placehold.co/600x300" class="mx-auto rounded shadow" alt="Academy Presentation">
+        <img src="{{ asset('images/about-us.jpg') }}" class="mx-auto rounded shadow" alt="Academy Presentation">
     </div>
 </section>
 
@@ -284,58 +284,58 @@
 
 
 <!-- Section 5: Animated Numbers or Counters -->
-<section class="py-20 px-6 bg-white">
+<section class="py-32 px-6 bg-white">
     <div class="max-w-7xl mx-auto">
-        <div class="bg-[#001226] rounded-2xl p-12">
+        <div class="bg-[#001226] rounded-2xl p-12 backdrop-blur-lg">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Counter 1: Successfully Trained -->
                 <div class="flex items-center">
-                    <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mr-4">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mr-4">
+                        <svg class="w-8 h-8" style="color: #001226;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                         </svg>
                     </div>
                     <div class="text-left">
-                        <div class="text-3xl md:text-4xl font-bold text-white">3K+</div>
+                        <div class="text-3xl md:text-4xl font-bold text-white" x-data="{ count: 0, target: 3000 }" x-init="() => { const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { const increment = target / 100; const timer = setInterval(() => { if (count < target) { count += increment; } else { count = target; clearInterval(timer); } }, 20); observer.unobserve(entry.target); } }); }); observer.observe($el); }" x-text="Math.floor(count) + '+'"></div>
                         <div class="text-white text-sm">Formés avec succès</div>
                     </div>
                 </div>
 
                 <!-- Counter 2: Classes Completed -->
                 <div class="flex items-center">
-                    <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mr-4">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mr-4">
+                        <svg class="w-8 h-8" style="color: #001226;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
                         </svg>
                     </div>
                     <div class="text-left">
-                        <div class="text-3xl md:text-4xl font-bold text-white">15K+</div>
+                        <div class="text-3xl md:text-4xl font-bold text-white" x-data="{ count: 0, target: 15000 }" x-init="() => { const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { const increment = target / 100; const timer = setInterval(() => { if (count < target) { count += increment; } else { count = target; clearInterval(timer); } }, 20); observer.unobserve(entry.target); } }); }); observer.observe($el); }" x-text="Math.floor(count) + '+'"></div>
                         <div class="text-white text-sm">Cours terminés</div>
                     </div>
                 </div>
 
                 <!-- Counter 3: Satisfaction Rate -->
                 <div class="flex items-center">
-                    <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mr-4">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mr-4">
+                        <svg class="w-8 h-8" style="color: #001226;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
                     <div class="text-left">
-                        <div class="text-3xl md:text-4xl font-bold text-white">97K+</div>
+                        <div class="text-3xl md:text-4xl font-bold text-white" x-data="{ count: 0, target: 97000 }" x-init="() => { const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { const increment = target / 100; const timer = setInterval(() => { if (count < target) { count += increment; } else { count = target; clearInterval(timer); } }, 20); observer.unobserve(entry.target); } }); }); observer.observe($el); }" x-text="Math.floor(count) + '+'"></div>
                         <div class="text-white text-sm">Taux de satisfaction</div>
                     </div>
                 </div>
 
                 <!-- Counter 4: Students Community -->
                 <div class="flex items-center">
-                    <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mr-4">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mr-4">
+                        <svg class="w-8 h-8" style="color: #001226;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                         </svg>
                     </div>
                     <div class="text-left">
-                        <div class="text-3xl md:text-4xl font-bold text-white">102K+</div>
+                        <div class="text-3xl md:text-4xl font-bold text-white" x-data="{ count: 0, target: 102000 }" x-init="() => { const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { const increment = target / 100; const timer = setInterval(() => { if (count < target) { count += increment; } else { count = target; clearInterval(timer); } }, 20); observer.unobserve(entry.target); } }); }); observer.observe($el); }" x-text="Math.floor(count) + '+'"></div>
                         <div class="text-white text-sm">Communauté d'étudiants</div>
                     </div>
                 </div>
@@ -350,7 +350,6 @@
 <!-- Section 4: Best Coaching -->
 
 <section class="relative w-full py-20">
-    <!-- Background image -->
     <div class="absolute inset-0">
         <img src="{{ asset('images/bgsec.jpg') }}" alt="Background" class="w-full h-full object-cover object-center" />
         <div class="absolute inset-0" style="background: rgba(0,7,25,0.72);"></div>
@@ -358,7 +357,7 @@
     <!-- Content -->
     <div class="relative z-10 max-w-7xl mx-auto px-4">
         <h2 class="text-white text-4xl md:text-5xl font-bold text-center mb-16 leading-tight font-[Montserrat]">
-            Check Out Educate Features<br>Win Any Exam
+            Découvrez Nos Fonctionnalités<br>Réussissez Tous Vos Examens
         </h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             @for ($i = 0; $i < 4; $i++)
@@ -376,14 +375,14 @@
                     </svg>
                 </div>
                 <!-- Title -->
-                <h3 class="text-white text-2xl font-bold mb-3 text-center">Best Coaching</h3>
+                <h3 class="text-white text-2xl font-bold mb-3 text-center">Meilleur Coaching</h3>
                 <!-- Description -->
                 <p class="text-white text-opacity-80 text-center mb-8">
-                    In pellentesque massa vida placerat duis. Cursus sit amet dictum sit amet.
+                    Des professeurs expérimentés vous accompagnent dans votre parcours d'apprentissage avec des méthodes pédagogiques innovantes.
                 </p>
                 <!-- Button -->
                 <a href="#" class="flex items-center gap-2 bg-[#0F2239] text-white px-6 py-3 rounded-full font-medium shadow hover:bg-[#1a335c] transition">
-                    View Details
+                    Voir les Détails
                     <span class="bg-white text-[#0F2239] rounded-full p-1 ml-2">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
@@ -402,99 +401,376 @@
 
 
 <!-- Section 6: Testimonials or Quotes -->
-<!-- FAQ Section with Accordion -->
-<section class="py-20 bg-[#DEE7F1]">
-    <div class="max-w-4xl mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-[#0F2239]">Frequently Asked Questions</h2>
-        <div class="space-y-6" x-data="{ open: 0 }">
-            <div class="bg-white rounded-xl shadow p-6 cursor-pointer" @click="open === 1 ? open = 0 : open = 1">
-                <h3 class="font-semibold text-lg mb-2 flex items-center justify-between">
-                    How do I register?
-                    <span x-show="open !== 1">+</span>
-                    <span x-show="open === 1">-</span>
-                </h3>
-                <div x-show="open === 1" class="text-gray-600 mt-2" x-transition>
-                    Click the "Get Started" button and fill out the registration form to join our academy.
+<!-- FAQ Section -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Questions Fréquentes</h2>
+            <p class="text-gray-600 text-lg">Trouvez rapidement des réponses à vos questions</p>
+        </div>
+        
+        <div class="space-y-4">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                <button class="flex items-center justify-between w-full p-6 text-left" onclick="toggleContactFAQ(1)">
+                    <span class="font-medium text-gray-900">Comment puis-je m'inscrire aux cours ?</span>
+                    <svg class="w-5 h-5 text-gray-500 transform transition-transform" id="faq-icon-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div id="faq-content-contact-1" class="hidden px-6 pb-6">
+                    <p class="text-gray-600">Vous pouvez vous inscrire directement sur notre site web en créant un compte, ou nous contacter par téléphone ou WhatsApp pour un accompagnement personnalisé.</p>
                 </div>
             </div>
-            <div class="bg-white rounded-xl shadow p-6 cursor-pointer" @click="open === 2 ? open = 0 : open = 2">
-                <h3 class="font-semibold text-lg mb-2 flex items-center justify-between">
-                    Are the courses free?
-                    <span x-show="open !== 2">+</span>
-                    <span x-show="open === 2">-</span>
-                </h3>
-                <div x-show="open === 2" class="text-gray-600 mt-2" x-transition>
-                    We offer both free and premium courses. Check the course details for more information.
+            
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                <button class="flex items-center justify-between w-full p-6 text-left" onclick="toggleContactFAQ(2)">
+                    <span class="font-medium text-gray-900">Quels sont les moyens de paiement acceptés ?</span>
+                    <svg class="w-5 h-5 text-gray-500 transform transition-transform" id="faq-icon-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div id="faq-content-contact-2" class="hidden px-6 pb-6">
+                    <p class="text-gray-600">Nous acceptons les paiements en espèces, par virement bancaire, et via les services de paiement mobile comme PayPal et les portefeuilles électroniques locaux.</p>
                 </div>
             </div>
-            <div class="bg-white rounded-xl shadow p-6 cursor-pointer" @click="open === 3 ? open = 0 : open = 3">
-                <h3 class="font-semibold text-lg mb-2 flex items-center justify-between">
-                    Can I contact the teachers?
-                    <span x-show="open !== 3">+</span>
-                    <span x-show="open === 3">-</span>
-                </h3>
-                <div x-show="open === 3" class="text-gray-600 mt-2" x-transition>
-                    Yes, you can message teachers directly through your dashboard after registering.
+            
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                <button class="flex items-center justify-between w-full p-6 text-left" onclick="toggleContactFAQ(3)">
+                    <span class="font-medium text-gray-900">Y a-t-il des cours gratuits disponibles ?</span>
+                    <svg class="w-5 h-5 text-gray-500 transform transition-transform" id="faq-icon-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div id="faq-content-contact-3" class="hidden px-6 pb-6">
+                    <p class="text-gray-600">Oui, nous proposons des cours d'essai gratuits et certaines ressources éducatives gratuites. Contactez-nous pour plus d'informations sur nos offres gratuites.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<script>
+function toggleContactFAQ(id) {
+    const content = document.getElementById(`faq-content-contact-${id}`);
+    const icon = document.getElementById(`faq-icon-${id}`);
+    
+    // Close all other FAQ items
+    document.querySelectorAll('[id^="faq-content-contact-"]').forEach(item => {
+        if (item.id !== `faq-content-contact-${id}`) {
+            item.classList.add('hidden');
+            const otherIcon = document.getElementById(`faq-icon-${item.id.split('-').pop()}`);
+            if (otherIcon) {
+                otherIcon.style.transform = 'rotate(0deg)';
+            }
+        }
+    });
+    
+    // Toggle current item
+    if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+    } else {
+        content.classList.add('hidden');
+        icon.style.transform = 'rotate(0deg)';
+    }
+}
+</script>
+
 <!-- Alpine.js CDN (if not already included) -->
 <script src="//unpkg.com/alpinejs" defer></script>
 
+<!-- Flowbite JavaScript for Accordion -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 
 
-<!-- Section 7: Call to Action -->
-<section class="py-12 px-6 bg-blue-50 text-center">
-    <h2 class="text-2xl font-bold mb-4">Rejoignez notre communauté</h2>
-    <p class="mb-6 text-gray-600">Inscrivez-vous dès maintenant pour accéder aux ressources pédagogiques.</p>
-    <a href="/contact" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Contactez-nous</a>
-</section>
 
-<
 
-<!-- Contact Section -->
-<section id="contact" class="py-16 bg-white">
-    <div class="max-w-6xl mx-auto px-6">
-        <div class="bg-blue-600 rounded-xl shadow-xl overflow-hidden">
-            <div class="md:flex">
-                <div class="md:w-1/2 p-8 md:p-12 text-white">
-                    <h2 class="text-3xl font-bold mb-4">Prêt à commencer ?</h2>
-                    <p class="mb-6">Contactez-nous pour plus d'informations sur nos programmes.</p>
-                    <div class="space-y-4">
-                        <div class="flex items-center">
-                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                            </svg>
-                            +212 600 000 000
+
+<!-- Section 4.5: Testimonials Slider -->
+<section class="relative w-full py-20">
+    <!-- Background image -->
+    <div class="absolute inset-0">
+        <img src="{{ asset('images/bgsec.jpg') }}" alt="Background" class="w-full h-full object-cover object-center" />
+        <div class="absolute inset-0" style="background: rgba(0,7,25,0.72);"></div>
+    </div>
+    <!-- Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-4">
+        <h2 class="text-white text-4xl md:text-5xl font-bold text-center mb-16 leading-tight font-[Montserrat]">
+            Créer une Communauté<br>d'Apprenants à Vie
+        </h2>
+        
+        <!-- Testimonials Slider -->
+        <div class="relative" x-data="{ currentSlide: 0 }">
+            <!-- Slider Container -->
+            <div class="overflow-hidden">
+                <div class="flex transition-transform duration-500 ease-in-out" 
+                     :style="`transform: translateX(-${currentSlide * (window.innerWidth < 768 ? 100 : 33.333)}%)`">
+                    
+                    <!-- Testimonial 1 -->
+                    <div class="w-full md:w-1/3 flex-shrink-0 px-4">
+                        <div class="backdrop-blur-lg bg-white/10 rounded-2xl p-6 relative shadow-lg h-full">
+                            <!-- Decorative Line -->
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-r-full"></div>
+                            <!-- Content -->
+                            <div class="pt-4">
+                                <p class="text-white text-opacity-90 mb-6 leading-relaxed text-base">
+                                    "Elmoumen Academy a transformé mon approche de l'apprentissage. Les professeurs sont excellents et le contenu est très bien structuré."
+                                </p>
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full flex items-center justify-center mr-3">
+                                        <span class="text-white font-bold text-sm">A</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold text-base">Ahmed Benali</h4>
+                                        <p class="text-cyan-400 text-xs">Étudiant en Terminale</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center">
-                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                            </svg>
-                            contact@elmoumen-academy.ma
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="w-full md:w-1/3 flex-shrink-0 px-4">
+                        <div class="backdrop-blur-lg bg-white/10 rounded-2xl p-6 relative shadow-lg h-full">
+                            <!-- Decorative Line -->
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-r-full"></div>
+                            <!-- Content -->
+                            <div class="pt-4">
+                                <p class="text-white text-opacity-90 mb-6 leading-relaxed text-base">
+                                    "Grâce à Elmoumen Academy, j'ai pu améliorer mes résultats scolaires de manière significative. Je recommande vivement !"
+                                </p>
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full flex items-center justify-center mr-3">
+                                        <span class="text-white font-bold text-sm">F</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold text-base">Fatima Zahra</h4>
+                                        <p class="text-cyan-400 text-xs">Étudiante en Collège</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="w-full md:w-1/3 flex-shrink-0 px-4">
+                        <div class="backdrop-blur-lg bg-white/10 rounded-2xl p-6 relative shadow-lg h-full">
+                            <!-- Decorative Line -->
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-r-full"></div>
+                            <!-- Content -->
+                            <div class="pt-4">
+                                <p class="text-white text-opacity-90 mb-6 leading-relaxed text-base">
+                                    "Les cours sont très bien organisés et les professeurs sont toujours disponibles pour répondre à nos questions."
+                                </p>
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full flex items-center justify-center mr-3">
+                                        <span class="text-white font-bold text-sm">M</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold text-base">Mohammed Alami</h4>
+                                        <p class="text-cyan-400 text-xs">Étudiant en Primaire</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 4 -->
+                    <div class="w-full md:w-1/3 flex-shrink-0 px-4">
+                        <div class="backdrop-blur-lg bg-white/10 rounded-2xl p-6 relative shadow-lg h-full">
+                            <!-- Decorative Line -->
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-r-full"></div>
+                            <!-- Content -->
+                            <div class="pt-4">
+                                <p class="text-white text-opacity-90 mb-6 leading-relaxed text-base">
+                                    "Excellente plateforme pour préparer les concours. Le contenu est riche et les exercices sont très pertinents."
+                                </p>
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full flex items-center justify-center mr-3">
+                                        <span class="text-white font-bold text-sm">S</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold text-base">Sara Bennani</h4>
+                                        <p class="text-cyan-400 text-xs">Candidat Concours</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 5 -->
+                    <div class="w-full md:w-1/3 flex-shrink-0 px-4">
+                        <div class="backdrop-blur-lg bg-white/10 rounded-2xl p-6 relative shadow-lg h-full">
+                            <!-- Decorative Line -->
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-r-full"></div>
+                            <!-- Content -->
+                            <div class="pt-4">
+                                <p class="text-white text-opacity-90 mb-6 leading-relaxed text-base">
+                                    "Ma fille a fait d'énormes progrès depuis qu'elle suit les cours d'Elmoumen Academy. Je suis très satisfaite."
+                                </p>
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full flex items-center justify-center mr-3">
+                                        <span class="text-white font-bold text-sm">N</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold text-base">Nadia Tazi</h4>
+                                        <p class="text-cyan-400 text-xs">Parent d'Élève</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 6 -->
+                    <div class="w-full md:w-1/3 flex-shrink-0 px-4">
+                        <div class="backdrop-blur-lg bg-white/10 rounded-2xl p-6 relative shadow-lg h-full">
+                            <!-- Decorative Line -->
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-r-full"></div>
+                            <!-- Content -->
+                            <div class="pt-4">
+                                <p class="text-white text-opacity-90 mb-6 leading-relaxed text-base">
+                                    "Interface intuitive et contenu de qualité. Elmoumen Academy est vraiment une référence en matière d'éducation en ligne."
+                                </p>
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full flex items-center justify-center mr-3">
+                                        <span class="text-white font-bold text-sm">Y</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold text-base">Youssef Idrissi</h4>
+                                        <p class="text-cyan-400 text-xs">Étudiant en Lycée</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="md:w-1/2 bg-white p-8 md:p-12">
-                    <form class="space-y-4">
-                        <div>
-                            <label class="block text-gray-700 mb-1">Nom complet</label>
-                            <input type="text" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            </div>
+
+            <!-- Navigation Arrows -->
+            <button @click="currentSlide = currentSlide === 0 ? (window.innerWidth < 768 ? 5 : 1) : currentSlide - 1" 
+                    class="absolute -left-12 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white rounded-full p-3 transition-all duration-300 backdrop-blur-sm">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+            </button>
+            
+            <button @click="currentSlide = currentSlide === (window.innerWidth < 768 ? 5 : 1) ? 0 : currentSlide + 1" 
+                    class="absolute -right-12 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white rounded-full p-3 transition-all duration-300 backdrop-blur-sm">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </button>
+
+            <!-- Dots Indicator -->
+            <div class="flex justify-center mt-8 space-x-3">
+                <template x-for="i in (window.innerWidth < 768 ? 6 : 2)" :key="i">
+                    <button @click="currentSlide = i - 1" 
+                            :class="currentSlide === (i - 1) ? 'bg-cyan-400' : 'bg-white/30'" 
+                            class="w-3 h-3 rounded-full transition-all duration-300"></button>
+                </template>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Map and Info Section -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+        <!-- Section Title and Description -->
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 font-[Montserrat]">Localisation et Informations</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Découvrez où nous nous trouvons et comment nous contacter. Notre équipe est disponible pour répondre à toutes vos questions.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <!-- Map Column -->
+            <div class="order-2 lg:order-1">
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden h-full">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d980.1277641196476!2d-6.765718982304768!3d34.066770846356235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda76902afb2fff9%3A0xd4a7ae12def833da!2scentre%20el%20moumen!5e1!3m2!1sar!2sma!4v1754102221617!5m2!1sar!2sma" class="w-full h-full" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                        <div class="text-center text-gray-500">
+                            <svg class="w-16 h-16 mx-auto mb-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                            </svg>
+                            <p class="text-lg font-semibold">Carte Interactive</p>
+                            <p class="text-sm">Localisation d'Elmoumen Academy</p>
                         </div>
-                        <div>
-                            <label class="block text-gray-700 mb-1">Email</label>
-                            <input type="email" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Column -->
+            <div class="order-1 lg:order-2">
+                <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">Informations de Contact</h3>
+                    
+                    <!-- Contact Info Items -->
+                    <div class="space-y-6 mb-8">
+                        <!-- Phone -->
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-[#001226] rounded-full flex items-center justify-center mr-4">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Téléphone</h4>
+                                <p class="text-gray-600">+212 600 000 000</p>
+                            </div>
                         </div>
-                        <div>
-                            <label class="block text-gray-700 mb-1">Message</label>
-                            <textarea rows="4" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+
+                        <!-- Email -->
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-[#001226] rounded-full flex items-center justify-center mr-4">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Email</h4>
+                                <p class="text-gray-600">contact@elmoumen-academy.ma</p>
+                            </div>
                         </div>
-                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium transition">
-                            Envoyer le message
-                        </button>
-                    </form>
+
+                        <!-- Hours -->
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-[#001226] rounded-full flex items-center justify-center mr-4">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Heures d'Ouverture</h4>
+                                <p class="text-gray-600">Lun-Ven: 8h-18h | Sam: 9h-16h</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="border-t pt-6">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">Envoyez-nous un message</h4>
+                        <form class="space-y-4">
+                            <div>
+                                <label class="block text-gray-700 mb-1">Nom complet</label>
+                                <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#001226] focus:border-[#001226]">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-1">Email</label>
+                                <input type="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#001226] focus:border-[#001226]">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-1">Message</label>
+                                <textarea rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#001226] focus:border-[#001226]"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-[#001226] hover:bg-[#0a1a2e] text-white py-3 rounded-lg font-medium transition">
+                                Envoyer le message
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

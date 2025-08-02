@@ -26,9 +26,7 @@ use App\Http\Controllers\VideoController as PublicVideoController;
 Route::get('/', function () {
     return view('home');
 });
-Route::get('/about', function () {
-    return view('about');
-});
+Route::get('/about', [App\Http\Controllers\AboutController::class, 'index'])->name('about');
 Route::get('/contact', function () {
     return view('contact');
 });

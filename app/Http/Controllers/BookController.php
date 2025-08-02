@@ -74,4 +74,17 @@ class BookController extends Controller
 
         return $featuredBooks;
     }
+
+    public function getAboutPageBooks()
+    {
+        // Get 4 books for the about page - prioritize discounted books
+        $books = Book::with('category')
+            ->active()
+            ->orderByRaw('CASE WHEN reduced_price IS NOT NULL AND reduced_price < price THEN 1 ELSE 2 END')
+            ->orderBy('created_at', 'desc')
+            ->limit(4)
+            ->get();
+
+        return $books;
+    }
 } 
