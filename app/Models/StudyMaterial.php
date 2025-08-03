@@ -9,7 +9,7 @@ class StudyMaterial extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'level_id', 'year_id', 'field_id',
+        'level_id', 'year_id', 'field_id', 'subject_id',
         'title'
     ];
 
@@ -26,6 +26,11 @@ class StudyMaterial extends Model
     public function field()
     {
         return $this->belongsTo(Field::class);
+    }
+
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
     }
 
     public function blocks()

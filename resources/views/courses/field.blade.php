@@ -2,148 +2,108 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="bg-gradient-to-br from-purple-900 via-purple-800 to-purple-700 text-white py-20">
-    <div class="max-w-7xl mx-auto px-6">
+<section class="relative bg-cover bg-center bg-fixed text-white py-20" style="background-image: url('{{ asset('images/bgsec.jpg') }}');">
+    <div class="absolute inset-0" style="background-color: rgba(31, 41, 55, 0.85);"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
         <div class="text-center">
             <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                Matériaux d'Étude
+                Modules – {{ $field->name }}
             </h1>
-            <p class="text-xl md:text-2xl text-purple-100 mb-8 max-w-3xl mx-auto">
-                {{ $field->name }} - {{ $year->name }} - {{ $level->name }}
+            <p class="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto">
+                Année {{ $year->name }} • Filière {{ $field->name }}
             </p>
-            <div class="w-24 h-1 bg-purple-400 mx-auto rounded-full"></div>
+            <div class="w-24 h-1 bg-blue-400 mx-auto rounded-full"></div>
         </div>
     </div>
 </section>
 
-<!-- Materials Section -->
-<section class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-6">
-        @if($materials->isEmpty())
-            <div class="text-center">
-                <div class="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                </div>
-                <h2 class="text-2xl font-bold text-gray-900 mb-4">Aucune ressource disponible</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Aucune ressource n'est actuellement disponible pour cette filière. Veuillez revenir plus tard.
-                </p>
-            </div>
-        @else
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    Ressources Pédagogiques
-                </h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Découvrez tous les cours, exercices et évaluations disponibles pour cette filière
-                </p>
-            </div>
-
+<!-- Subjects Section -->
+<section class="relative bg-cover bg-center bg-fixed py-20" style="background-image: url('{{ asset('images/bgsec.jpg') }}');">
+    <div class="absolute inset-0" style="background-color: rgba(0,7,25,0.72);"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
+        @if($subjects->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @foreach ($materials as $material)
-                    <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
-                        <div class="relative">
-                            <div class="h-48 bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
-                                <div class="text-center text-white">
-                                    <div class="text-4xl font-bold mb-2">
-                                        @if($material->blocks->first()?->type == 'Cours')
-                                            📚
-                                        @elseif($material->blocks->first()?->type == 'Exercices')
-                                            ✏️
-                                        @elseif($material->blocks->first()?->type == 'Examens')
-                                            📝
-                                        @else
-                                            📖
-                                        @endif
-                                    </div>
-                                    <div class="text-lg font-medium">{{ $material->title }}</div>
-                                </div>
-                            </div>
-                            <div class="absolute top-4 right-4">
-                                <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm font-medium">
-                                    {{ $material->blocks->first()?->type ?? 'N/A' }}
-                                </div>
+                @foreach($subjects as $subject)
+                <div class="bg-white bg-opacity-15 backdrop-blur-lg border border-white border-opacity-30 rounded-2xl overflow-hidden shadow-xl hover:bg-white hover:bg-opacity-25 hover:transform hover:-translate-y-2 transition-all duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-xl font-bold text-white">{{ $subject->name }}</h2>
+                            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                </svg>
                             </div>
                         </div>
                         
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold text-gray-900 mb-3">{{ $material->title }}</h3>
-                            <p class="text-gray-600 mb-6">
-                                Type: {{ $material->blocks->first()?->type ?? 'N/A' }}
-                            </p>
-                            
-                            <div class="space-y-3">
-                                @if ($material->pdf_path)
-                                    <a href="{{ asset('storage/' . $material->pdf_path) }}" target="_blank"
-                                       class="flex items-center gap-3 w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                        </svg>
-                                        Voir le PDF
-                                    </a>
-                                @endif
-
-                                @if ($material->video_link)
-                                    <a href="{{ $material->video_link }}" target="_blank"
-                                       class="flex items-center gap-3 w-full bg-red-600 hover:bg-red-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/>
-                                        </svg>
-                                        Voir la Vidéo
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
+                        <p class="text-blue-100 mb-4">
+                            Module {{ $subject->name }} pour la filière {{ $field->name }}
+                        </p>
+                        
+                        <a href="{{ route('courses.materials', ['level' => $subject->level->slug, 'year' => $subject->year->slug, 'subject' => $subject->slug]) }}" 
+                           class="block w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white text-center py-3 px-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
+                            Voir les modules
+                        </a>
                     </div>
+                </div>
                 @endforeach
+            </div>
+        @else
+            <div class="text-center py-12">
+                <div class="w-24 h-24 bg-white bg-opacity-20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-medium text-white mb-2">Aucun module disponible</h3>
+                <p class="text-blue-100">Les modules pour cette filière seront bientôt disponibles.</p>
             </div>
         @endif
     </div>
 </section>
 
-<!-- Field Info Section -->
-<section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-6">
+<!-- Features Section -->
+<section class="relative bg-cover bg-center bg-fixed py-20" style="background-image: url('{{ asset('images/bgsec.jpg') }}');">
+    <div class="absolute inset-0" style="background-color: rgba(0,7,25,0.72);"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                À Propos de la Filière {{ $field->name }}
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                Pourquoi Choisir Notre Lycée ?
             </h2>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                Découvrez les spécificités de cette filière et ses débouchés professionnels
+            <p class="text-lg text-blue-100 max-w-2xl mx-auto">
+                Une formation d'excellence pour préparer l'enseignement supérieur
             </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="text-center">
+            <div class="text-center bg-white bg-opacity-15 backdrop-blur-lg border border-white border-opacity-30 rounded-2xl p-6 shadow-xl">
                 <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">Formation Spécialisée</h3>
-                <p class="text-gray-600">Programme adapté aux exigences spécifiques de cette filière</p>
+                <h3 class="text-xl font-bold text-white mb-2">Filières Spécialisées</h3>
+                <p class="text-blue-100">Formation adaptée selon les filières choisies</p>
             </div>
 
-            <div class="text-center">
+            <div class="text-center bg-white bg-opacity-15 backdrop-blur-lg border border-white border-opacity-30 rounded-2xl p-6 shadow-xl">
                 <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2V6"></path>
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">Débouchés Professionnels</h3>
-                <p class="text-gray-600">Préparation aux métiers et secteurs d'activité correspondants</p>
-            </div>
-
-            <div class="text-center">
-                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">Préparation au Bac</h3>
-                <p class="text-gray-600">Entraînement intensif pour réussir l'examen du baccalauréat</p>
+                <h3 class="text-xl font-bold text-white mb-2">Préparation au Bac</h3>
+                <p class="text-blue-100">Entraînement intensif pour réussir l'examen du baccalauréat</p>
+            </div>
+
+            <div class="text-center bg-white bg-opacity-15 backdrop-blur-lg border border-white border-opacity-30 rounded-2xl p-6 shadow-xl">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Orientation Universitaire</h3>
+                <p class="text-blue-100">Guidance pour choisir les études supérieures</p>
             </div>
         </div>
     </div>

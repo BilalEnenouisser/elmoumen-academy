@@ -105,6 +105,21 @@
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
+
+                <!-- Subject -->
+                <div>
+                    <label for="subject_id" class="block text-sm font-medium text-gray-700 mb-2">
+                        Matière
+                    </label>
+                    <select name="subject_id" id="subject_id" 
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-100 text-gray-500"
+                            disabled>
+                        <option value="">Sélectionner la matière...</option>
+                    </select>
+                    @error('subject_id')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
             </div>
         </div>
 
@@ -634,24 +649,23 @@
         const levelId = this.value;
         const yearSelect = document.getElementById('year_id');
         const fieldSelect = document.getElementById('field_id');
+        const subjectSelect = document.getElementById('subject_id');
         
-        // Reset year dropdown
+        // Reset all dependent dropdowns
         yearSelect.innerHTML = '<option value="">Sélectionner l\'année...</option>';
+        fieldSelect.innerHTML = '<option value="">Sélectionner la filière...</option>';
+        subjectSelect.innerHTML = '<option value="">Sélectionner la matière...</option>';
         
-        // Handle field dropdown visibility
+        // Disable all dependent dropdowns
+        fieldSelect.disabled = true;
+        fieldSelect.classList.add('bg-gray-100', 'text-gray-500');
+        fieldSelect.classList.remove('bg-white', 'text-gray-900');
+        
+        subjectSelect.disabled = true;
+        subjectSelect.classList.add('bg-gray-100', 'text-gray-500');
+        subjectSelect.classList.remove('bg-white', 'text-gray-900');
+        
         if (levelId) {
-            const selectedLevel = this.options[this.selectedIndex].text.toLowerCase();
-            if (selectedLevel.includes('lycée') || selectedLevel.includes('lycee')) {
-                fieldSelect.disabled = false;
-                fieldSelect.classList.remove('bg-gray-100', 'text-gray-500');
-                fieldSelect.classList.add('bg-white', 'text-gray-900');
-            } else {
-                fieldSelect.disabled = true;
-                fieldSelect.classList.add('bg-gray-100', 'text-gray-500');
-                fieldSelect.classList.remove('bg-white', 'text-gray-900');
-                fieldSelect.value = '';
-            }
-            
             // Load years for selected level
             fetch(`/admin/materials/years/${levelId}`)
                 .then(response => response.json())
@@ -663,13 +677,120 @@
                     const currentYearId = '{{ $material->year_id }}';
                     if (currentYearId) {
                         yearSelect.value = currentYearId;
+                        // Trigger year change event to load fields/subjects
+                        yearSelect.dispatchEvent(new Event('change'));
                     }
                 });
+        }
+    });
+
+    // Dynamic field loading based on level and year
+    document.getElementById('year_id').addEventListener('change', function() {
+        const levelId = document.getElementById('level_id').value;
+        const yearId = this.value;
+        const fieldSelect = document.getElementById('field_id');
+        const subjectSelect = document.getElementById('subject_id');
+        
+        // Reset dependent dropdowns
+        fieldSelect.innerHTML = '<option value="">Sélectionner la filière...</option>';
+        subjectSelect.innerHTML = '<option value="">Sélectionner la matière...</option>';
+        
+        // Disable subject dropdown
+        subjectSelect.disabled = true;
+        subjectSelect.classList.add('bg-gray-100', 'text-gray-500');
+        subjectSelect.classList.remove('bg-white', 'text-gray-900');
+        
+        if (levelId && yearId) {
+            const selectedLevel = document.getElementById('level_id').options[document.getElementById('level_id').selectedIndex].text.toLowerCase();
+            
+            // Check if it's Lycée level
+            if (selectedLevel.includes('lycée') || selectedLevel.includes('lycee')) {
+                // Enable field dropdown and load fields
+                fieldSelect.disabled = false;
+                fieldSelect.classList.remove('bg-gray-100', 'text-gray-500');
+                fieldSelect.classList.add('bg-white', 'text-gray-900');
+                
+                fetch(`/admin/materials/fields/${levelId}/${yearId}`)
+                    .then(response => response.json())
+                    .then(fields => {
+                        fields.forEach(field => {
+                            fieldSelect.innerHTML += `<option value="${field.id}">${field.name}</option>`;
+                        });
+                        // Restore selected field if it exists
+                        const currentFieldId = '{{ $material->field_id }}';
+                        if (currentFieldId) {
+                            fieldSelect.value = currentFieldId;
+                            // Trigger field change event to load subjects
+                            fieldSelect.dispatchEvent(new Event('change'));
+                        }
+                    });
+            } else {
+                // For non-Lycée levels, load subjects directly (no fields)
+                subjectSelect.disabled = false;
+                subjectSelect.classList.remove('bg-gray-100', 'text-gray-500');
+                subjectSelect.classList.add('bg-white', 'text-gray-900');
+                
+                fetch(`/admin/materials/subjects/${levelId}/${yearId}`)
+                    .then(response => response.json())
+                    .then(subjects => {
+                        subjects.forEach(subject => {
+                            subjectSelect.innerHTML += `<option value="${subject.id}">${subject.name}</option>`;
+                        });
+                        // Restore selected subject if it exists
+                        const currentSubjectId = '{{ $material->subject_id }}';
+                        if (currentSubjectId) {
+                            subjectSelect.value = currentSubjectId;
+                        }
+                    });
+            }
         } else {
             fieldSelect.disabled = true;
             fieldSelect.classList.add('bg-gray-100', 'text-gray-500');
             fieldSelect.classList.remove('bg-white', 'text-gray-900');
-            fieldSelect.value = '';
+        }
+    });
+
+    // Dynamic subject loading based on level, year and field
+    document.getElementById('field_id').addEventListener('change', function() {
+        const levelId = document.getElementById('level_id').value;
+        const yearId = document.getElementById('year_id').value;
+        const fieldId = this.value;
+        const subjectSelect = document.getElementById('subject_id');
+        
+        // Reset subject dropdown
+        subjectSelect.innerHTML = '<option value="">Sélectionner la matière...</option>';
+        
+        if (levelId && yearId && fieldId) {
+            // Enable subject dropdown and load subjects
+            subjectSelect.disabled = false;
+            subjectSelect.classList.remove('bg-gray-100', 'text-gray-500');
+            subjectSelect.classList.add('bg-white', 'text-gray-900');
+            
+            fetch(`/admin/materials/subjects/${levelId}/${yearId}/${fieldId}`)
+                .then(response => response.json())
+                .then(subjects => {
+                    subjects.forEach(subject => {
+                        subjectSelect.innerHTML += `<option value="${subject.id}">${subject.name}</option>`;
+                    });
+                    // Restore selected subject if it exists
+                    const currentSubjectId = '{{ $material->subject_id }}';
+                    if (currentSubjectId) {
+                        subjectSelect.value = currentSubjectId;
+                    }
+                });
+        } else {
+            subjectSelect.disabled = true;
+            subjectSelect.classList.add('bg-gray-100', 'text-gray-500');
+            subjectSelect.classList.remove('bg-white', 'text-gray-900');
+        }
+    });
+
+    // Initialize form on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Trigger level change to populate dependent dropdowns
+        const levelSelect = document.getElementById('level_id');
+        if (levelSelect.value) {
+            levelSelect.dispatchEvent(new Event('change'));
         }
     });
 </script>

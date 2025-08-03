@@ -2,35 +2,37 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="bg-gradient-to-br from-purple-900 via-purple-800 to-purple-700 text-white py-20">
-    <div class="max-w-7xl mx-auto px-6">
+<section class="relative bg-cover bg-center bg-fixed text-white py-20" style="background-image: url('{{ asset('images/bgsec.jpg') }}');">
+    <div class="absolute inset-0" style="background-color: rgba(0,7,25,0.72);"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
         <div class="text-center">
             <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
                 Niveaux Lycée
             </h1>
-            <p class="text-xl md:text-2xl text-purple-100 mb-8 max-w-3xl mx-auto">
+            <p class="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto">
                 Formation spécialisée pour préparer l'enseignement supérieur
             </p>
-            <div class="w-24 h-1 bg-purple-400 mx-auto rounded-full"></div>
+            <div class="w-24 h-1 bg-blue-400 mx-auto rounded-full"></div>
         </div>
     </div>
 </section>
 
 <!-- Years Section -->
-<section class="py-20 bg-gray-50">
+<section class="course-background py-20">
+    <div class="course-content max-w-7xl mx-auto px-6">
     <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
                 Choisissez Votre Année
             </h2>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p class="text-lg text-blue-100 max-w-2xl mx-auto">
                 Sélectionnez l'année scolaire correspondant au niveau de votre enfant
             </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @foreach (['1ère année', '2ème année', '3ème année'] as $index => $year)
-                <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
+                <div class="glass-card glass-card-hover rounded-2xl overflow-hidden">
                     <div class="relative">
                         <div class="h-48 bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
                             <div class="text-center text-white">
@@ -46,26 +48,26 @@
                     </div>
                     
                     <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">{{ $year }}</h3>
-                        <p class="text-gray-600 mb-6">
+                        <h3 class="text-xl font-bold text-white mb-3">{{ $year }}</h3>
+                        <p class="text-blue-100 mb-6">
                             Programme spécialisé pour les étudiants de {{ $year }} du lycée
                         </p>
                         
                         <div class="space-y-3 mb-6">
-                            <div class="flex items-center text-sm text-gray-500">
-                                <svg class="w-4 h-4 mr-2 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="flex items-center text-sm text-blue-100">
+                                <svg class="w-4 h-4 mr-2 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                                 Filières spécialisées
                             </div>
-                            <div class="flex items-center text-sm text-gray-500">
-                                <svg class="w-4 h-4 mr-2 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="flex items-center text-sm text-blue-100">
+                                <svg class="w-4 h-4 mr-2 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                                 Préparation au bac
                             </div>
-                            <div class="flex items-center text-sm text-gray-500">
-                                <svg class="w-4 h-4 mr-2 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="flex items-center text-sm text-blue-100">
+                                <svg class="w-4 h-4 mr-2 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                                 Orientation universitaire

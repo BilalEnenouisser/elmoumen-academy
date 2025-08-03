@@ -26,15 +26,15 @@
             <h3 class="text-lg font-semibold text-gray-900 mb-4">📋 Informations de Base</h3>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                <!-- Course Name -->
+                <!-- Module Name -->
                 <div>
                     <label for="title" class="block text-sm font-medium text-gray-700 mb-2">
-                        Nom du cours (ex: Mathématiques) *
+                        Nom de module (ex: Mathématiques) *
                     </label>
                     <input type="text" name="title" id="title" required 
                            value="{{ old('title') }}"
                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                           placeholder="Entrez le nom du cours">
+                           placeholder="Entrez le nom du module">
                     @error('title')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
@@ -93,6 +93,20 @@
                         @endforeach
                     </select>
                     @error('field_id')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Subject -->
+                <div>
+                    <label for="subject_id" class="block text-sm font-medium text-gray-700 mb-2">
+                        Matière
+                    </label>
+                    <select name="subject_id" id="subject_id" disabled
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-100 text-gray-500">
+                        <option value="">Sélectionner la matière...</option>
+                    </select>
+                    @error('subject_id')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
@@ -174,14 +188,26 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Type de Matériel *</label>
                         <select name="material_types[${blockIndex}]" required 
-                                onchange="toggleExamType(this, ${blockIndex})"
+                                onchange="toggleMaterialType(this, ${blockIndex})"
                                 class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                             <option value="">Sélectionner le type...</option>
                             <option value="Cours">Cours</option>
                             <option value="Séries">Séries</option>
-                            <option value="Devoirs semestre 1">Devoirs semestre 1</option>
-                            <option value="Devoirs semestre 2">Devoirs semestre 2</option>
+                            <option value="Devoirs">Devoirs</option>
                             <option value="Examens">Examens</option>
+                        </select>
+                    </div>
+
+                    <!-- Devoir Type (conditional) -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Type de Devoir</label>
+                        <select name="devoir_types[${blockIndex}]" id="devoir_type_${blockIndex}"
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-100 text-gray-500 devoir-type-select" style="display: none;" disabled>
+                            <option value="">Sélectionner le type de devoir...</option>
+                            <option value="Devoir 1">Devoir 1</option>
+                            <option value="Devoir 2">Devoir 2</option>
+                            <option value="Devoir 3">Devoir 3</option>
+                            <option value="Devoir 4">Devoir 4</option>
                         </select>
                     </div>
 
@@ -246,25 +272,51 @@
 
         // Remove block
         function removeBlock(button) {
-            button.closest('.block-item').remove();
+            const blocksContainer = document.getElementById('blocks-container');
+            const blocks = blocksContainer.querySelectorAll('.block-item');
+            
+            if (blocks.length === 1) {
+                alert('Impossible de supprimer le dernier bloc. Il doit y avoir au moins un bloc.');
+                return;
+            }
+            
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce bloc ?')) {
+                button.closest('.block-item').remove();
+            }
         }
 
-        // Toggle exam type visibility
-        function toggleExamType(select, blockIndex) {
+        // Toggle material type visibility
+        function toggleMaterialType(select, blockIndex) {
+            const devoirTypeSelect = document.getElementById(`devoir_type_${blockIndex}`);
             const examTypeSelect = document.getElementById(`exam_type_${blockIndex}`);
-            if (select.value === 'Examens') {
+            
+            // Reset all dropdowns
+            devoirTypeSelect.style.display = 'none';
+            devoirTypeSelect.disabled = true;
+            devoirTypeSelect.classList.add('bg-gray-100', 'text-gray-500');
+            devoirTypeSelect.classList.remove('bg-white', 'text-gray-900');
+            devoirTypeSelect.required = false;
+            devoirTypeSelect.value = '';
+            
+            examTypeSelect.style.display = 'none';
+            examTypeSelect.disabled = true;
+            examTypeSelect.classList.add('bg-gray-100', 'text-gray-500');
+            examTypeSelect.classList.remove('bg-white', 'text-gray-900');
+            examTypeSelect.required = false;
+            examTypeSelect.value = '';
+            
+            if (select.value === 'Devoirs') {
+                devoirTypeSelect.style.display = 'block';
+                devoirTypeSelect.disabled = false;
+                devoirTypeSelect.classList.remove('bg-gray-100', 'text-gray-500');
+                devoirTypeSelect.classList.add('bg-white', 'text-gray-900');
+                devoirTypeSelect.required = true;
+            } else if (select.value === 'Examens') {
                 examTypeSelect.style.display = 'block';
                 examTypeSelect.disabled = false;
                 examTypeSelect.classList.remove('bg-gray-100', 'text-gray-500');
                 examTypeSelect.classList.add('bg-white', 'text-gray-900');
                 examTypeSelect.required = true;
-            } else {
-                examTypeSelect.style.display = 'none';
-                examTypeSelect.disabled = true;
-                examTypeSelect.classList.add('bg-gray-100', 'text-gray-500');
-                examTypeSelect.classList.remove('bg-white', 'text-gray-900');
-                examTypeSelect.required = false;
-                examTypeSelect.value = '';
             }
         }
 
@@ -315,24 +367,23 @@
             const levelId = this.value;
             const yearSelect = document.getElementById('year_id');
             const fieldSelect = document.getElementById('field_id');
+            const subjectSelect = document.getElementById('subject_id');
             
-            // Reset year dropdown
+            // Reset all dependent dropdowns
             yearSelect.innerHTML = '<option value="">Sélectionner l\'année...</option>';
+            fieldSelect.innerHTML = '<option value="">Sélectionner la filière...</option>';
+            subjectSelect.innerHTML = '<option value="">Sélectionner la matière...</option>';
             
-            // Handle field dropdown visibility
+            // Disable all dependent dropdowns
+            fieldSelect.disabled = true;
+            fieldSelect.classList.add('bg-gray-100', 'text-gray-500');
+            fieldSelect.classList.remove('bg-white', 'text-gray-900');
+            
+            subjectSelect.disabled = true;
+            subjectSelect.classList.add('bg-gray-100', 'text-gray-500');
+            subjectSelect.classList.remove('bg-white', 'text-gray-900');
+            
             if (levelId) {
-                const selectedLevel = this.options[this.selectedIndex].text.toLowerCase();
-                if (selectedLevel.includes('lycée') || selectedLevel.includes('lycee')) {
-                    fieldSelect.disabled = false;
-                    fieldSelect.classList.remove('bg-gray-100', 'text-gray-500');
-                    fieldSelect.classList.add('bg-white', 'text-gray-900');
-                } else {
-                    fieldSelect.disabled = true;
-                    fieldSelect.classList.add('bg-gray-100', 'text-gray-500');
-                    fieldSelect.classList.remove('bg-white', 'text-gray-900');
-                    fieldSelect.value = '';
-                }
-                
                 // Load years for selected level
                 fetch(`/admin/materials/years/${levelId}`)
                     .then(response => response.json())
@@ -341,11 +392,100 @@
                             yearSelect.innerHTML += `<option value="${year.id}">${year.name}</option>`;
                         });
                     });
+            }
+        });
+
+        // Dynamic field loading based on level and year
+        document.getElementById('year_id').addEventListener('change', function() {
+            const levelId = document.getElementById('level_id').value;
+            const yearId = this.value;
+            const fieldSelect = document.getElementById('field_id');
+            const subjectSelect = document.getElementById('subject_id');
+            
+            // Reset dependent dropdowns
+            fieldSelect.innerHTML = '<option value="">Sélectionner la filière...</option>';
+            subjectSelect.innerHTML = '<option value="">Sélectionner la matière...</option>';
+            
+            // Disable subject dropdown
+            subjectSelect.disabled = true;
+            subjectSelect.classList.add('bg-gray-100', 'text-gray-500');
+            subjectSelect.classList.remove('bg-white', 'text-gray-900');
+            
+            if (levelId && yearId) {
+                const selectedLevel = document.getElementById('level_id').options[document.getElementById('level_id').selectedIndex].text.toLowerCase();
+                console.log('Selected level text:', selectedLevel);
+                console.log('Level ID:', levelId, 'Year ID:', yearId);
+                
+                // Check if it's Lycée level
+                if (selectedLevel.includes('lycée') || selectedLevel.includes('lycee')) {
+                    // Enable field dropdown and load fields
+                    fieldSelect.disabled = false;
+                    fieldSelect.classList.remove('bg-gray-100', 'text-gray-500');
+                    fieldSelect.classList.add('bg-white', 'text-gray-900');
+                    
+                    fetch(`/admin/materials/fields/${levelId}/${yearId}`)
+                        .then(response => response.json())
+                        .then(fields => {
+                            fields.forEach(field => {
+                                fieldSelect.innerHTML += `<option value="${field.id}">${field.name}</option>`;
+                            });
+                        });
+                } else {
+                    // For non-Lycée levels, load subjects directly (no fields)
+                    console.log('Loading subjects for non-Lycée level:', levelId, yearId);
+                    subjectSelect.disabled = false;
+                    subjectSelect.classList.remove('bg-gray-100', 'text-gray-500');
+                    subjectSelect.classList.add('bg-white', 'text-gray-900');
+                    
+                    fetch(`/admin/materials/subjects/${levelId}/${yearId}`)
+                        .then(response => {
+                            console.log('Response status:', response.status);
+                            return response.json();
+                        })
+                        .then(subjects => {
+                            console.log('Subjects received:', subjects);
+                            subjects.forEach(subject => {
+                                subjectSelect.innerHTML += `<option value="${subject.id}">${subject.name}</option>`;
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error loading subjects:', error);
+                        });
+                }
             } else {
                 fieldSelect.disabled = true;
                 fieldSelect.classList.add('bg-gray-100', 'text-gray-500');
                 fieldSelect.classList.remove('bg-white', 'text-gray-900');
-                fieldSelect.value = '';
+            }
+        });
+
+        // Dynamic subject loading based on level, year and field
+        document.getElementById('field_id').addEventListener('change', function() {
+            const levelId = document.getElementById('level_id').value;
+            const yearId = document.getElementById('year_id').value;
+            const fieldId = this.value;
+            const subjectSelect = document.getElementById('subject_id');
+            
+            // Reset subject dropdown
+            subjectSelect.innerHTML = '<option value="">Sélectionner la matière...</option>';
+            
+            if (levelId && yearId && fieldId) {
+                // Enable subject dropdown and load subjects
+                subjectSelect.disabled = false;
+                subjectSelect.classList.remove('bg-gray-100', 'text-gray-500');
+                subjectSelect.classList.add('bg-white', 'text-gray-900');
+                
+                fetch(`/admin/materials/subjects/${levelId}/${yearId}/${fieldId}`)
+                    .then(response => response.json())
+                    .then(subjects => {
+                        subjects.forEach(subject => {
+                            subjectSelect.innerHTML += `<option value="${subject.id}">${subject.name}</option>`;
+                        });
+                    });
+            } else {
+                subjectSelect.disabled = true;
+                subjectSelect.classList.add('bg-gray-100', 'text-gray-500');
+                subjectSelect.classList.remove('bg-white', 'text-gray-900');
             }
         });
     </script>

@@ -56,14 +56,20 @@
                                 </div>
                             </div>
                         </div>
-                        <form method="POST" action="{{ route('admin.marquees.destroy', $item) }}" class="flex-shrink-0">
-                            @csrf @method('DELETE')
-                            <button type="submit" 
-                                    class="bg-red-100 text-red-700 px-3 py-1 rounded text-sm hover:bg-red-200 transition-colors"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce message ?')">
-                                Supprimer
-                            </button>
-                        </form>
+                        <div class="flex gap-2">
+                            <a href="{{ route('admin.marquees.edit', $item) }}" 
+                               class="bg-blue-100 text-blue-700 px-3 py-1 rounded text-sm hover:bg-blue-200 transition-colors">
+                                ✏️ Modifier
+                            </a>
+                            <form method="POST" action="{{ route('admin.marquees.destroy', $item) }}" class="inline">
+                                @csrf @method('DELETE')
+                                <button type="submit" 
+                                        class="bg-red-100 text-red-700 px-3 py-1 rounded text-sm hover:bg-red-200 transition-colors"
+                                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce message ?')">
+                                    🗑️ Supprimer
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 @endforeach
             </div>

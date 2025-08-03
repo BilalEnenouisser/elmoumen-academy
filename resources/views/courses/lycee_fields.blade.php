@@ -8,9 +8,9 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         @foreach ($fields as $field)
             <a href="{{ route('courses.field', [
-                'level' => $level->name,
-                'year' => $year->id,
-                'field' => $field->id
+                'level' => $level->slug,
+                'year' => $year->slug,
+                'field' => $field->slug
             ]) }}" 
             class="block p-6 border rounded-lg shadow hover:bg-blue-100 transition">
                 <h3 class="text-xl font-semibold">{{ $field->name }}</h3>

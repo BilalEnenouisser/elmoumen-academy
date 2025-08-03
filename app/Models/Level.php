@@ -27,6 +27,11 @@ class Level extends Model
         return $this->hasMany(StudyMaterial::class);
     }
 
+    public function subjects()
+    {
+        return $this->hasMany(Subject::class);
+    }
+
     protected static function booted()
 {
     static::creating(function ($level) {

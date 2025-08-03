@@ -11,10 +11,13 @@
             <strong>{{ $video->title }}</strong> | Catégorie: {{ ucfirst($video->category) }} <br>
             <a href="{{ $video->video_url }}" class="text-blue-600" target="_blank">Voir la vidéo 🎥</a>
 
-            <form action="{{ route('admin.videos.destroy', $video) }}" method="POST" class="inline-block ml-4">
-                @csrf @method('DELETE')
-                <button class="text-red-500">Supprimer ❌</button>
-            </form>
+            <div class="inline-block ml-4 space-x-2">
+                <a href="{{ route('admin.videos.edit', $video) }}" class="text-blue-600 hover:text-blue-800">✏️ Modifier</a>
+                <form action="{{ route('admin.videos.destroy', $video) }}" method="POST" class="inline-block">
+                    @csrf @method('DELETE')
+                    <button class="text-red-500 hover:text-red-700" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette vidéo ?')">🗑️ Supprimer</button>
+                </form>
+            </div>
         </div>
     @endforeach
 

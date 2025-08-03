@@ -54,7 +54,7 @@ class MarqueeController extends Controller
      */
     public function edit(Marquee $marquee)
     {
-        //
+        return view('admin.marquees.edit', compact('marquee'));
     }
 
     /**
@@ -62,7 +62,14 @@ class MarqueeController extends Controller
      */
     public function update(Request $request, Marquee $marquee)
     {
-        //
+        $request->validate([
+            'text' => 'required|string|max:255',
+            'author' => 'nullable|string|max:255',
+        ]);
+
+        $marquee->update($request->only('text', 'author'));
+
+        return redirect()->route('admin.marquees.index')->with('success', 'Message mis à jour.');
     }
 
     /**

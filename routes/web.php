@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\TeacherController as AdminTeacherController;
 use App\Http\Controllers\Admin\MaterialController as AdminMaterialController;
 use App\Http\Controllers\Admin\YearController;
 use App\Http\Controllers\Admin\FieldController;
+use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\Teacher\MaterialController as TeacherMaterialController;
 use App\Http\Controllers\MessageController;
@@ -42,11 +43,14 @@ Route::prefix('courses')->name('courses.')->group(function () {
     // Show years for selected level
     Route::get('{level}', [CourseController::class, 'showLevel'])->name('level');
 
-    // Show materials for year (non-Lycée)
+    // Show subjects for year (non-Lycée) or fields for Lycée
     Route::get('{level}/year/{year}', [CourseController::class, 'showYear'])->name('year');
 
-    // Show materials for Lycée with field
+    // Show subjects for Lycée field
     Route::get('{level}/year/{year}/field/{field}', [CourseController::class, 'showField'])->name('field');
+
+    // Show materials for subject
+    Route::get('{level}/year/{year}/subject/{subject}', [CourseController::class, 'showMaterials'])->name('materials');
 });
 // ==============================
 // 🔐 Authenticated User Profile
@@ -76,6 +80,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::delete('materials/pdf/{pdf}', [AdminMaterialController::class, 'deletePdf'])->name('materials.pdf.delete');
     Route::delete('materials/video/{video}', [AdminMaterialController::class, 'deleteVideo'])->name('materials.video.delete');
     Route::get('materials/years/{level}', [AdminMaterialController::class, 'getYearsByLevel'])->name('materials.years.by.level');
+    Route::get('materials/fields/{level}/{year}', [AdminMaterialController::class, 'getFieldsByLevelAndYear'])->name('materials.fields.by.level.year');
+    Route::get('materials/subjects/{level}/{year}/{field}', [AdminMaterialController::class, 'getSubjectsByLevelYearAndField'])->name('materials.subjects.by.level.year.field');
+    Route::get('materials/subjects/{level}/{year}', [AdminMaterialController::class, 'getSubjectsByLevelYearAndField'])->name('materials.subjects.by.level.year');
 
     // 📆 Years
     Route::resource('years', YearController::class);
@@ -83,6 +90,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // 🧪 Fields
     Route::resource('fields', FieldController::class);
 
+    // 📚 Subjects
+    Route::resource('subjects', SubjectController::class);
+    Route::get('subjects/years/{level}', [SubjectController::class, 'getYearsByLevel'])->name('subjects.years.by.level');
+    Route::get('subjects/fields/{year}', [SubjectController::class, 'getFieldsByYear'])->name('subjects.fields.by.year');
 
     //  Routes for Messages
     Route::resource('messages', AdminMessageController::class)->only(['index', 'show']);
@@ -114,13 +125,18 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('whatsapp', [App\Http\Controllers\Admin\WhatsAppNumberController::class, 'store'])->name('whatsapp.store');
     Route::put('whatsapp/{whatsappNumber}', [App\Http\Controllers\Admin\WhatsAppNumberController::class, 'update'])->name('whatsapp.update');
 
+    // 💬 Testimonials Management
+    Route::resource('testimonials', App\Http\Controllers\Admin\TestimonialController::class);
+    Route::patch('testimonials/{testimonial}/toggle-status', [App\Http\Controllers\Admin\TestimonialController::class, 'toggleStatus'])->name('testimonials.toggle-status');
+
 
     // 🏗 Structure Management Page
     Route::get('structure', function () {
         return view('admin.structure.index', [
             'levels' => \App\Models\Level::all(),
             'years' => \App\Models\Year::with('level')->get(),
-            'fields' => \App\Models\Field::with('level')->get(),
+            'fields' => \App\Models\Field::with(['level', 'year'])->get(),
+            'subjects' => \App\Models\Subject::with(['level', 'year', 'field'])->get(),
         ]);
     })->name('structure');
 });
@@ -163,6 +179,8 @@ Route::post('track/video-click/{video}', function (Request $request, $video) {
     \App\Services\AnalyticsService::trackVideoClick($request, $video);
     return response()->json(['success' => true]);
 })->name('track.video-click');
+
+
 
 // ==============================
 // 🎓 Teacher Panel

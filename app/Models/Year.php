@@ -30,6 +30,10 @@ class Year extends Model
     {
         return $this->hasMany(StudyMaterial::class);
     }
+    public function subjects()
+    {
+        return $this->hasMany(Subject::class);
+    }
     public function getRouteKeyName()
 {
     return 'slug';

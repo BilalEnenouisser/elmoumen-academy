@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Field;
+use App\Models\Subject;
 use App\Models\Level;
 use App\Models\Year;
+use App\Models\Field;
 
-class FieldController extends Controller
+class SubjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -33,19 +34,13 @@ class FieldController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
+            'level_id' => 'required|exists:levels,id',
             'year_id' => 'required|exists:years,id',
+            'field_id' => 'nullable|exists:fields,id',
         ]);
         
-        // Get the year to find the level_id
-        $year = Year::findOrFail($request->year_id);
-        
-        Field::create([
-            'name' => $request->name,
-            'level_id' => $year->level_id,
-            'year_id' => $request->year_id,
-        ]);
-        
-        return back()->with('success', 'Filière ajoutée avec succès');
+        Subject::create($request->only('name', 'level_id', 'year_id', 'field_id'));
+        return back()->with('success', 'Matière ajoutée avec succès');
     }
 
     /**
@@ -75,8 +70,27 @@ class FieldController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Field $field) {
-        $field->delete();
-        return back()->with('success', 'Filière supprimée avec succès');
+    public function destroy(Subject $subject)
+    {
+        $subject->delete();
+        return back()->with('success', 'Matière supprimée avec succès');
+    }
+
+    /**
+     * Get years by level for AJAX requests
+     */
+    public function getYearsByLevel($levelId)
+    {
+        $years = Year::where('level_id', $levelId)->get();
+        return response()->json($years);
+    }
+
+    /**
+     * Get fields by year for AJAX requests
+     */
+    public function getFieldsByYear($yearId)
+    {
+        $fields = Field::where('year_id', $yearId)->get();
+        return response()->json($fields);
     }
 }

@@ -67,6 +67,12 @@
                 🎬 Vidéos
             </a>
 
+            <!-- Testimonials -->
+            <a href="{{ route('admin.testimonials.index') }}" 
+               class="flex items-center gap-2 p-2 rounded transition @if(request()->routeIs('admin.testimonials*')) bg-green-50 text-green-600 @else text-gray-700 hover:bg-green-50 hover:text-green-600 @endif">
+                💬 Témoignages
+            </a>
+
             <!-- Books Dropdown -->
             <div class="relative" x-data="{ open: false }">
                 <button @click="open = !open" 

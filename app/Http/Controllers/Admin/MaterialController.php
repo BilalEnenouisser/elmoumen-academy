@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Level;
 use App\Models\Year;
 use App\Models\Field;
+use App\Models\Subject;
 use App\Models\StudyMaterial;
 use App\Models\MaterialPdf;
 use App\Models\MaterialVideo;
@@ -47,11 +48,12 @@ class MaterialController extends Controller
             'level_id' => 'required|exists:levels,id',
             'year_id' => 'nullable|exists:years,id',
             'field_id' => 'nullable|exists:fields,id',
+            'subject_id' => 'nullable|exists:subjects,id',
             'title' => 'required|string|max:255',
             'semesters' => 'required|array',
             'semesters.*' => 'required|in:Semestre 1,Semestre 2',
             'material_types' => 'required|array',
-            'material_types.*' => 'required|in:Cours,Séries,Devoirs semestre 1,Devoirs semestre 2,Examens',
+            'material_types.*' => 'required|in:Cours,Séries,Devoirs,Examens',
             'exam_types' => 'nullable|array',
             'exam_types.*' => 'nullable|in:إمتحانات محلية,إمتحانات إقليمية,Examens Locaux,Examens Régionaux,Examens Nationaux Blanc,Examens Nationaux',
             'pdfs.*.*' => 'nullable|file|mimes:pdf',
@@ -63,6 +65,7 @@ class MaterialController extends Controller
             'level_id' => $request->level_id,
             'year_id' => $request->year_id,
             'field_id' => $request->field_id,
+            'subject_id' => $request->subject_id,
             'title' => $request->title,
         ]);
 
@@ -138,11 +141,12 @@ class MaterialController extends Controller
             'level_id' => 'required|exists:levels,id',
             'year_id' => 'nullable|exists:years,id',
             'field_id' => 'nullable|exists:fields,id',
+            'subject_id' => 'nullable|exists:subjects,id',
             'title' => 'required|string|max:255',
             'semesters' => 'required|array',
             'semesters.*' => 'required|in:Semestre 1,Semestre 2',
             'material_types' => 'required|array',
-            'material_types.*' => 'required|in:Cours,Séries,Devoirs semestre 1,Devoirs semestre 2,Examens',
+            'material_types.*' => 'required|in:Cours,Séries,Devoirs,Examens',
             'exam_types' => 'nullable|array',
             'exam_types.*' => 'nullable|in:إمتحانات محلية,إمتحانات إقليمية,Examens Locaux,Examens Régionaux,Examens Nationaux Blanc,Examens Nationaux',
             'pdfs.*.*' => 'nullable|file|mimes:pdf',
@@ -154,6 +158,7 @@ class MaterialController extends Controller
             'level_id' => $request->level_id,
             'year_id' => $request->year_id,
             'field_id' => $request->field_id,
+            'subject_id' => $request->subject_id,
             'title' => $request->title,
         ]);
 
@@ -276,5 +281,35 @@ class MaterialController extends Controller
     {
         $years = Year::where('level_id', $levelId)->get();
         return response()->json($years);
+    }
+
+    /**
+     * Get fields by level and year for dynamic filtering
+     */
+    public function getFieldsByLevelAndYear(string $levelId, string $yearId)
+    {
+        $fields = Field::where('level_id', $levelId)
+                      ->where('year_id', $yearId)
+                      ->get();
+        return response()->json($fields);
+    }
+
+    /**
+     * Get subjects by level, year and field for dynamic filtering
+     */
+    public function getSubjectsByLevelYearAndField(string $levelId, string $yearId, string $fieldId = null)
+    {
+        $query = Subject::where('level_id', $levelId)
+                       ->where('year_id', $yearId);
+        
+        if ($fieldId) {
+            $query->where('field_id', $fieldId);
+        } else {
+            $query->whereNull('field_id');
+        }
+        
+        $subjects = $query->get();
+        
+        return response()->json($subjects);
     }
 }

@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class Field extends Model
+class Subject extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'level_id', 'year_id'];
-    
+    protected $fillable = ['name', 'level_id', 'year_id', 'field_id'];
+
     public function level()
     {
         return $this->belongsTo(Level::class);
@@ -22,24 +22,24 @@ class Field extends Model
         return $this->belongsTo(Year::class);
     }
 
+    public function field()
+    {
+        return $this->belongsTo(Field::class);
+    }
+
     public function materials()
     {
         return $this->hasMany(StudyMaterial::class);
     }
 
-    public function subjects()
-    {
-        return $this->hasMany(Subject::class);
-    }
-
     protected static function booted()
     {
-        static::creating(function ($field) {
-            $field->slug = Str::slug($field->name . '-' . uniqid());
+        static::creating(function ($subject) {
+            $subject->slug = Str::slug($subject->name);
         });
 
-        static::updating(function ($field) {
-            $field->slug = Str::slug($field->name . '-' . uniqid());
+        static::updating(function ($subject) {
+            $subject->slug = Str::slug($subject->name);
         });
     }
 

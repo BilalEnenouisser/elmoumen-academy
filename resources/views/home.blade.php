@@ -347,7 +347,11 @@
 <!-- Section 3.5: Book Slider -->
 @include('components.book-slider')
 
-<!-- Section 4: Best Coaching -->
+<!-- Section 4: Courses Individual -->
+
+@php
+    $whatsappNumber = \App\Models\WhatsAppNumber::getActiveNumber();
+@endphp
 
 <section class="relative w-full py-20">
     <div class="absolute inset-0">
@@ -356,44 +360,101 @@
     </div>
     <!-- Content -->
     <div class="relative z-10 max-w-7xl mx-auto px-4">
-        <h2 class="text-white text-4xl md:text-5xl font-bold text-center mb-16 leading-tight font-[Montserrat]">
-            Découvrez Nos Fonctionnalités<br>Réussissez Tous Vos Examens
-        </h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            @for ($i = 0; $i < 4; $i++)
-            <div class="backdrop-blur-lg bg-white/10 rounded-2xl p-10 flex flex-col items-center shadow-lg">
-                <!-- Icon -->
-                <div class="w-20 h-20 mb-6 flex items-center justify-center rounded-full border-2 border-dashed border-white">
-                    <!-- Example SVG icon (replace as needed) -->
-                    <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 48 48">
-                        <circle cx="24" cy="24" r="22" stroke-dasharray="4 2"/>
-                        <rect x="14" y="20" width="20" height="10" rx="2" fill="none" stroke="currentColor"/>
-                        <path d="M18 30v2a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-2" stroke="currentColor"/>
-                        <circle cx="19" cy="25" r="1.5" fill="currentColor"/>
-                        <circle cx="24" cy="25" r="1.5" fill="currentColor"/>
-                        <circle cx="29" cy="25" r="1.5" fill="currentColor"/>
-                    </svg>
-                </div>
-                <!-- Title -->
-                <h3 class="text-white text-2xl font-bold mb-3 text-center">Meilleur Coaching</h3>
-                <!-- Description -->
-                <p class="text-white text-opacity-80 text-center mb-8">
-                    Des professeurs expérimentés vous accompagnent dans votre parcours d'apprentissage avec des méthodes pédagogiques innovantes.
-                </p>
-                <!-- Button -->
-                <a href="#" class="flex items-center gap-2 bg-[#0F2239] text-white px-6 py-3 rounded-full font-medium shadow hover:bg-[#1a335c] transition">
-                    Voir les Détails
-                    <span class="bg-white text-[#0F2239] rounded-full p-1 ml-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </span>
-                </a>
+        <!-- Section Title -->
+        <div class="text-center mb-16">
+            <div class="inline-block backdrop-blur-lg bg-white/10 text-white px-6 py-2 rounded-full text-sm font-medium mb-4">
+                Cours Individuels
             </div>
-            @endfor
+            <h2 class="text-white text-4xl md:text-5xl font-bold mb-4 leading-tight">
+                Apprentissage Personnalisé
+            </h2>
+            <p class="text-blue-100 text-xl max-w-3xl mx-auto">
+                Des cours sur mesure adaptés à vos besoins spécifiques et à votre rythme d'apprentissage
+            </p>
+        </div>
+        
+        <div class="backdrop-blur-lg bg-white/10 rounded-2xl p-8 md:p-12 shadow-xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Side - Image and Content -->
+                <div class="space-y-6">
+                    <div class="relative">
+                        <img src="{{ asset('images/about-us.jpg') }}" alt="Contact Us" class="w-full h-64 md:h-80 object-cover rounded-xl shadow-lg" />
+                        <div class="absolute inset-0" style="background-color: rgba(1, 14, 44, 0.6);"></div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="inline-block bg-blue-500 text-white px-4 py-2 rounded-full text-sm font-medium">
+                            Contactez-nous
+                        </div>
+                        <h2 class="text-white text-3xl md:text-4xl font-bold leading-tight">
+                            Prêt à Commencer Votre Voyage d'Apprentissage ?
+                        </h2>
+                        <p class="text-blue-100 text-lg leading-relaxed">
+                            Notre équipe d'experts est là pour vous accompagner dans votre parcours éducatif. 
+                            Contactez-nous dès maintenant pour obtenir des informations personnalisées sur nos cours.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right Side - Contact Form -->
+                <div class="space-y-6">
+                    <div class="text-center lg:text-left">
+                        <h3 class="text-white text-2xl font-bold mb-2">Envoyez-nous un Message</h3>
+                        <p class="text-blue-100">Nous vous répondrons dans les plus brefs délais</p>
+                    </div>
+
+                    <form id="contactForm" class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-white font-medium mb-2">Votre Nom</label>
+                            <input type="text" id="name" name="name" required 
+                                   class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/60 focus:outline-none focus:border-blue-400 transition-colors"
+                                   placeholder="Entrez votre nom complet">
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-white font-medium mb-2">Votre Message</label>
+                            <textarea id="message" name="message" rows="4" required
+                                      class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/60 focus:outline-none focus:border-blue-400 transition-colors resize-none"
+                                      placeholder="Décrivez votre besoin ou posez votre question..."></textarea>
+                        </div>
+
+                        @if($whatsappNumber)
+                        <button type="button" onclick="sendWhatsAppMessage()" 
+                                class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                            </svg>
+                            Envoyer sur WhatsApp
+                        </button>
+                        @else
+                        <div class="text-center text-red-300 bg-red-500/20 p-4 rounded-lg">
+                            WhatsApp non configuré. Veuillez contacter l'administrateur.
+                        </div>
+                        @endif
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </section>
+
+<script>
+function sendWhatsAppMessage() {
+    const name = document.getElementById('name').value.trim();
+    const message = document.getElementById('message').value.trim();
+    
+    if (!name || !message) {
+        alert('Veuillez remplir tous les champs');
+        return;
+    }
+    
+    @if($whatsappNumber)
+    const whatsappText = `Bonjour! Je m'appelle ${name}. ${message}`;
+    const whatsappUrl = `{{ $whatsappNumber->whatsapp_url }}?text=${encodeURIComponent(whatsappText)}`;
+    window.open(whatsappUrl, '_blank');
+    @endif
+}
+</script>
 
 
 
@@ -486,6 +547,10 @@ function toggleContactFAQ(id) {
 
 
 
+@php
+    $testimonials = \App\Models\Testimonial::active()->orderBy('created_at', 'desc')->take(6)->get();
+@endphp
+
 <!-- Section 4.5: Testimonials Slider -->
 <section class="relative w-full py-20">
     <!-- Background image -->
@@ -499,177 +564,95 @@ function toggleContactFAQ(id) {
             Créer une Communauté<br>d'Apprenants à Vie
         </h2>
         
-        <!-- Testimonials Slider -->
-        <div class="relative" x-data="{ currentSlide: 0 }">
-            <!-- Slider Container -->
-            <div class="overflow-hidden">
-                <div class="flex transition-transform duration-500 ease-in-out" 
-                     :style="`transform: translateX(-${currentSlide * (window.innerWidth < 768 ? 100 : 33.333)}%)`">
-                    
-                    <!-- Testimonial 1 -->
-                    <div class="w-full md:w-1/3 flex-shrink-0 px-4">
-                        <div class="backdrop-blur-lg bg-white/10 rounded-2xl p-6 relative shadow-lg h-full">
-                            <!-- Decorative Line -->
-                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-r-full"></div>
-                            <!-- Content -->
-                            <div class="pt-4">
-                                <p class="text-white text-opacity-90 mb-6 leading-relaxed text-base">
-                                    "Elmoumen Academy a transformé mon approche de l'apprentissage. Les professeurs sont excellents et le contenu est très bien structuré."
-                                </p>
-                                <div class="flex items-center">
-                                    <div class="w-10 h-10 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full flex items-center justify-center mr-3">
-                                        <span class="text-white font-bold text-sm">A</span>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-white font-bold text-base">Ahmed Benali</h4>
-                                        <p class="text-cyan-400 text-xs">Étudiant en Terminale</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Testimonial 2 -->
-                    <div class="w-full md:w-1/3 flex-shrink-0 px-4">
-                        <div class="backdrop-blur-lg bg-white/10 rounded-2xl p-6 relative shadow-lg h-full">
-                            <!-- Decorative Line -->
-                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-r-full"></div>
-                            <!-- Content -->
-                            <div class="pt-4">
-                                <p class="text-white text-opacity-90 mb-6 leading-relaxed text-base">
-                                    "Grâce à Elmoumen Academy, j'ai pu améliorer mes résultats scolaires de manière significative. Je recommande vivement !"
-                                </p>
-                                <div class="flex items-center">
-                                    <div class="w-10 h-10 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full flex items-center justify-center mr-3">
-                                        <span class="text-white font-bold text-sm">F</span>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-white font-bold text-base">Fatima Zahra</h4>
-                                        <p class="text-cyan-400 text-xs">Étudiante en Collège</p>
+        @if($testimonials->count() > 0)
+            <!-- Testimonials Slider -->
+            <div class="relative" x-data="{ 
+                currentSlide: 0,
+                totalSlides: {{ $testimonials->count() }},
+                slidesPerView: window.innerWidth < 768 ? 1 : 3,
+                maxSlide: Math.max(0, {{ $testimonials->count() }} - (window.innerWidth < 768 ? 1 : 3))
+            }" x-init="
+                $watch('currentSlide', value => {
+                    if (value < 0) currentSlide = maxSlide;
+                    if (value > maxSlide) currentSlide = 0;
+                })
+            ">
+                <!-- Slider Container -->
+                <div class="overflow-hidden">
+                    <div class="flex transition-transform duration-500 ease-in-out" 
+                         :style="`transform: translateX(-${currentSlide * (100 / slidesPerView)}%)`">
+                        
+                        @foreach($testimonials as $testimonial)
+                            <div class="w-full md:w-1/3 flex-shrink-0 px-4">
+                                <div class="backdrop-blur-lg bg-white/10 rounded-2xl p-6 relative shadow-lg h-full">
+                                    <!-- Decorative Line -->
+                                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-r-full"></div>
+                                    <!-- Content -->
+                                    <div class="pt-4">
+                                        <p class="text-white text-opacity-90 mb-6 leading-relaxed text-base">
+                                            "{{ $testimonial->message }}"
+                                        </p>
+                                        <div class="flex items-center">
+                                            @if($testimonial->image)
+                                                <img src="{{ Storage::url($testimonial->image) }}" 
+                                                     alt="{{ $testimonial->name }}" 
+                                                     class="w-10 h-10 rounded-full object-cover mr-3">
+                                            @else
+                                                <div class="w-10 h-10 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full flex items-center justify-center mr-3">
+                                                    <span class="text-white font-bold text-sm">{{ strtoupper(substr($testimonial->name, 0, 1)) }}</span>
+                                                </div>
+                                            @endif
+                                            <div>
+                                                <h4 class="text-white font-bold text-base">{{ $testimonial->name }}</h4>
+                                                <p class="text-cyan-400 text-xs">{{ $testimonial->role }}</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Testimonial 3 -->
-                    <div class="w-full md:w-1/3 flex-shrink-0 px-4">
-                        <div class="backdrop-blur-lg bg-white/10 rounded-2xl p-6 relative shadow-lg h-full">
-                            <!-- Decorative Line -->
-                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-r-full"></div>
-                            <!-- Content -->
-                            <div class="pt-4">
-                                <p class="text-white text-opacity-90 mb-6 leading-relaxed text-base">
-                                    "Les cours sont très bien organisés et les professeurs sont toujours disponibles pour répondre à nos questions."
-                                </p>
-                                <div class="flex items-center">
-                                    <div class="w-10 h-10 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full flex items-center justify-center mr-3">
-                                        <span class="text-white font-bold text-sm">M</span>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-white font-bold text-base">Mohammed Alami</h4>
-                                        <p class="text-cyan-400 text-xs">Étudiant en Primaire</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Testimonial 4 -->
-                    <div class="w-full md:w-1/3 flex-shrink-0 px-4">
-                        <div class="backdrop-blur-lg bg-white/10 rounded-2xl p-6 relative shadow-lg h-full">
-                            <!-- Decorative Line -->
-                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-r-full"></div>
-                            <!-- Content -->
-                            <div class="pt-4">
-                                <p class="text-white text-opacity-90 mb-6 leading-relaxed text-base">
-                                    "Excellente plateforme pour préparer les concours. Le contenu est riche et les exercices sont très pertinents."
-                                </p>
-                                <div class="flex items-center">
-                                    <div class="w-10 h-10 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full flex items-center justify-center mr-3">
-                                        <span class="text-white font-bold text-sm">S</span>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-white font-bold text-base">Sara Bennani</h4>
-                                        <p class="text-cyan-400 text-xs">Candidat Concours</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Testimonial 5 -->
-                    <div class="w-full md:w-1/3 flex-shrink-0 px-4">
-                        <div class="backdrop-blur-lg bg-white/10 rounded-2xl p-6 relative shadow-lg h-full">
-                            <!-- Decorative Line -->
-                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-r-full"></div>
-                            <!-- Content -->
-                            <div class="pt-4">
-                                <p class="text-white text-opacity-90 mb-6 leading-relaxed text-base">
-                                    "Ma fille a fait d'énormes progrès depuis qu'elle suit les cours d'Elmoumen Academy. Je suis très satisfaite."
-                                </p>
-                                <div class="flex items-center">
-                                    <div class="w-10 h-10 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full flex items-center justify-center mr-3">
-                                        <span class="text-white font-bold text-sm">N</span>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-white font-bold text-base">Nadia Tazi</h4>
-                                        <p class="text-cyan-400 text-xs">Parent d'Élève</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Testimonial 6 -->
-                    <div class="w-full md:w-1/3 flex-shrink-0 px-4">
-                        <div class="backdrop-blur-lg bg-white/10 rounded-2xl p-6 relative shadow-lg h-full">
-                            <!-- Decorative Line -->
-                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-r-full"></div>
-                            <!-- Content -->
-                            <div class="pt-4">
-                                <p class="text-white text-opacity-90 mb-6 leading-relaxed text-base">
-                                    "Interface intuitive et contenu de qualité. Elmoumen Academy est vraiment une référence en matière d'éducation en ligne."
-                                </p>
-                                <div class="flex items-center">
-                                    <div class="w-10 h-10 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full flex items-center justify-center mr-3">
-                                        <span class="text-white font-bold text-sm">Y</span>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-white font-bold text-base">Youssef Idrissi</h4>
-                                        <p class="text-cyan-400 text-xs">Étudiant en Lycée</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
-            </div>
 
-            <!-- Navigation Arrows -->
-            <button @click="currentSlide = currentSlide === 0 ? (window.innerWidth < 768 ? 5 : 1) : currentSlide - 1" 
-                    class="absolute -left-12 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white rounded-full p-3 transition-all duration-300 backdrop-blur-sm">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                </svg>
-            </button>
-            
-            <button @click="currentSlide = currentSlide === (window.innerWidth < 768 ? 5 : 1) ? 0 : currentSlide + 1" 
-                    class="absolute -right-12 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white rounded-full p-3 transition-all duration-300 backdrop-blur-sm">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-            </button>
+                @if($testimonials->count() > 1)
+                    <!-- Navigation Arrows -->
+                    <button @click="currentSlide--" 
+                            class="absolute -left-12 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white rounded-full p-3 transition-all duration-300 backdrop-blur-sm">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    
+                    <button @click="currentSlide++" 
+                            class="absolute -right-12 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white rounded-full p-3 transition-all duration-300 backdrop-blur-sm">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
 
-            <!-- Dots Indicator -->
-            <div class="flex justify-center mt-8 space-x-3">
-                <template x-for="i in (window.innerWidth < 768 ? 6 : 2)" :key="i">
-                    <button @click="currentSlide = i - 1" 
-                            :class="currentSlide === (i - 1) ? 'bg-cyan-400' : 'bg-white/30'" 
-                            class="w-3 h-3 rounded-full transition-all duration-300"></button>
-                </template>
+                    <!-- Dots Indicator -->
+                    <div class="flex justify-center mt-8 space-x-3">
+                        <template x-for="i in (maxSlide + 1)" :key="i">
+                            <button @click="currentSlide = i - 1" 
+                                    :class="currentSlide === (i - 1) ? 'bg-cyan-400' : 'bg-white/30'" 
+                                    class="w-3 h-3 rounded-full transition-all duration-300"></button>
+                        </template>
+                    </div>
+                @endif
             </div>
-        </div>
+        @else
+            <!-- No testimonials message -->
+            <div class="text-center">
+                <div class="backdrop-blur-lg bg-white/10 rounded-2xl p-8 max-w-2xl mx-auto">
+                    <p class="text-white text-opacity-90 text-lg mb-4">
+                        Aucun témoignage disponible pour le moment.
+                    </p>
+                    <p class="text-white text-opacity-70">
+                        Les témoignages de nos étudiants apparaîtront ici.
+                    </p>
+                </div>
+            </div>
+        @endif
     </div>
 </section>
 

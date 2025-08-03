@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('study_materials', function (Blueprint $table) {
-            $table->dropForeign(['subject_id']); // Remove foreign key constraint
-            $table->dropColumn('subject_id');    // Remove the column
+            $table->foreignId('subject_id')->nullable()->constrained()->onDelete('cascade')->after('field_id');
         });
     }
 
@@ -23,9 +22,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('study_materials', function (Blueprint $table) {
-            $table->unsignedBigInteger('subject_id');
-        // If you want to restore the foreign key:
-        // $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
+            $table->dropForeign(['subject_id']);
+            $table->dropColumn('subject_id');
         });
     }
 };

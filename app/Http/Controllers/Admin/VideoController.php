@@ -56,7 +56,7 @@ class VideoController extends Controller
      */
     public function edit(Video $video)
     {
-        //
+        return view('admin.videos.edit', compact('video'));
     }
 
     /**
@@ -64,7 +64,17 @@ class VideoController extends Controller
      */
     public function update(Request $request, Video $video)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'thumbnail' => 'required|url',
+            'video_url' => 'required|url',
+            'category' => 'required|in:mothers,parents,students',
+        ]);
+
+        $video->update($request->all());
+
+        return redirect()->route('admin.videos.index')
+            ->with('success', 'Vidéo mise à jour avec succès.');
     }
 
     /**
