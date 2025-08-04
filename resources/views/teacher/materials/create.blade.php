@@ -210,6 +210,7 @@
                             <option value="">Sélectionner le semestre...</option>
                             <option value="Semestre 1">Semestre 1</option>
                             <option value="Semestre 2">Semestre 2</option>
+                            <option value="Concour">Concour</option>
                         </select>
                     </div>
 
@@ -224,6 +225,7 @@
                             <option value="Séries">Séries</option>
                             <option value="Devoirs">Devoirs</option>
                             <option value="Examens">Examens</option>
+                            <option value="Concour">Concour</option>
                         </select>
                     </div>
                 </div>
@@ -255,6 +257,25 @@
                             <option value="Examens Régionaux">Examens Régionaux</option>
                             <option value="Examens Nationaux Blanc">Examens Nationaux Blanc</option>
                             <option value="Examens Nationaux">Examens Nationaux</option>
+                        </select>
+                    </div>
+
+                    <!-- Concour Type (always visible but disabled) -->
+                    <div id="concour_type_container_${blockIndex}" class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Type de Concour *</label>
+                        <select name="concour_types[${blockIndex}]" id="concour_type_${blockIndex}"
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-100 text-gray-500" disabled>
+                            <option value="">Sélectionner le type de concour...</option>
+                            <option value="Concour 1">Concour 1</option>
+                            <option value="Concour 2">Concour 2</option>
+                            <option value="Concour 3">Concour 3</option>
+                            <option value="Concour 4">Concour 4</option>
+                            <option value="Concour 5">Concour 5</option>
+                            <option value="Concour 6">Concour 6</option>
+                            <option value="Concour 7">Concour 7</option>
+                            <option value="Concour 8">Concour 8</option>
+                            <option value="Concour 9">Concour 9</option>
+                            <option value="Concour 10">Concour 10</option>
                         </select>
                     </div>
                 </div>
@@ -337,10 +358,12 @@
         function toggleMaterialType(select, blockIndex) {
             const devoirTypeSelect = document.getElementById(`devoir_type_${blockIndex}`);
             const examTypeSelect = document.getElementById(`exam_type_${blockIndex}`);
+            const concourTypeSelect = document.getElementById(`concour_type_${blockIndex}`);
             
             // Reset all dropdowns first
             devoirTypeSelect.value = '';
             examTypeSelect.value = '';
+            concourTypeSelect.value = '';
             
             // Disable and style all dropdowns by default
             devoirTypeSelect.disabled = true;
@@ -353,6 +376,11 @@
             examTypeSelect.classList.add('bg-gray-100', 'text-gray-500');
             examTypeSelect.classList.remove('bg-white', 'text-gray-900');
             
+            concourTypeSelect.disabled = true;
+            concourTypeSelect.required = false;
+            concourTypeSelect.classList.add('bg-gray-100', 'text-gray-500');
+            concourTypeSelect.classList.remove('bg-white', 'text-gray-900');
+            
             if (select.value === 'Devoirs') {
                 devoirTypeSelect.disabled = false;
                 devoirTypeSelect.required = true;
@@ -363,6 +391,11 @@
                 examTypeSelect.required = true;
                 examTypeSelect.classList.remove('bg-gray-100', 'text-gray-500');
                 examTypeSelect.classList.add('bg-white', 'text-gray-900');
+            } else if (select.value === 'Concour') {
+                concourTypeSelect.disabled = false;
+                concourTypeSelect.required = true;
+                concourTypeSelect.classList.remove('bg-gray-100', 'text-gray-500');
+                concourTypeSelect.classList.add('bg-white', 'text-gray-900');
             }
         }
 

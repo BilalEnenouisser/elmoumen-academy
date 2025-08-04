@@ -280,7 +280,7 @@
                     <div class="absolute bottom-2 right-2 bg-white text-blue-800 px-3 py-1 rounded-lg text-sm font-semibold">أجي تغير حياتك</div>
                 </div>
                 <!-- Title -->
-                <h3 class="text-white text-xl font-bold mb-2">فضاء خاص بالتلاميذ الذين يريدون تغيير حياتهم</h3>
+                <h3 class="text-white text-xl font-bold mb-2">فضاء خاص بالناس لي باغين يغيرو حياتهم</h3>
                 <!-- Description -->
                 <p class="text-blue-100 mb-4 text-sm">
                     انضم إلى ندوتنا المجانية لتعلم كيفية التحضير والنجاح في اختباراتك.

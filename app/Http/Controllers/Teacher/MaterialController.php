@@ -51,13 +51,15 @@ class MaterialController extends Controller
             'field_id' => 'nullable|exists:fields,id',
             'subject_id' => 'required|exists:subjects,id',
             'semesters' => 'required|array',
-            'semesters.*' => 'required|in:Semestre 1,Semestre 2',
+            'semesters.*' => 'required|in:Semestre 1,Semestre 2,Concour',
             'material_types' => 'required|array',
-            'material_types.*' => 'required|in:Cours,Séries,Devoirs,Examens',
+            'material_types.*' => 'required|in:Cours,Séries,Devoirs,Examens,Concour',
             'devoir_types' => 'nullable|array',
             'devoir_types.*' => 'nullable|in:Devoir 1,Devoir 2,Devoir 3,Devoir 4',
             'exam_types' => 'nullable|array',
             'exam_types.*' => 'nullable|in:إمتحانات محلية,إمتحانات إقليمية,Examens Locaux,Examens Régionaux,Examens Nationaux Blanc,Examens Nationaux',
+            'concour_types' => 'nullable|array',
+            'concour_types.*' => 'nullable|in:Concour 1,Concour 2,Concour 3,Concour 4,Concour 5,Concour 6,Concour 7,Concour 8,Concour 9,Concour 10',
             'pdfs.*.*' => 'nullable|file|mimes:pdf|max:10240',
             'pdf_titles.*.*' => 'nullable|string',
             'video_links.*.*' => 'nullable|url',
@@ -80,6 +82,8 @@ class MaterialController extends Controller
                 $blockName = null;
                 if ($materialType === 'Devoirs' && isset($request->devoir_types[$blockIndex])) {
                     $blockName = $request->devoir_types[$blockIndex];
+                } elseif ($materialType === 'Concour' && isset($request->concour_types[$blockIndex])) {
+                    $blockName = $request->concour_types[$blockIndex];
                 }
                 
                 $block = $material->blocks()->create([
@@ -88,6 +92,7 @@ class MaterialController extends Controller
                     'material_type' => $request->material_types[$blockIndex],
                     'name' => $blockName,
                     'exam_type' => $request->exam_types[$blockIndex] ?? null,
+                    'concour_type' => $request->concour_types[$blockIndex] ?? null,
                     'order' => $blockIndex,
                 ]);
 
@@ -168,13 +173,15 @@ class MaterialController extends Controller
 
         $request->validate([
             'semesters' => 'required|array',
-            'semesters.*' => 'required|in:Semestre 1,Semestre 2',
+            'semesters.*' => 'required|in:Semestre 1,Semestre 2,Concour',
             'material_types' => 'required|array',
-            'material_types.*' => 'required|in:Cours,Séries,Devoirs,Examens',
+            'material_types.*' => 'required|in:Cours,Séries,Devoirs,Examens,Concour',
             'devoir_types' => 'nullable|array',
             'devoir_types.*' => 'nullable|in:Devoir 1,Devoir 2,Devoir 3,Devoir 4',
             'exam_types' => 'nullable|array',
             'exam_types.*' => 'nullable|in:إمتحانات محلية,إمتحانات إقليمية,Examens Locaux,Examens Régionaux,Examens Nationaux Blanc,Examens Nationaux',
+            'concour_types' => 'nullable|array',
+            'concour_types.*' => 'nullable|in:Concour 1,Concour 2,Concour 3,Concour 4,Concour 5,Concour 6,Concour 7,Concour 8,Concour 9,Concour 10',
             'pdfs.*.*' => 'nullable|file|mimes:pdf|max:10240',
             'pdf_titles.*.*' => 'nullable|string',
             'video_links.*.*' => 'nullable|url',
@@ -188,6 +195,8 @@ class MaterialController extends Controller
                 $blockName = null;
                 if ($materialType === 'Devoirs' && isset($request->devoir_types[$blockIndex])) {
                     $blockName = $request->devoir_types[$blockIndex];
+                } elseif ($materialType === 'Concour' && isset($request->concour_types[$blockIndex])) {
+                    $blockName = $request->concour_types[$blockIndex];
                 }
                 
                 $block = $material->blocks()->create([
@@ -196,6 +205,7 @@ class MaterialController extends Controller
                     'material_type' => $request->material_types[$blockIndex],
                     'name' => $blockName,
                     'exam_type' => $request->exam_types[$blockIndex] ?? null,
+                    'concour_type' => $request->concour_types[$blockIndex] ?? null,
                     'order' => $blockIndex,
                 ]);
 

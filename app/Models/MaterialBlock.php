@@ -16,6 +16,7 @@ class MaterialBlock extends Model
         'material_type',
         'name',
         'exam_type',
+        'concour_type',
         'order'
     ];
 

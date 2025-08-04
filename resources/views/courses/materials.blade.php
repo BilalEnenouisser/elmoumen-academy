@@ -51,6 +51,9 @@
                     $semester2Materials = $materials->filter(function($material) {
                         return $material->blocks->where('semester', 'Semestre 2')->count() > 0;
                     });
+                    $concourMaterials = $materials->filter(function($material) {
+                        return $material->blocks->where('semester', 'Concour')->count() > 0;
+                    });
                 @endphp
                 
                 @if($semester1Materials->count() > 0)
@@ -264,6 +267,115 @@
                                             </div>
                                             <div class="flex-1">
                                                 <div class="text-sm text-blue-100">voir la vidéo</div>
+                                                <div class="text-white font-semibold">{{ $video->title ?? 'Vidéo' }}</div>
+                                            </div>
+                                            <a href="{{ $video->video_link }}" target="_blank" class="ml-2 p-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                                    <polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                @endif
+                
+                @if($concourMaterials->count() > 0)
+                <div class="bg-white bg-opacity-15 backdrop-blur-lg border border-white border-opacity-30 rounded-2xl overflow-hidden shadow-xl">
+                    <div class="bg-[#111827] backdrop-blur-sm px-8 py-6">
+                        <h3 class="text-2xl font-bold text-white mb-2">Concours</h3>
+                        <p class="text-gray-300">Préparation aux concours d'entrée</p>
+                    </div>
+                    <div class="p-8">
+                        <div class="space-y-6">
+                            @foreach($concourMaterials as $material)
+                            @php
+                                // Determine the color for the main accordion button based on material types
+                                $concourBlocks = $material->blocks->where('semester', 'Concour');
+                                $hasConcour = $concourBlocks->where('material_type', 'Concour')->count() > 0;
+                                
+                                // Set button colors for Concours
+                                if ($hasConcour) {
+                                    $buttonBg = 'bg-purple-500/20';
+                                    $buttonBorder = 'border-purple-400/30';
+                                    $buttonHover = 'hover:bg-purple-500/30';
+                                    $buttonText = 'text-purple-100';
+                                } else {
+                                    // Normal color for other types
+                                    $buttonBg = 'bg-white/10';
+                                    $buttonBorder = 'border-white/20';
+                                    $buttonHover = 'hover:bg-white/20';
+                                    $buttonText = 'text-white';
+                                }
+                            @endphp
+                            <div class="bg-white bg-opacity-10 backdrop-blur-md border border-white border-opacity-20 rounded-xl overflow-hidden">
+                                <!-- Material Header (Accordion Button) -->
+                                <button @click="openAccordion = openAccordion === '{{ $material->id }}' ? null : '{{ $material->id }}'"
+                                    class="w-full flex items-center justify-between px-6 py-4 rounded-xl {{ $buttonText }} text-xl font-semibold focus:outline-none transition-all duration-300 {{ $buttonBg }} {{ $buttonBorder }} border {{ $buttonHover }} backdrop-blur-sm">
+                                    <span>{{ $material->title }}</span>
+                                    <svg :class="{'rotate-180': openAccordion === '{{ $material->id }}'}" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                                
+                                <!-- Expanded Content - All blocks for this material -->
+                                <div x-show="openAccordion === '{{ $material->id }}'" x-transition class="p-6 space-y-4">
+                                    @foreach($material->blocks->where('semester', 'Concour')->sortBy('order') as $block)
+                                    <div class="bg-white bg-opacity-5 backdrop-blur-sm rounded-lg p-4">
+                                        <!-- Block Type Header -->
+                                        <div class="flex items-center justify-between mb-4 px-4 py-3 rounded-lg bg-white bg-opacity-10 backdrop-blur-sm">
+                                            <span class="font-semibold text-white">
+                                                @if($block->concour_type)
+                                                    {{ $block->concour_type }}
+                                                @elseif($block->name)
+                                                    {{ $block->name }}
+                                                @else
+                                                    {{ $block->material_type }}
+                                                @endif
+                                            </span>
+                                            @if($block->material_type == 'Concour' && $block->concour_type)
+                                                <span class="text-sm opacity-75 text-purple-100">{{ $block->concour_type }}</span>
+                                            @endif
+                                        </div>
+                                        
+                                        <!-- PDFs for this block -->
+                                        @foreach($block->pdfs as $pdf)
+                                        <div class="flex items-center gap-4 p-4 bg-white bg-opacity-5 backdrop-blur-sm rounded-lg mb-3">
+                                            <div>
+                                                <img src="{{ asset('images/pdf-icon.png') }}" alt="PDF" class="w-10 h-10" />
+                                            </div>
+                                            <div class="flex-1">
+                                                <div class="text-white font-semibold">{{ $pdf->title ?? 'PDF' }}</div>
+                                                <div class="text-sm text-purple-100">PDF • {{ $block->material_type }}</div>
+                                            </div>
+                                            <a href="{{ asset('storage/' . $pdf->pdf_path) }}" target="_blank" class="ml-2 p-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors" onclick="trackPdfDownload({{ $pdf->id }})">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                                    <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+                                                    <path d="M7 11l5 5 5-5" />
+                                                    <path d="M12 4v12" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        @endforeach
+
+                                        <!-- Videos for this block -->
+                                        @foreach($block->videos as $video)
+                                        <div class="flex items-center gap-4 p-4 bg-white bg-opacity-5 backdrop-blur-sm rounded-lg mb-3 cursor-pointer" onclick="window.open('{{ $video->video_link }}', '_blank')">
+                                            <div>
+                                                <div class="w-10 h-10 rounded bg-red-500 flex items-center justify-center">
+                                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="flex-1">
+                                                <div class="text-sm text-purple-100">voir la vidéo</div>
                                                 <div class="text-white font-semibold">{{ $video->title ?? 'Vidéo' }}</div>
                                             </div>
                                             <a href="{{ $video->video_link }}" target="_blank" class="ml-2 p-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">

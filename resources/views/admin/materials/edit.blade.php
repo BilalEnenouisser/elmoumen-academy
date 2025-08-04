@@ -153,6 +153,7 @@
                                 <option value="">Sélectionner le semestre...</option>
                                 <option value="Semestre 1" {{ $block->semester == 'Semestre 1' ? 'selected' : '' }}>Semestre 1</option>
                                 <option value="Semestre 2" {{ $block->semester == 'Semestre 2' ? 'selected' : '' }}>Semestre 2</option>
+                                <option value="Concour" {{ $block->semester == 'Concour' ? 'selected' : '' }}>Concour</option>
                             </select>
                         </div>
 
@@ -167,6 +168,7 @@
                                 <option value="Séries" {{ $block->material_type == 'Séries' ? 'selected' : '' }}>Séries</option>
                                 <option value="Devoirs" {{ $block->material_type == 'Devoirs' ? 'selected' : '' }}>Devoirs</option>
                                 <option value="Examens" {{ $block->material_type == 'Examens' ? 'selected' : '' }}>Examens</option>
+                                <option value="Concour" {{ $block->material_type == 'Concour' ? 'selected' : '' }}>Concour</option>
                             </select>
                         </div>
                     </div>
@@ -200,6 +202,26 @@
                                 <option value="Examens Régionaux" {{ $block->exam_type == 'Examens Régionaux' ? 'selected' : '' }}>Examens Régionaux</option>
                                 <option value="Examens Nationaux Blanc" {{ $block->exam_type == 'Examens Nationaux Blanc' ? 'selected' : '' }}>Examens Nationaux Blanc</option>
                                 <option value="Examens Nationaux" {{ $block->exam_type == 'Examens Nationaux' ? 'selected' : '' }}>Examens Nationaux</option>
+                            </select>
+                        </div>
+
+                        <!-- Concour Type (always visible but disabled) -->
+                        <div id="concour_type_container_{{ $index }}" class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Type de Concour *</label>
+                            <select name="concour_types[]" id="concour_type_{{ $index }}"
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 {{ $block->material_type == 'Concour' ? 'bg-white text-gray-900' : 'bg-gray-100 text-gray-500' }}" 
+                                    {{ $block->material_type == 'Concour' ? '' : 'disabled' }}>
+                                <option value="">Sélectionner le type de concour...</option>
+                                <option value="Concour 1" {{ $block->concour_type == 'Concour 1' ? 'selected' : '' }}>Concour 1</option>
+                                <option value="Concour 2" {{ $block->concour_type == 'Concour 2' ? 'selected' : '' }}>Concour 2</option>
+                                <option value="Concour 3" {{ $block->concour_type == 'Concour 3' ? 'selected' : '' }}>Concour 3</option>
+                                <option value="Concour 4" {{ $block->concour_type == 'Concour 4' ? 'selected' : '' }}>Concour 4</option>
+                                <option value="Concour 5" {{ $block->concour_type == 'Concour 5' ? 'selected' : '' }}>Concour 5</option>
+                                <option value="Concour 6" {{ $block->concour_type == 'Concour 6' ? 'selected' : '' }}>Concour 6</option>
+                                <option value="Concour 7" {{ $block->concour_type == 'Concour 7' ? 'selected' : '' }}>Concour 7</option>
+                                <option value="Concour 8" {{ $block->concour_type == 'Concour 8' ? 'selected' : '' }}>Concour 8</option>
+                                <option value="Concour 9" {{ $block->concour_type == 'Concour 9' ? 'selected' : '' }}>Concour 9</option>
+                                <option value="Concour 10" {{ $block->concour_type == 'Concour 10' ? 'selected' : '' }}>Concour 10</option>
                             </select>
                         </div>
                     </div>
@@ -476,15 +498,16 @@
                 <!-- Material Type -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Type de Matériel *</label>
-                    <select name="material_types[]" required 
-                            onchange="toggleMaterialType(this, ${blockIndex})"
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                        <option value="">Sélectionner le type...</option>
-                        <option value="Cours">Cours</option>
-                        <option value="Séries">Séries</option>
-                        <option value="Devoirs">Devoirs</option>
-                        <option value="Examens">Examens</option>
-                    </select>
+                                            <select name="material_types[]" required 
+                                onchange="toggleMaterialType(this, ${blockIndex})"
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <option value="">Sélectionner le type...</option>
+                            <option value="Cours">Cours</option>
+                            <option value="Séries">Séries</option>
+                            <option value="Devoirs">Devoirs</option>
+                            <option value="Examens">Examens</option>
+                            <option value="Concour">Concour</option>
+                        </select>
                 </div>
             </div>
 
@@ -515,6 +538,25 @@
                         <option value="Examens Régionaux">Examens Régionaux</option>
                         <option value="Examens Nationaux Blanc">Examens Nationaux Blanc</option>
                         <option value="Examens Nationaux">Examens Nationaux</option>
+                    </select>
+                </div>
+
+                <!-- Concour Type (always visible but disabled) -->
+                <div id="concour_type_container_${blockIndex}" class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Type de Concour *</label>
+                    <select name="concour_types[]" id="concour_type_${blockIndex}"
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-100 text-gray-500" disabled>
+                        <option value="">Sélectionner le type de concour...</option>
+                        <option value="Concour 1">Concour 1</option>
+                        <option value="Concour 2">Concour 2</option>
+                        <option value="Concour 3">Concour 3</option>
+                        <option value="Concour 4">Concour 4</option>
+                        <option value="Concour 5">Concour 5</option>
+                        <option value="Concour 6">Concour 6</option>
+                        <option value="Concour 7">Concour 7</option>
+                        <option value="Concour 8">Concour 8</option>
+                        <option value="Concour 9">Concour 9</option>
+                        <option value="Concour 10">Concour 10</option>
                     </select>
                 </div>
             </div>
@@ -597,10 +639,12 @@
     function toggleMaterialType(select, blockIndex) {
         const devoirTypeSelect = document.getElementById(`devoir_type_${blockIndex}`);
         const examTypeSelect = document.getElementById(`exam_type_${blockIndex}`);
+        const concourTypeSelect = document.getElementById(`concour_type_${blockIndex}`);
         
         // Reset all dropdowns first
         devoirTypeSelect.value = '';
         examTypeSelect.value = '';
+        concourTypeSelect.value = '';
         
         // Disable and style all dropdowns by default
         devoirTypeSelect.disabled = true;
@@ -613,6 +657,11 @@
         examTypeSelect.classList.add('bg-gray-100', 'text-gray-500');
         examTypeSelect.classList.remove('bg-white', 'text-gray-900');
         
+        concourTypeSelect.disabled = true;
+        concourTypeSelect.required = false;
+        concourTypeSelect.classList.add('bg-gray-100', 'text-gray-500');
+        concourTypeSelect.classList.remove('bg-white', 'text-gray-900');
+        
         if (select.value === 'Devoirs') {
             devoirTypeSelect.disabled = false;
             devoirTypeSelect.required = true;
@@ -623,6 +672,11 @@
             examTypeSelect.required = true;
             examTypeSelect.classList.remove('bg-gray-100', 'text-gray-500');
             examTypeSelect.classList.add('bg-white', 'text-gray-900');
+        } else if (select.value === 'Concour') {
+            concourTypeSelect.disabled = false;
+            concourTypeSelect.required = true;
+            concourTypeSelect.classList.remove('bg-gray-100', 'text-gray-500');
+            concourTypeSelect.classList.add('bg-white', 'text-gray-900');
         }
     }
 
