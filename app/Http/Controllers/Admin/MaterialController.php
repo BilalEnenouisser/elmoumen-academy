@@ -54,6 +54,8 @@ class MaterialController extends Controller
             'semesters.*' => 'required|in:Semestre 1,Semestre 2',
             'material_types' => 'required|array',
             'material_types.*' => 'required|in:Cours,Séries,Devoirs,Examens',
+            'devoir_types' => 'nullable|array',
+            'devoir_types.*' => 'nullable|in:Devoir 1,Devoir 2,Devoir 3,Devoir 4',
             'exam_types' => 'nullable|array',
             'exam_types.*' => 'nullable|in:إمتحانات محلية,إمتحانات إقليمية,Examens Locaux,Examens Régionaux,Examens Nationaux Blanc,Examens Nationaux',
             'pdfs.*.*' => 'nullable|file|mimes:pdf',
@@ -71,10 +73,17 @@ class MaterialController extends Controller
 
         // Create blocks and their content
         foreach ($request->material_types as $blockIndex => $materialType) {
+            // Determine the name for the block
+            $blockName = null;
+            if ($materialType === 'Devoirs' && isset($request->devoir_types[$blockIndex])) {
+                $blockName = $request->devoir_types[$blockIndex];
+            }
+            
             $block = $material->blocks()->create([
                 'type' => $materialType,
                 'semester' => $request->semesters[$blockIndex],
                 'material_type' => $request->material_types[$blockIndex],
+                'name' => $blockName,
                 'exam_type' => $request->exam_types[$blockIndex] ?? null,
                 'order' => $blockIndex,
             ]);

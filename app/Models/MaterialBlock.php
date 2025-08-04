@@ -14,6 +14,7 @@ class MaterialBlock extends Model
         'type',
         'semester',
         'material_type',
+        'name',
         'exam_type',
         'order'
     ];

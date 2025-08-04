@@ -34,14 +34,24 @@
             @foreach ($years as $year)
                 <div class="bg-white bg-opacity-15 backdrop-blur-lg border border-white border-opacity-30 rounded-2xl overflow-hidden shadow-xl hover:bg-white hover:bg-opacity-25 hover:transform hover:-translate-y-2 transition-all duration-300">
                     <div class="relative">
-                        <div class="h-48 bg-cover bg-center flex items-center justify-center relative" style="background-image: url('{{ asset('images/' . strtolower(str_replace([' ', 'é', 'è', 'ê'], ['', 'e', 'e', 'e'], $level->name)) . '.jpg') }}');">
-                            <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-                            <div class="text-center text-white relative z-10">
-                                <div class="text-4xl font-bold mb-2">
-                                    {{ $year->name }}
+                        @if($year->image)
+                            <div class="h-48 bg-cover bg-center flex items-center justify-center relative" style="background-image: url('{{ asset($year->image) }}');">
+                                <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+                                <div class="text-center text-white relative z-10">
+                                    <div class="text-4xl font-bold mb-2">
+                                        {{ $year->name }}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @else
+                            <div class="h-48 bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center relative">
+                                <div class="text-center text-white">
+                                    <div class="text-4xl font-bold mb-2">
+                                        {{ $year->name }}
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                         <div class="absolute top-4 right-4">
                             <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm font-medium">
                                 {{ $level->name }}

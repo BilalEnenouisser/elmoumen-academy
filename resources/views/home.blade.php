@@ -736,21 +736,65 @@ function toggleContactFAQ(id) {
                     <!-- Contact Form -->
                     <div class="border-t pt-6">
                         <h4 class="text-lg font-semibold text-gray-900 mb-4">Envoyez-nous un message</h4>
-                        <form class="space-y-4">
+                        
+                        @if(session('success'))
+                            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        
+                        @if($errors->any())
+                            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                                <ul class="list-disc list-inside text-sm">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        
+                        <form method="POST" action="{{ route('messages.store') }}" class="space-y-4">
+                            @csrf
                             <div>
-                                <label class="block text-gray-700 mb-1">Nom complet</label>
-                                <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#001226] focus:border-[#001226]">
+                                <label for="home_name" class="block text-gray-700 mb-1">Nom Complet *</label>
+                                <input type="text" id="home_name" name="name" required 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#001226] focus:border-[#001226] transition"
+                                       placeholder="Votre nom complet">
                             </div>
                             <div>
-                                <label class="block text-gray-700 mb-1">Email</label>
-                                <input type="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#001226] focus:border-[#001226]">
+                                <label for="home_phone" class="block text-gray-700 mb-1">Numéro de Téléphone *</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <span class="text-gray-500 text-sm">+212</span>
+                                    </div>
+                                    <input type="tel" id="home_phone" name="phone" required 
+                                           class="w-full pl-12 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#001226] focus:border-[#001226] transition"
+                                           placeholder="600112233"
+                                           pattern="[0-9]{9}" 
+                                           title="Veuillez entrer un numéro de téléphone valide (9 chiffres)">
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">Exemple: 600112233 (sans le +212)</p>
                             </div>
                             <div>
-                                <label class="block text-gray-700 mb-1">Message</label>
-                                <textarea rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#001226] focus:border-[#001226]"></textarea>
+                                <label for="home_subject" class="block text-gray-700 mb-1">Sujet *</label>
+                                <select id="home_subject" name="subject" required 
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#001226] focus:border-[#001226] transition">
+                                    <option value="">Sélectionnez un sujet</option>
+                                    <option value="inscription">Inscription aux cours</option>
+                                    <option value="information">Demande d'information</option>
+                                    <option value="support">Support technique</option>
+                                    <option value="partnership">Partenariat</option>
+                                    <option value="other">Autre</option>
+                                </select>
                             </div>
-                            <button type="submit" class="w-full bg-[#001226] hover:bg-[#0a1a2e] text-white py-3 rounded-lg font-medium transition">
-                                Envoyer le message
+                            <div>
+                                <label for="home_message" class="block text-gray-700 mb-1">Message *</label>
+                                <textarea id="home_message" name="message" rows="4" required 
+                                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#001226] focus:border-[#001226] transition resize-none"
+                                          placeholder="Décrivez votre demande en détail..."></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-[#001226] hover:bg-[#0a1a2e] text-white py-3 rounded-lg font-medium transition duration-300 shadow-lg hover:shadow-xl">
+                                Envoyer le Message
                             </button>
                         </form>
                     </div>

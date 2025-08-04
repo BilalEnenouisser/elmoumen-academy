@@ -9,27 +9,71 @@
     teacherName: ''
 }">
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-        <h1 class="text-2xl font-bold">👨‍🏫 Liste des Enseignants</h1>
-        <a href="{{ route('admin.teachers.create') }}" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">
+        <h1 class="text-2xl font-bold">👨‍🏫 Gestion des Enseignants</h1>
+        <a href="{{ route('admin.teachers.create') }}" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
             ➕ Ajouter un Enseignant
         </a>
     </div>
+
+    @if(session('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            {{ session('error') }}
+        </div>
+    @endif
 
     <!-- Mobile Cards View -->
     <div class="lg:hidden space-y-4">
         @foreach ($teachers as $teacher)
             <div class="bg-white rounded-lg shadow p-4">
-                <div class="flex justify-between items-start mb-3">
+                <div class="flex items-center gap-3 mb-3">
+                    @if($teacher->image_path)
+                        <img src="{{ asset('storage/' . $teacher->image_path) }}" 
+                             alt="{{ $teacher->name }}" 
+                             class="w-12 h-12 rounded-full object-cover">
+                    @else
+                        <div class="w-12 h-12 rounded-full {{ $teacher->avatar_color }} flex items-center justify-center text-white font-bold text-lg">
+                            {{ $teacher->first_letter }}
+                        </div>
+                    @endif
                     <div class="flex-1">
                         <h3 class="font-semibold text-gray-900">{{ $teacher->name }}</h3>
                         <p class="text-sm text-gray-600">{{ $teacher->email }}</p>
+                        <p class="text-sm text-blue-600">{{ $teacher->role }}</p>
                     </div>
+                </div>
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="px-2 py-1 text-xs rounded-full {{ $teacher->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                        {{ $teacher->is_active ? 'Actif' : 'Inactif' }}
+                    </span>
+                    <span class="px-2 py-1 text-xs rounded-full {{ $teacher->show_in_about ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800' }}">
+                        {{ $teacher->show_in_about ? 'Visible' : 'Caché' }}
+                    </span>
                 </div>
                 <div class="flex gap-2">
                     <a href="{{ route('admin.teachers.edit', $teacher) }}" 
                        class="flex-1 text-center bg-blue-100 text-blue-700 px-3 py-2 rounded text-sm hover:bg-blue-200 transition-colors">
                         Modifier
                     </a>
+                    <form action="{{ route('admin.teachers.toggle-status', $teacher) }}" method="POST" class="flex-1">
+                        @csrf
+                        <button type="submit" 
+                                class="w-full text-center {{ $teacher->is_active ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700' }} px-3 py-2 rounded text-sm hover:opacity-80 transition-colors">
+                            {{ $teacher->is_active ? 'Désactiver' : 'Activer' }}
+                        </button>
+                    </form>
+                    <form action="{{ route('admin.teachers.toggle-show-in-about', $teacher) }}" method="POST" class="flex-1">
+                        @csrf
+                        <button type="submit" 
+                                class="w-full text-center {{ $teacher->show_in_about ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700' }} px-3 py-2 rounded text-sm hover:opacity-80 transition-colors">
+                            {{ $teacher->show_in_about ? 'Cacher' : 'Afficher' }}
+                        </button>
+                    </form>
                     <button 
                         @click="teacherToDelete = {{ $teacher->id }}; teacherName = '{{ addslashes($teacher->name) }}'; showDeleteModal = true"
                         class="flex-1 text-center bg-red-100 text-red-700 px-3 py-2 rounded text-sm hover:bg-red-200 transition-colors">
@@ -46,21 +90,61 @@
             <table class="w-full">
                 <thead class="bg-gray-50">
                     <tr>
+                        <th class="p-4 text-left text-sm font-medium text-gray-900">Photo</th>
                         <th class="p-4 text-left text-sm font-medium text-gray-900">Nom</th>
                         <th class="p-4 text-left text-sm font-medium text-gray-900">Email</th>
+                        <th class="p-4 text-left text-sm font-medium text-gray-900">Rôle</th>
+                        <th class="p-4 text-center text-sm font-medium text-gray-900">Statut</th>
+                        <th class="p-4 text-center text-sm font-medium text-gray-900">Affichage</th>
                         <th class="p-4 text-center text-sm font-medium text-gray-900">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
                     @foreach ($teachers as $teacher)
                         <tr class="hover:bg-gray-50">
+                            <td class="p-4">
+                                @if($teacher->image_path)
+                                    <img src="{{ asset('storage/' . $teacher->image_path) }}" 
+                                         alt="{{ $teacher->name }}" 
+                                         class="w-10 h-10 rounded-full object-cover">
+                                @else
+                                    <div class="w-10 h-10 rounded-full {{ $teacher->avatar_color }} flex items-center justify-center text-white font-bold text-sm">
+                                        {{ $teacher->first_letter }}
+                                    </div>
+                                @endif
+                            </td>
                             <td class="p-4 text-sm text-gray-900">{{ $teacher->name }}</td>
                             <td class="p-4 text-sm text-gray-600">{{ $teacher->email }}</td>
+                            <td class="p-4 text-sm text-blue-600">{{ $teacher->role }}</td>
+                            <td class="p-4 text-center">
+                                <span class="px-2 py-1 text-xs rounded-full {{ $teacher->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                    {{ $teacher->is_active ? 'Actif' : 'Inactif' }}
+                                </span>
+                            </td>
+                            <td class="p-4 text-center">
+                                <span class="px-2 py-1 text-xs rounded-full {{ $teacher->show_in_about ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800' }}">
+                                    {{ $teacher->show_in_about ? 'Visible' : 'Caché' }}
+                                </span>
+                            </td>
                             <td class="p-4 text-center space-x-2">
                                 <a href="{{ route('admin.teachers.edit', $teacher) }}" 
                                    class="text-blue-600 hover:text-blue-800 transition-colors">
                                     Modifier
                                 </a>
+                                <form action="{{ route('admin.teachers.toggle-status', $teacher) }}" method="POST" class="inline">
+                                    @csrf
+                                    <button type="submit" 
+                                            class="text-{{ $teacher->is_active ? 'yellow' : 'green' }}-600 hover:text-{{ $teacher->is_active ? 'yellow' : 'green' }}-800 transition-colors">
+                                        {{ $teacher->is_active ? 'Désactiver' : 'Activer' }}
+                                    </button>
+                                </form>
+                                <form action="{{ route('admin.teachers.toggle-show-in-about', $teacher) }}" method="POST" class="inline">
+                                    @csrf
+                                    <button type="submit" 
+                                            class="text-{{ $teacher->show_in_about ? 'purple' : 'blue' }}-600 hover:text-{{ $teacher->show_in_about ? 'purple' : 'blue' }}-800 transition-colors">
+                                        {{ $teacher->show_in_about ? 'Cacher' : 'Afficher' }}
+                                    </button>
+                                </form>
                                 <button 
                                     @click="teacherToDelete = {{ $teacher->id }}; teacherName = '{{ addslashes($teacher->name) }}'; showDeleteModal = true"
                                     class="text-red-600 hover:text-red-800 transition-colors cursor-pointer">

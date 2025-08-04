@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 class Year extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'slug', 'level_id'];
+    protected $fillable = ['name', 'slug', 'level_id', 'image'];
     
 
     protected static function booted()

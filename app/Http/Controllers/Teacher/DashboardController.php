@@ -11,7 +11,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $teacherId = auth()->id();
+        $teacherId = auth('teacher')->id();
 
         // Get teacher's stats
         $stats = [

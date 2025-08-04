@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Teacher – @yield('title', 'Elmoumen Academy')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -33,17 +34,17 @@
         </nav>
 
         <!-- Teacher Info -->
-        @auth
+        @auth('teacher')
         <div class="mt-6 border-t pt-4 text-sm text-gray-600">
             Logged in as:
-            <div class="font-semibold text-green-700">{{ Auth::user()->name }}</div>
-            <div class="text-xs text-gray-500">{{ Auth::user()->email }}</div>
+            <div class="font-semibold text-green-700">{{ Auth::guard('teacher')->user()->name }}</div>
+            <div class="text-xs text-gray-500">{{ Auth::guard('teacher')->user()->email }}</div>
         </div>
         @endauth
 
         <!-- Logout -->
         <div class="absolute bottom-4 left-4 right-4">
-            <form method="POST" action="{{ route('logout') }}">
+            <form method="POST" action="{{ route('teacher.logout') }}">
                 @csrf
                 <button type="submit" class="w-full text-left p-2 text-gray-600 hover:bg-red-50 hover:text-red-600 rounded transition flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">

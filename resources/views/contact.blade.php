@@ -81,33 +81,48 @@
                 <div class="mb-8">
                     <h2 class="text-3xl font-bold text-gray-900 mb-4">Envoyez-nous un Message</h2>
                     <p class="text-gray-600">Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais.</p>
+                    
+                    @if(session('success'))
+                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    
+                    @if($errors->any())
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                            <ul class="list-disc list-inside">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                 </div>
                 
-                <form class="space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="first_name" class="block text-sm font-medium text-gray-700 mb-2">Prénom *</label>
-                            <input type="text" id="first_name" name="first_name" required 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition">
-                        </div>
-                        <div>
-                            <label for="last_name" class="block text-sm font-medium text-gray-700 mb-2">Nom *</label>
-                            <input type="text" id="last_name" name="last_name" required 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition">
-                        </div>
-                    </div>
-                    
+                <form method="POST" action="{{ route('messages.store') }}" class="space-y-6">
+                    @csrf
                     <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
-                        <input type="email" id="email" name="email" required 
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nom Complet *</label>
+                        <input type="text" id="name" name="name" required 
                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition">
                     </div>
                     
                     <div>
-                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Téléphone</label>
-                        <input type="tel" id="phone" name="phone" 
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition">
+                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Numéro de Téléphone *</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <span class="text-gray-500 text-sm">+212</span>
+                            </div>
+                            <input type="tel" id="phone" name="phone" required 
+                                   class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition"
+                                   placeholder="600112233"
+                                   pattern="[0-9]{9}" 
+                                   title="Veuillez entrer un numéro de téléphone valide (9 chiffres)">
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Exemple: 600112233 (sans le +212)</p>
                     </div>
+                    
+
                     
                     <div>
                         <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Sujet *</label>

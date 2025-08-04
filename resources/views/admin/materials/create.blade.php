@@ -141,8 +141,40 @@
         </div>
     </form>
 
+    <!-- Custom Delete Confirmation Modal -->
+    <div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 transform transition-all">
+            <div class="flex items-center justify-between p-6 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">Confirmer la suppression</h3>
+                <button onclick="closeDeleteModal()" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="p-6">
+                <p class="text-gray-600 mb-4">Êtes-vous sûr de vouloir supprimer ce bloc ? Cette action ne peut pas être annulée.</p>
+                <div class="flex justify-end space-x-3">
+                    <button onclick="closeDeleteModal()" class="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+                        Annuler
+                    </button>
+                    <button id="confirmDeleteBtn" onclick="confirmDeleteBlock()" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+                        Supprimer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         let blockIndex = 0;
+        
+        // Close modal when clicking outside
+        document.getElementById('deleteModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeDeleteModal();
+            }
+        });
         const blockColors = [
             'border-blue-200 bg-blue-50',
             'border-green-200 bg-green-50', 
@@ -172,7 +204,7 @@
                     </button>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <!-- Semester -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Semestre *</label>
@@ -197,12 +229,15 @@
                             <option value="Examens">Examens</option>
                         </select>
                     </div>
+                </div>
 
-                    <!-- Devoir Type (conditional) -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Type de Devoir</label>
+                <!-- Conditional Fields -->
+                <div class="conditional-fields mb-4">
+                    <!-- Devoir Type (always visible but disabled) -->
+                    <div id="devoir_type_container_${blockIndex}" class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Type de Devoir *</label>
                         <select name="devoir_types[${blockIndex}]" id="devoir_type_${blockIndex}"
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-100 text-gray-500 devoir-type-select" style="display: none;" disabled>
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-100 text-gray-500" disabled>
                             <option value="">Sélectionner le type de devoir...</option>
                             <option value="Devoir 1">Devoir 1</option>
                             <option value="Devoir 2">Devoir 2</option>
@@ -211,11 +246,11 @@
                         </select>
                     </div>
 
-                    <!-- Exam Type (conditional) -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Type d'Examen</label>
+                    <!-- Exam Type (always visible but disabled) -->
+                    <div id="exam_type_container_${blockIndex}" class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Type d'Examen *</label>
                         <select name="exam_types[${blockIndex}]" id="exam_type_${blockIndex}"
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-100 text-gray-500 exam-type-select" style="display: none;" disabled>
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-100 text-gray-500" disabled>
                             <option value="">Sélectionner le type d'examen...</option>
                             <option value="إمتحانات محلية">إمتحانات محلية</option>
                             <option value="إمتحانات إقليمية">إمتحانات إقليمية</option>
@@ -236,8 +271,8 @@
                                    class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                             <input type="text" name="pdf_titles[${blockIndex}][]" placeholder="Titre du PDF (optionnel)" 
                                    class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                            <button type="button" onclick="removePdfRow(this)" 
-                                    class="px-2 py-2 text-red-600 hover:text-red-800 self-center">🗑️</button>
+                            <button type="button" onclick="removePdfRow(this, ${blockIndex})" 
+                                    class="px-2 py-2 text-red-600 hover:text-red-800 self-center pdf-delete-btn" style="display: none;">🗑️</button>
                         </div>
                     </div>
                     <button type="button" onclick="addPdfRow(${blockIndex})" 
@@ -255,8 +290,8 @@
                                    class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                             <input type="text" name="video_titles[${blockIndex}][]" placeholder="Titre de la vidéo (optionnel)" 
                                    class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                            <button type="button" onclick="removeVideoRow(this)" 
-                                    class="px-2 py-2 text-red-600 hover:text-red-800 self-center">🗑️</button>
+                            <button type="button" onclick="removeVideoRow(this, ${blockIndex})" 
+                                    class="px-2 py-2 text-red-600 hover:text-red-800 self-center video-delete-btn" style="display: none;">🗑️</button>
                         </div>
                     </div>
                     <button type="button" onclick="addVideoRow(${blockIndex})" 
@@ -270,7 +305,7 @@
             blockIndex++;
         }
 
-        // Remove block
+        // Remove block with custom modal
         function removeBlock(button) {
             const blocksContainer = document.getElementById('blocks-container');
             const blocks = blocksContainer.querySelectorAll('.block-item');
@@ -280,8 +315,24 @@
                 return;
             }
             
-            if (confirm('Êtes-vous sûr de vouloir supprimer ce bloc ?')) {
-                button.closest('.block-item').remove();
+            // Store the button for later use
+            window.blockToDelete = button;
+            
+            // Show custom modal
+            document.getElementById('deleteModal').classList.remove('hidden');
+        }
+
+        // Close delete modal
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.add('hidden');
+            window.blockToDelete = null;
+        }
+
+        // Confirm delete block
+        function confirmDeleteBlock() {
+            if (window.blockToDelete) {
+                window.blockToDelete.closest('.block-item').remove();
+                closeDeleteModal();
             }
         }
 
@@ -290,33 +341,31 @@
             const devoirTypeSelect = document.getElementById(`devoir_type_${blockIndex}`);
             const examTypeSelect = document.getElementById(`exam_type_${blockIndex}`);
             
-            // Reset all dropdowns
-            devoirTypeSelect.style.display = 'none';
-            devoirTypeSelect.disabled = true;
-            devoirTypeSelect.classList.add('bg-gray-100', 'text-gray-500');
-            devoirTypeSelect.classList.remove('bg-white', 'text-gray-900');
-            devoirTypeSelect.required = false;
+            // Reset all dropdowns first
             devoirTypeSelect.value = '';
-            
-            examTypeSelect.style.display = 'none';
-            examTypeSelect.disabled = true;
-            examTypeSelect.classList.add('bg-gray-100', 'text-gray-500');
-            examTypeSelect.classList.remove('bg-white', 'text-gray-900');
-            examTypeSelect.required = false;
             examTypeSelect.value = '';
             
+            // Disable and style all dropdowns by default
+            devoirTypeSelect.disabled = true;
+            devoirTypeSelect.required = false;
+            devoirTypeSelect.classList.add('bg-gray-100', 'text-gray-500');
+            devoirTypeSelect.classList.remove('bg-white', 'text-gray-900');
+            
+            examTypeSelect.disabled = true;
+            examTypeSelect.required = false;
+            examTypeSelect.classList.add('bg-gray-100', 'text-gray-500');
+            examTypeSelect.classList.remove('bg-white', 'text-gray-900');
+            
             if (select.value === 'Devoirs') {
-                devoirTypeSelect.style.display = 'block';
                 devoirTypeSelect.disabled = false;
+                devoirTypeSelect.required = true;
                 devoirTypeSelect.classList.remove('bg-gray-100', 'text-gray-500');
                 devoirTypeSelect.classList.add('bg-white', 'text-gray-900');
-                devoirTypeSelect.required = true;
             } else if (select.value === 'Examens') {
-                examTypeSelect.style.display = 'block';
                 examTypeSelect.disabled = false;
+                examTypeSelect.required = true;
                 examTypeSelect.classList.remove('bg-gray-100', 'text-gray-500');
                 examTypeSelect.classList.add('bg-white', 'text-gray-900');
-                examTypeSelect.required = true;
             }
         }
 
@@ -330,15 +379,31 @@
                        class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                 <input type="text" name="pdf_titles[${blockIndex}][]" placeholder="Titre du PDF (optionnel)" 
                        class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                <button type="button" onclick="removePdfRow(this)" 
-                        class="px-2 py-2 text-red-600 hover:text-red-800 self-center">🗑️</button>
+                <button type="button" onclick="removePdfRow(this, ${blockIndex})" 
+                        class="px-2 py-2 text-red-600 hover:text-red-800 self-center pdf-delete-btn">🗑️</button>
             `;
             container.appendChild(newRow);
+            
+            // Show delete buttons for all PDF rows in this block
+            updatePdfDeleteButtons(blockIndex);
         }
 
         // Remove PDF row
-        function removePdfRow(button) {
+        function removePdfRow(button, blockIndex) {
             button.closest('.pdf-row').remove();
+            updatePdfDeleteButtons(blockIndex);
+        }
+
+        // Update PDF delete buttons visibility
+        function updatePdfDeleteButtons(blockIndex) {
+            const container = document.querySelector(`[name="pdfs[${blockIndex}][]"]`).closest('.pdf-container');
+            const rows = container.querySelectorAll('.pdf-row');
+            const deleteButtons = container.querySelectorAll('.pdf-delete-btn');
+            
+            // Show delete buttons only if there's more than one row
+            deleteButtons.forEach(btn => {
+                btn.style.display = rows.length > 1 ? 'block' : 'none';
+            });
         }
 
         // Add video row
@@ -351,15 +416,31 @@
                        class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                 <input type="text" name="video_titles[${blockIndex}][]" placeholder="Titre de la vidéo (optionnel)" 
                        class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                <button type="button" onclick="removeVideoRow(this)" 
-                        class="px-2 py-2 text-red-600 hover:text-red-800 self-center">🗑️</button>
+                <button type="button" onclick="removeVideoRow(this, ${blockIndex})" 
+                        class="px-2 py-2 text-red-600 hover:text-red-800 self-center video-delete-btn">🗑️</button>
             `;
             container.appendChild(newRow);
+            
+            // Show delete buttons for all video rows in this block
+            updateVideoDeleteButtons(blockIndex);
         }
 
         // Remove video row
-        function removeVideoRow(button) {
+        function removeVideoRow(button, blockIndex) {
             button.closest('.video-row').remove();
+            updateVideoDeleteButtons(blockIndex);
+        }
+
+        // Update video delete buttons visibility
+        function updateVideoDeleteButtons(blockIndex) {
+            const container = document.querySelector(`[name="video_links[${blockIndex}][]"]`).closest('.video-container');
+            const rows = container.querySelectorAll('.video-row');
+            const deleteButtons = container.querySelectorAll('.video-delete-btn');
+            
+            // Show delete buttons only if there's more than one row
+            deleteButtons.forEach(btn => {
+                btn.style.display = rows.length > 1 ? 'block' : 'none';
+            });
         }
 
         // Dynamic year loading based on level

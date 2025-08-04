@@ -129,6 +129,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('testimonials', App\Http\Controllers\Admin\TestimonialController::class);
     Route::patch('testimonials/{testimonial}/toggle-status', [App\Http\Controllers\Admin\TestimonialController::class, 'toggleStatus'])->name('testimonials.toggle-status');
 
+    // 👨‍🏫 Teachers Management
+    Route::resource('teachers', App\Http\Controllers\Admin\TeacherController::class);
+    Route::patch('teachers/{teacher}/toggle-status', [App\Http\Controllers\Admin\TeacherController::class, 'toggleStatus'])->name('teachers.toggle-status');
+    Route::patch('teachers/{teacher}/toggle-show-in-about', [App\Http\Controllers\Admin\TeacherController::class, 'toggleShowInAbout'])->name('teachers.toggle-show-in-about');
+
 
     // 🏗 Structure Management Page
     Route::get('structure', function () {
@@ -186,7 +191,13 @@ Route::post('track/video-click/{video}', function (Request $request, $video) {
 // 🎓 Teacher Panel
 // ==============================
 
-Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')->group(function () {
+// Teacher authentication routes
+Route::get('/teacher/login', [App\Http\Controllers\Auth\TeacherAuthController::class, 'showLoginForm'])->name('teacher.login.form');
+Route::post('/teacher/login', [App\Http\Controllers\Auth\TeacherAuthController::class, 'login'])->name('teacher.login');
+Route::post('/teacher/logout', [App\Http\Controllers\Auth\TeacherAuthController::class, 'logout'])->name('teacher.logout');
+
+// Teacher routes
+Route::middleware(['auth:teacher'])->prefix('teacher')->name('teacher.')->group(function () {
     Route::get('/', [App\Http\Controllers\Teacher\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/materials', [TeacherMaterialController::class, 'index'])->name('materials.index');
     Route::get('/materials/create', [TeacherMaterialController::class, 'create'])->name('materials.create');
@@ -195,7 +206,10 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
     Route::put('/materials/{material}', [TeacherMaterialController::class, 'update'])->name('materials.update');
     Route::delete('/materials/{material}', [TeacherMaterialController::class, 'destroy'])->name('materials.destroy');
     Route::delete('/materials/pdf/{pdf}', [TeacherMaterialController::class, 'deletePdf'])->name('materials.pdf.delete');
-    Route::get('/materials/years/{level}', [TeacherMaterialController::class, 'getYearsByLevel'])->name('materials.years.by.level');
+    Route::get('/materials/years/{levelId}', [TeacherMaterialController::class, 'getYearsByLevel'])->name('materials.years.by.level');
+    Route::get('/materials/fields/{levelId}/{yearId}', [TeacherMaterialController::class, 'getFieldsByLevelAndYear'])->name('materials.fields.by.level.year');
+    Route::get('/materials/subjects/{levelId}/{yearId}', [TeacherMaterialController::class, 'getSubjectsByLevelYearAndField'])->name('materials.subjects.by.level.year');
+    Route::get('/materials/subjects/{levelId}/{yearId}/{fieldId}', [TeacherMaterialController::class, 'getSubjectsByLevelYearAndField'])->name('materials.subjects.by.level.year.field');
 });
 
 // ==============================

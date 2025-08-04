@@ -78,11 +78,63 @@
     </div>
 </section>
 
-<!-- Mission & Vision Section -->
-<section id="mission" class="py-20 bg-gray-50">
+<!-- Image Gallery Section -->
+<section class="py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Notre Mission & Vision</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-[Montserrat]">Notre Académie en Images</h2>
+            <p class="text-gray-600 text-lg max-w-3xl mx-auto">
+                Découvrez notre environnement d'apprentissage moderne et nos installations
+            </p>
+        </div>
+        
+        <!-- Image Slider -->
+        <div id="gallery" class="relative w-full max-w-4xl mx-auto" data-carousel="slide">
+            <!-- Carousel wrapper -->
+            <div class="relative h-64 md:h-96 overflow-hidden rounded-2xl shadow-2xl">
+                 <!-- Item 1 -->
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="{{ asset('images/about-us.jpg') }}" class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Notre Académie">
+                </div>
+                <!-- Item 2 -->
+                <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
+                    <img src="{{ asset('images/college.jpg') }}" class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Salle de Classe">
+                </div>
+                <!-- Item 3 -->
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="{{ asset('images/lycee.jpg') }}" class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Laboratoire">
+                </div>
+                <!-- Item 4 -->
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="{{ asset('images/primaire.jpg') }}" class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Bibliothèque">
+                </div>
+                <!-- Item 5 -->
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="{{ asset('images/concours.jpg') }}" class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Espace d'Étude">
+                </div>
+            </div>
+            <!-- Slider controls -->
+            <button type="button" class="absolute top-1/2 start-4 z-30 flex items-center justify-center h-10 w-10 rounded-full bg-white/30 hover:bg-white/50 focus:ring-4 focus:ring-white focus:outline-none transition-all duration-300" data-carousel-prev>
+                <svg class="w-4 h-4 text-white rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                </svg>
+                <span class="sr-only">Précédent</span>
+            </button>
+            <button type="button" class="absolute top-1/2 end-4 z-30 flex items-center justify-center h-10 w-10 rounded-full bg-white/30 hover:bg-white/50 focus:ring-4 focus:ring-white focus:outline-none transition-all duration-300" data-carousel-next>
+                <svg class="w-4 h-4 text-white rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                </svg>
+                <span class="sr-only">Suivant</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Mission & Vision Section -->
+<section id="mission" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-[Montserrat]">Notre Mission & Vision</h2>
             <p class="text-gray-600 text-lg max-w-3xl mx-auto">
                 Nous nous engageons à transformer l'éducation en ligne et à rendre l'apprentissage accessible à tous
             </p>
@@ -126,7 +178,7 @@
 </section>
 
 <!-- Values Section -->
-<section class="py-20 bg-white">
+<section class="py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Nos Valeurs</h2>
@@ -187,55 +239,110 @@
             <p class="text-gray-300 text-lg">Des experts passionnés par l'éducation</p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Team Member 1 -->
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-                <div class="h-64 bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center">
-                    <svg class="w-24 h-24 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                    </svg>
+        @php
+            $teachers = \App\Models\Teacher::showInAbout()->orderBy('display_order')->get();
+            $teachersChunks = $teachers->chunk(4);
+        @endphp
+        
+        @if($teachers->count() > 0)
+            @foreach($teachersChunks as $chunk)
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                    @foreach($chunk as $teacher)
+                        <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                            @if($teacher->image_path && !empty($teacher->image_path) && file_exists(storage_path('app/public/' . $teacher->image_path)))
+                                <div class="h-64 relative overflow-hidden">
+                                    <img src="{{ asset('storage/' . $teacher->image_path) }}" 
+                                         alt="{{ $teacher->name }}" 
+                                         class="w-full h-full object-cover">
+                                </div>
+                            @else
+                                @php
+                                    $avatarColor = $teacher->avatar_color ?: 'background-color: #3b82f6;';
+                                    $firstLetter = $teacher->first_letter ?: 'T';
+                                @endphp
+                                <div class="h-64 flex items-center justify-center" style="{{ $avatarColor }}">
+                                    <span class="text-6xl font-bold text-white">{{ $firstLetter }}</span>
+                                </div>
+                            @endif
+                            <div class="p-6 text-center">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $teacher->name }}</h3>
+                                <p class="text-cyan-600 font-medium mb-3">{{ $teacher->role }}</p>
+                                <p class="text-gray-600 text-sm">
+                                    {{ Str::limit($teacher->description, 120) }}
+                                </p>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Dr. Ahmed Elmoumen</h3>
-                    <p class="text-cyan-600 font-medium mb-3">Fondateur & Directeur</p>
-                    <p class="text-gray-600 text-sm">
-                        Expert en pédagogie avec plus de 15 ans d'expérience dans l'éducation en ligne.
-                    </p>
+            @endforeach
+        @else
+            <!-- Fallback Team Members -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Team Member 1 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="h-64 bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center">
+                        <svg class="w-24 h-24 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Dr. Ahmed Elmoumen</h3>
+                        <p class="text-cyan-600 font-medium mb-3">Fondateur & Directeur</p>
+                        <p class="text-gray-600 text-sm">
+                            Expert en pédagogie avec plus de 15 ans d'expérience dans l'éducation en ligne.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Team Member 2 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="h-64 bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center">
+                        <svg class="w-24 h-24 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Prof. Fatima Zahra</h3>
+                        <p class="text-cyan-600 font-medium mb-3">Responsable Pédagogique</p>
+                        <p class="text-gray-600 text-sm">
+                            Spécialiste en sciences de l'éducation et en développement de programmes d'études.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Team Member 3 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="h-64 bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center">
+                        <svg class="w-24 h-24 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Ing. Youssef Benali</h3>
+                        <p class="text-cyan-600 font-medium mb-3">Responsable Technique</p>
+                        <p class="text-gray-600 text-sm">
+                            Expert en technologies éducatives et en développement de plateformes d'apprentissage.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Team Member 4 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="h-64 bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center">
+                        <svg class="w-24 h-24 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Prof. Sara Alami</h3>
+                        <p class="text-cyan-600 font-medium mb-3">Experte en Langues</p>
+                        <p class="text-gray-600 text-sm">
+                            Spécialiste en langues étrangères et en méthodes d'apprentissage innovantes.
+                        </p>
+                    </div>
                 </div>
             </div>
-            
-            <!-- Team Member 2 -->
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-                <div class="h-64 bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center">
-                    <svg class="w-24 h-24 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                    </svg>
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Prof. Fatima Zahra</h3>
-                    <p class="text-cyan-600 font-medium mb-3">Responsable Pédagogique</p>
-                    <p class="text-gray-600 text-sm">
-                        Spécialiste en sciences de l'éducation et en développement de programmes d'études.
-                    </p>
-                </div>
-            </div>
-            
-            <!-- Team Member 3 -->
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-                <div class="h-64 bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center">
-                    <svg class="w-24 h-24 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                    </svg>
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Ing. Youssef Benali</h3>
-                    <p class="text-cyan-600 font-medium mb-3">Responsable Technique</p>
-                    <p class="text-gray-600 text-sm">
-                        Expert en technologies éducatives et en développement de plateformes d'apprentissage.
-                    </p>
-                </div>
-            </div>
-        </div>
+        @endif
     </div>
 </section>
 

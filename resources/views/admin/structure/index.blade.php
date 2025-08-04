@@ -9,13 +9,13 @@
     <div class="bg-white rounded-lg shadow p-4 lg:p-6 mb-6">
         <h2 class="text-xl font-semibold mb-4">🎓 Années</h2>
         
-        <form method="POST" action="{{ route('admin.years.store') }}" class="mb-6">
+        <form method="POST" action="{{ route('admin.years.store') }}" enctype="multipart/form-data" class="mb-6">
             @csrf
-            <div class="flex flex-col sm:flex-row gap-3">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
                 <input type="text" 
                        name="name" 
                        placeholder="Nom de l'année" 
-                       class="border border-gray-300 rounded-md p-3 flex-grow focus:ring-2 focus:ring-green-500 focus:border-green-500" 
+                       class="border border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-green-500 focus:border-green-500" 
                        required>
                 <select name="level_id" 
                         class="border border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-green-500 focus:border-green-500" 
@@ -25,24 +25,55 @@
                         <option value="{{ $level->id }}">{{ $level->name }}</option>
                     @endforeach
                 </select>
+                <input type="file" 
+                       name="image" 
+                       accept="image/*"
+                       class="border border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-green-500 focus:border-green-500">
                 <button type="submit" class="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition-colors">
                     ➕ Ajouter
                 </button>
             </div>
+            <p class="text-sm text-gray-500 mt-2">Image optionnelle (JPEG, PNG, JPG, GIF - max 2MB)</p>
         </form>
 
-        <div class="space-y-2">
+        <div class="space-y-3">
             @foreach($years as $year)
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                <span class="font-medium text-gray-900">{{ $year->name }} ({{ $year->level->name }})</span>
-                <form method="POST" action="{{ route('admin.years.destroy', $year) }}" class="flex-shrink-0">
-                    @csrf @method('DELETE')
-                    <button type="submit" 
-                            class="bg-red-100 text-red-700 px-3 py-1 rounded text-sm hover:bg-red-200 transition-colors"
-                            onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette année ?')">
-                        Supprimer
-                    </button>
-                </form>
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 p-4 bg-gray-50 rounded-lg">
+                <div class="flex items-center gap-4 flex-1">
+                    @if($year->image)
+                        <img src="{{ asset($year->image) }}" 
+                             alt="{{ $year->name }}" 
+                             class="w-16 h-16 object-cover rounded-lg border border-gray-300">
+                    @else
+                        <div class="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                            <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                    @endif
+                    <div>
+                        <span class="font-medium text-gray-900">{{ $year->name }} ({{ $year->level->name }})</span>
+                        @if($year->image)
+                            <p class="text-sm text-gray-500">Image: {{ basename($year->image) }}</p>
+                        @else
+                            <p class="text-sm text-gray-500">Aucune image</p>
+                        @endif
+                    </div>
+                </div>
+                <div class="flex gap-2 flex-shrink-0">
+                    <a href="{{ route('admin.years.edit', $year) }}" 
+                       class="bg-blue-100 text-blue-700 px-3 py-1 rounded text-sm hover:bg-blue-200 transition-colors">
+                        ✏️ Modifier
+                    </a>
+                    <form method="POST" action="{{ route('admin.years.destroy', $year) }}" class="inline">
+                        @csrf @method('DELETE')
+                        <button type="submit" 
+                                class="bg-red-100 text-red-700 px-3 py-1 rounded text-sm hover:bg-red-200 transition-colors"
+                                onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette année ?')">
+                            🗑️ Supprimer
+                        </button>
+                    </form>
+                </div>
             </div>
             @endforeach
         </div>

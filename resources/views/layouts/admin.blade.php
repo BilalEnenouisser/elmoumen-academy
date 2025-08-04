@@ -30,10 +30,15 @@
 
             <!-- Messages -->
             <a href="{{ route('admin.messages.index') }}" 
-               class="flex items-center gap-2 p-2 rounded transition @if(request()->routeIs('admin.messages*')) bg-green-50 text-green-600 @else text-gray-700 hover:bg-green-50 hover:text-green-600 @endif">
+               class="flex items-center gap-2 p-2 rounded transition @if(request()->routeIs('admin.messages*')) bg-green-50 text-green-600 @else text-gray-700 hover:bg-green-50 hover:text-green-600 @endif relative">
                 ✉️ Messages 
-                @if(method_exists(\App\Models\Message::class, 'unread'))
-                    ({{ \App\Models\Message::unread()->count() }})
+                @php
+                    $unreadCount = \App\Models\Message::unread()->count();
+                @endphp
+                @if($unreadCount > 0)
+                    <span class="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full min-w-[20px] text-center">
+                        {{ $unreadCount }}
+                    </span>
                 @endif
             </a>
 

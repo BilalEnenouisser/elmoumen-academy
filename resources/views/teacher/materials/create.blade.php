@@ -92,6 +92,20 @@
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
+
+                <!-- Subject -->
+                <div>
+                    <label for="subject_id" class="block text-sm font-medium text-gray-700 mb-2">
+                        Matière *
+                    </label>
+                    <select name="subject_id" id="subject_id" required disabled
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-100 text-gray-500">
+                        <option value="">Sélectionner la matière...</option>
+                    </select>
+                    @error('subject_id')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
             </div>
         </div>
 
@@ -123,8 +137,41 @@
         </div>
     </form>
 
+    <!-- Custom Delete Confirmation Modal -->
+    <div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 transform transition-all">
+            <div class="flex items-center justify-between p-6 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">Confirmer la suppression</h3>
+                <button onclick="closeDeleteModal()" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="p-6">
+                <p class="text-gray-600 mb-4">Êtes-vous sûr de vouloir supprimer ce bloc ? Cette action ne peut pas être annulée.</p>
+                <div class="flex justify-end space-x-3">
+                    <button onclick="closeDeleteModal()" class="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+                        Annuler
+                    </button>
+                    <button id="confirmDeleteBtn" onclick="confirmDeleteBlock()" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+                        Supprimer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         let blockIndex = 0;
+        
+        // Close modal when clicking outside
+        document.getElementById('deleteModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeDeleteModal();
+            }
+        });
+        
         const blockColors = [
             'border-blue-200 bg-blue-50',
             'border-green-200 bg-green-50', 
@@ -154,7 +201,7 @@
                     </button>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <!-- Semester -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Semestre *</label>
@@ -170,22 +217,37 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Type de Matériel *</label>
                         <select name="material_types[${blockIndex}]" required 
-                                onchange="toggleExamType(this, ${blockIndex})"
+                                onchange="toggleMaterialType(this, ${blockIndex})"
                                 class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                             <option value="">Sélectionner le type...</option>
                             <option value="Cours">Cours</option>
                             <option value="Séries">Séries</option>
-                            <option value="Devoirs semestre 1">Devoirs semestre 1</option>
-                            <option value="Devoirs semestre 2">Devoirs semestre 2</option>
+                            <option value="Devoirs">Devoirs</option>
                             <option value="Examens">Examens</option>
                         </select>
                     </div>
+                </div>
 
-                    <!-- Exam Type (conditional) -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Type d'Examen</label>
+                <!-- Conditional Fields -->
+                <div class="conditional-fields mb-4">
+                    <!-- Devoir Type (always visible but disabled) -->
+                    <div id="devoir_type_container_${blockIndex}" class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Type de Devoir *</label>
+                        <select name="devoir_types[${blockIndex}]" id="devoir_type_${blockIndex}"
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-100 text-gray-500" disabled>
+                            <option value="">Sélectionner le type de devoir...</option>
+                            <option value="Devoir 1">Devoir 1</option>
+                            <option value="Devoir 2">Devoir 2</option>
+                            <option value="Devoir 3">Devoir 3</option>
+                            <option value="Devoir 4">Devoir 4</option>
+                        </select>
+                    </div>
+
+                    <!-- Exam Type (always visible but disabled) -->
+                    <div id="exam_type_container_${blockIndex}" class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Type d'Examen *</label>
                         <select name="exam_types[${blockIndex}]" id="exam_type_${blockIndex}"
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-100 text-gray-500 exam-type-select" style="display: none;" disabled>
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-100 text-gray-500" disabled>
                             <option value="">Sélectionner le type d'examen...</option>
                             <option value="إمتحانات محلية">إمتحانات محلية</option>
                             <option value="إمتحانات إقليمية">إمتحانات إقليمية</option>
@@ -206,8 +268,8 @@
                                    class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                             <input type="text" name="pdf_titles[${blockIndex}][]" placeholder="Titre du PDF (optionnel)" 
                                    class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                            <button type="button" onclick="removePdfRow(this)" 
-                                    class="px-2 py-2 text-red-600 hover:text-red-800 self-center">🗑️</button>
+                            <button type="button" onclick="removePdfRow(this, ${blockIndex})" 
+                                    class="px-2 py-2 text-red-600 hover:text-red-800 self-center pdf-delete-btn" style="display: none;">🗑️</button>
                         </div>
                     </div>
                     <button type="button" onclick="addPdfRow(${blockIndex})" 
@@ -225,8 +287,8 @@
                                    class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                             <input type="text" name="video_titles[${blockIndex}][]" placeholder="Titre de la vidéo (optionnel)" 
                                    class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                            <button type="button" onclick="removeVideoRow(this)" 
-                                    class="px-2 py-2 text-red-600 hover:text-red-800 self-center">🗑️</button>
+                            <button type="button" onclick="removeVideoRow(this, ${blockIndex})" 
+                                    class="px-2 py-2 text-red-600 hover:text-red-800 self-center video-delete-btn" style="display: none;">🗑️</button>
                         </div>
                     </div>
                     <button type="button" onclick="addVideoRow(${blockIndex})" 
@@ -240,27 +302,67 @@
             blockIndex++;
         }
 
-        // Remove block
+        // Remove block with custom modal
         function removeBlock(button) {
-            button.closest('.block-item').remove();
+            const blocksContainer = document.getElementById('blocks-container');
+            const blocks = blocksContainer.querySelectorAll('.block-item');
+            
+            if (blocks.length === 1) {
+                alert('Impossible de supprimer le dernier bloc. Il doit y avoir au moins un bloc.');
+                return;
+            }
+            
+            // Store the button for later use
+            window.blockToDelete = button;
+            
+            // Show custom modal
+            document.getElementById('deleteModal').classList.remove('hidden');
         }
 
-        // Toggle exam type visibility
-        function toggleExamType(select, blockIndex) {
+        // Close delete modal
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.add('hidden');
+            window.blockToDelete = null;
+        }
+
+        // Confirm delete block
+        function confirmDeleteBlock() {
+            if (window.blockToDelete) {
+                window.blockToDelete.closest('.block-item').remove();
+                closeDeleteModal();
+            }
+        }
+
+        // Toggle material type visibility
+        function toggleMaterialType(select, blockIndex) {
+            const devoirTypeSelect = document.getElementById(`devoir_type_${blockIndex}`);
             const examTypeSelect = document.getElementById(`exam_type_${blockIndex}`);
-            if (select.value === 'Examens') {
-                examTypeSelect.style.display = 'block';
+            
+            // Reset all dropdowns first
+            devoirTypeSelect.value = '';
+            examTypeSelect.value = '';
+            
+            // Disable and style all dropdowns by default
+            devoirTypeSelect.disabled = true;
+            devoirTypeSelect.required = false;
+            devoirTypeSelect.classList.add('bg-gray-100', 'text-gray-500');
+            devoirTypeSelect.classList.remove('bg-white', 'text-gray-900');
+            
+            examTypeSelect.disabled = true;
+            examTypeSelect.required = false;
+            examTypeSelect.classList.add('bg-gray-100', 'text-gray-500');
+            examTypeSelect.classList.remove('bg-white', 'text-gray-900');
+            
+            if (select.value === 'Devoirs') {
+                devoirTypeSelect.disabled = false;
+                devoirTypeSelect.required = true;
+                devoirTypeSelect.classList.remove('bg-gray-100', 'text-gray-500');
+                devoirTypeSelect.classList.add('bg-white', 'text-gray-900');
+            } else if (select.value === 'Examens') {
                 examTypeSelect.disabled = false;
+                examTypeSelect.required = true;
                 examTypeSelect.classList.remove('bg-gray-100', 'text-gray-500');
                 examTypeSelect.classList.add('bg-white', 'text-gray-900');
-                examTypeSelect.required = true;
-            } else {
-                examTypeSelect.style.display = 'none';
-                examTypeSelect.disabled = true;
-                examTypeSelect.classList.add('bg-gray-100', 'text-gray-500');
-                examTypeSelect.classList.remove('bg-white', 'text-gray-900');
-                examTypeSelect.required = false;
-                examTypeSelect.value = '';
             }
         }
 
@@ -274,15 +376,31 @@
                        class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                 <input type="text" name="pdf_titles[${blockIndex}][]" placeholder="Titre du PDF (optionnel)" 
                        class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                <button type="button" onclick="removePdfRow(this)" 
-                        class="px-2 py-2 text-red-600 hover:text-red-800 self-center">🗑️</button>
+                <button type="button" onclick="removePdfRow(this, ${blockIndex})" 
+                        class="px-2 py-2 text-red-600 hover:text-red-800 self-center pdf-delete-btn">🗑️</button>
             `;
             container.appendChild(newRow);
+            
+            // Show delete buttons for all PDF rows in this block
+            updatePdfDeleteButtons(blockIndex);
         }
 
         // Remove PDF row
-        function removePdfRow(button) {
+        function removePdfRow(button, blockIndex) {
             button.closest('.pdf-row').remove();
+            updatePdfDeleteButtons(blockIndex);
+        }
+
+        // Update PDF delete buttons visibility
+        function updatePdfDeleteButtons(blockIndex) {
+            const container = document.querySelector(`[name="pdfs[${blockIndex}][]"]`).closest('.pdf-container');
+            const rows = container.querySelectorAll('.pdf-row');
+            const deleteButtons = container.querySelectorAll('.pdf-delete-btn');
+            
+            // Show delete buttons only if there's more than one row
+            deleteButtons.forEach(btn => {
+                btn.style.display = rows.length > 1 ? 'block' : 'none';
+            });
         }
 
         // Add video row
@@ -295,15 +413,31 @@
                        class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                 <input type="text" name="video_titles[${blockIndex}][]" placeholder="Titre de la vidéo (optionnel)" 
                        class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                <button type="button" onclick="removeVideoRow(this)" 
-                        class="px-2 py-2 text-red-600 hover:text-red-800 self-center">🗑️</button>
+                <button type="button" onclick="removeVideoRow(this, ${blockIndex})" 
+                        class="px-2 py-2 text-red-600 hover:text-red-800 self-center video-delete-btn">🗑️</button>
             `;
             container.appendChild(newRow);
+            
+            // Show delete buttons for all video rows in this block
+            updateVideoDeleteButtons(blockIndex);
         }
 
         // Remove video row
-        function removeVideoRow(button) {
+        function removeVideoRow(button, blockIndex) {
             button.closest('.video-row').remove();
+            updateVideoDeleteButtons(blockIndex);
+        }
+
+        // Update video delete buttons visibility
+        function updateVideoDeleteButtons(blockIndex) {
+            const container = document.querySelector(`[name="video_links[${blockIndex}][]"]`).closest('.video-container');
+            const rows = container.querySelectorAll('.video-row');
+            const deleteButtons = container.querySelectorAll('.video-delete-btn');
+            
+            // Show delete buttons only if there's more than one row
+            deleteButtons.forEach(btn => {
+                btn.style.display = rows.length > 1 ? 'block' : 'none';
+            });
         }
 
         // Dynamic year loading based on level
@@ -311,11 +445,21 @@
             const levelId = this.value;
             const yearSelect = document.getElementById('year_id');
             const fieldSelect = document.getElementById('field_id');
+            const subjectSelect = document.getElementById('subject_id');
             
-            // Reset year dropdown
+            // Reset all dependent dropdowns
             yearSelect.innerHTML = '<option value="">Sélectionner l\'année...</option>';
+            subjectSelect.innerHTML = '<option value="">Sélectionner la matière...</option>';
             
-            // Handle field dropdown visibility
+            // Disable all dependent dropdowns
+            fieldSelect.disabled = true;
+            fieldSelect.classList.add('bg-gray-100', 'text-gray-500');
+            fieldSelect.classList.remove('bg-white', 'text-gray-900');
+            
+            subjectSelect.disabled = true;
+            subjectSelect.classList.add('bg-gray-100', 'text-gray-500');
+            subjectSelect.classList.remove('bg-white', 'text-gray-900');
+            
             if (levelId) {
                 const selectedLevel = this.options[this.selectedIndex].text.toLowerCase();
                 if (selectedLevel.includes('lycée') || selectedLevel.includes('lycee')) {
@@ -323,10 +467,10 @@
                     fieldSelect.classList.remove('bg-gray-100', 'text-gray-500');
                     fieldSelect.classList.add('bg-white', 'text-gray-900');
                 } else {
-                    fieldSelect.disabled = true;
-                    fieldSelect.classList.add('bg-gray-100', 'text-gray-500');
-                    fieldSelect.classList.remove('bg-white', 'text-gray-900');
-                    fieldSelect.value = '';
+                    // For non-Lycée levels, load subjects directly
+                    subjectSelect.disabled = false;
+                    subjectSelect.classList.remove('bg-gray-100', 'text-gray-500');
+                    subjectSelect.classList.add('bg-white', 'text-gray-900');
                 }
                 
                 // Load years for selected level
@@ -342,6 +486,134 @@
                 fieldSelect.classList.add('bg-gray-100', 'text-gray-500');
                 fieldSelect.classList.remove('bg-white', 'text-gray-900');
                 fieldSelect.value = '';
+            }
+        });
+
+        // Dynamic field loading based on level and year
+        document.getElementById('year_id').addEventListener('change', function() {
+            const levelId = document.getElementById('level_id').value;
+            const yearId = this.value;
+            const fieldSelect = document.getElementById('field_id');
+            const subjectSelect = document.getElementById('subject_id');
+            
+            // Reset subject dropdown
+            subjectSelect.innerHTML = '<option value="">Sélectionner la matière...</option>';
+            
+            if (levelId && yearId) {
+                const selectedLevel = document.getElementById('level_id').options[document.getElementById('level_id').selectedIndex].text.toLowerCase();
+                
+                // Check if it's Lycée level
+                if (selectedLevel.includes('lycée') || selectedLevel.includes('lycee')) {
+                    // Enable field dropdown and load fields
+                    fieldSelect.disabled = false;
+                    fieldSelect.classList.remove('bg-gray-100', 'text-gray-500');
+                    fieldSelect.classList.add('bg-white', 'text-gray-900');
+                    
+                    fetch(`/teacher/materials/fields/${levelId}/${yearId}`)
+                        .then(response => response.json())
+                        .then(fields => {
+                            fields.forEach(field => {
+                                fieldSelect.innerHTML += `<option value="${field.id}">${field.name}</option>`;
+                            });
+                        });
+                } else {
+                    // For non-Lycée levels, load subjects directly
+                    subjectSelect.disabled = false;
+                    subjectSelect.classList.remove('bg-gray-100', 'text-gray-500');
+                    subjectSelect.classList.add('bg-white', 'text-gray-900');
+                    
+                    const url = `/teacher/materials/subjects/${levelId}/${yearId}`;
+                    
+                    // Get CSRF token safely
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+                    
+                    fetch(url, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRF-TOKEN': csrfToken
+                        }
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(subjects => {
+                            if (subjects && subjects.length > 0) {
+                                subjects.forEach(subject => {
+                                    subjectSelect.innerHTML += `<option value="${subject.id}">${subject.name}</option>`;
+                                });
+                            } else {
+                                subjectSelect.innerHTML = '<option value="">Aucune matière trouvée</option>';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching subjects:', error);
+                            subjectSelect.innerHTML = '<option value="">Erreur lors du chargement</option>';
+                        });
+                }
+            } else {
+                fieldSelect.disabled = true;
+                fieldSelect.classList.add('bg-gray-100', 'text-gray-500');
+                fieldSelect.classList.remove('bg-white', 'text-gray-900');
+            }
+        });
+
+        // Dynamic subject loading based on level, year and field
+        document.getElementById('field_id').addEventListener('change', function() {
+            const levelId = document.getElementById('level_id').value;
+            const yearId = document.getElementById('year_id').value;
+            const fieldId = this.value;
+            const subjectSelect = document.getElementById('subject_id');
+            
+            // Reset subject dropdown
+            subjectSelect.innerHTML = '<option value="">Sélectionner la matière...</option>';
+            
+            if (levelId && yearId && fieldId) {
+                // Enable subject dropdown and load subjects
+                subjectSelect.disabled = false;
+                subjectSelect.classList.remove('bg-gray-100', 'text-gray-500');
+                subjectSelect.classList.add('bg-white', 'text-gray-900');
+                
+                const url = `/teacher/materials/subjects/${levelId}/${yearId}/${fieldId}`;
+                
+                // Get CSRF token safely
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+                
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(subjects => {
+                        if (subjects && subjects.length > 0) {
+                            subjects.forEach(subject => {
+                                subjectSelect.innerHTML += `<option value="${subject.id}">${subject.name}</option>`;
+                            });
+                        } else {
+                            subjectSelect.innerHTML = '<option value="">Aucune matière trouvée</option>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching subjects:', error);
+                        subjectSelect.innerHTML = '<option value="">Erreur lors du chargement</option>';
+                    });
+            } else {
+                subjectSelect.disabled = true;
+                subjectSelect.classList.add('bg-gray-100', 'text-gray-500');
+                subjectSelect.classList.remove('bg-white', 'text-gray-900');
             }
         });
     </script>

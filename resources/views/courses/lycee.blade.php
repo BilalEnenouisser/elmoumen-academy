@@ -31,15 +31,28 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            @foreach (['1ère année', '2ème année', '3ème année'] as $index => $year)
+            @php
+                $lyceeLevel = \App\Models\Level::where('name', 'Lycée')->first();
+                $years = $lyceeLevel ? $lyceeLevel->years : collect();
+            @endphp
+            
+            @forelse ($years as $year)
                 <div class="glass-card glass-card-hover rounded-2xl overflow-hidden">
                     <div class="relative">
-                        <div class="h-48 bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
-                            <div class="text-center text-white">
-                                <div class="text-6xl font-bold mb-2">{{ $index + 1 }}</div>
-                                <div class="text-xl font-medium">Année</div>
+                        @if($year->image)
+                            <div class="h-48 bg-cover bg-center flex items-center justify-center relative" style="background-image: url('{{ asset($year->image) }}');">
+                                <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+                                <div class="text-center text-white relative z-10">
+                                    <div class="text-4xl font-bold mb-2">{{ $year->name }}</div>
+                                </div>
                             </div>
-                        </div>
+                        @else
+                            <div class="h-48 bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
+                                <div class="text-center text-white">
+                                    <div class="text-4xl font-bold mb-2">{{ $year->name }}</div>
+                                </div>
+                            </div>
+                        @endif
                         <div class="absolute top-4 right-4">
                             <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm font-medium">
                                 Lycée
@@ -48,9 +61,9 @@
                     </div>
                     
                     <div class="p-6">
-                        <h3 class="text-xl font-bold text-white mb-3">{{ $year }}</h3>
+                        <h3 class="text-xl font-bold text-white mb-3">{{ $year->name }}</h3>
                         <p class="text-blue-100 mb-6">
-                            Programme spécialisé pour les étudiants de {{ $year }} du lycée
+                            Programme spécialisé pour les étudiants de {{ $year->name }} du lycée
                         </p>
                         
                         <div class="space-y-3 mb-6">
@@ -74,13 +87,18 @@
                             </div>
                         </div>
                         
-                        <a href="{{ url('/courses/lycee/year/' . ($index + 1)) }}" 
+                        <a href="{{ route('courses.year', ['level' => 'lycee', 'year' => $year->slug]) }}" 
                            class="block w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white text-center py-3 px-6 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105">
                             Voir les matières
                         </a>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <div class="col-span-3 text-center text-white">
+                    <p class="text-lg">Aucune année configurée pour le Lycée</p>
+                    <p class="text-blue-100">Veuillez configurer les années dans le panneau d'administration</p>
+                </div>
+            @endforelse
         </div>
     </div>
 </section>

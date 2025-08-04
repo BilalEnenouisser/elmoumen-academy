@@ -55,37 +55,44 @@
                 
                 @if($semester1Materials->count() > 0)
                 <div class="bg-white bg-opacity-15 backdrop-blur-lg border border-white border-opacity-30 rounded-2xl overflow-hidden shadow-xl">
-                    <div class="bg-gradient-to-r from-blue-600/80 to-blue-700/80 backdrop-blur-sm px-8 py-6">
+                    <div class="bg-[#111827] backdrop-blur-sm px-8 py-6">
                         <h3 class="text-2xl font-bold text-white mb-2">Semestre 1</h3>
-                        <p class="text-blue-100">Première partie de l'année scolaire</p>
+                        <p class="text-gray-300">Première partie de l'année scolaire</p>
                     </div>
                     <div class="p-8">
                         <div class="space-y-6">
                             @foreach($semester1Materials as $material)
                             @php
                                 // Determine the color for the main accordion button based on material types
-                                $mainButtonColor = 'bg-white';
-                                $mainBorderColor = 'border-gray-200';
-                                $mainTextColor = 'text-gray-800';
-                                
                                 $semester1Blocks = $material->blocks->where('semester', 'Semestre 1');
                                 $hasDevoirs = $semester1Blocks->where('material_type', 'Devoirs')->count() > 0;
                                 $hasExamens = $semester1Blocks->where('material_type', 'Examens')->count() > 0;
+                                $hasCours = $semester1Blocks->where('material_type', 'Cours')->count() > 0;
+                                $hasSeries = $semester1Blocks->where('material_type', 'Series')->count() > 0;
                                 
+                                // Set button colors based on material types
                                 if ($hasExamens) {
-                                    $mainButtonColor = 'bg-purple-50';
-                                    $mainBorderColor = 'border-purple-200';
-                                    $mainTextColor = 'text-purple-800';
+                                    $buttonBg = 'bg-yellow-500/20';
+                                    $buttonBorder = 'border-yellow-400/30';
+                                    $buttonHover = 'hover:bg-yellow-500/30';
+                                    $buttonText = 'text-yellow-100';
                                 } elseif ($hasDevoirs) {
-                                    $mainButtonColor = 'bg-red-50';
-                                    $mainBorderColor = 'border-red-200';
-                                    $mainTextColor = 'text-red-800';
+                                    $buttonBg = 'bg-red-500/20';
+                                    $buttonBorder = 'border-red-400/30';
+                                    $buttonHover = 'hover:bg-red-500/30';
+                                    $buttonText = 'text-red-100';
+                                } else {
+                                    // Normal color for Cours/Series
+                                    $buttonBg = 'bg-white/10';
+                                    $buttonBorder = 'border-white/20';
+                                    $buttonHover = 'hover:bg-white/20';
+                                    $buttonText = 'text-white';
                                 }
                             @endphp
                             <div class="bg-white bg-opacity-10 backdrop-blur-md border border-white border-opacity-20 rounded-xl overflow-hidden">
                                 <!-- Material Header (Accordion Button) -->
                                 <button @click="openAccordion = openAccordion === '{{ $material->id }}' ? null : '{{ $material->id }}'"
-                                    class="w-full flex items-center justify-between px-6 py-4 rounded-xl text-white text-xl font-semibold focus:outline-none transition-all duration-300 hover:bg-white/10">
+                                    class="w-full flex items-center justify-between px-6 py-4 rounded-xl {{ $buttonText }} text-xl font-semibold focus:outline-none transition-all duration-300 {{ $buttonBg }} {{ $buttonBorder }} border {{ $buttonHover }} backdrop-blur-sm">
                                     <span>{{ $material->title }}</span>
                                     <svg :class="{'rotate-180': openAccordion === '{{ $material->id }}'}" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
                                         <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -98,7 +105,13 @@
                                     <div class="bg-white bg-opacity-5 backdrop-blur-sm rounded-lg p-4">
                                         <!-- Block Type Header -->
                                         <div class="flex items-center justify-between mb-4 px-4 py-3 rounded-lg bg-white bg-opacity-10 backdrop-blur-sm">
-                                            <span class="font-semibold text-white">{{ $block->material_type }}</span>
+                                            <span class="font-semibold text-white">
+                                                @if($block->name)
+                                                    {{ $block->name }}
+                                                @else
+                                                    {{ $block->material_type }}
+                                                @endif
+                                            </span>
                                             @if($block->material_type == 'Examens' && $block->exam_type)
                                                 <span class="text-sm opacity-75 text-blue-100">{{ $block->exam_type }}</span>
                                             @endif
@@ -157,37 +170,44 @@
                 
                 @if($semester2Materials->count() > 0)
                 <div class="bg-white bg-opacity-15 backdrop-blur-lg border border-white border-opacity-30 rounded-2xl overflow-hidden shadow-xl">
-                    <div class="bg-gradient-to-r from-green-600/80 to-green-700/80 backdrop-blur-sm px-8 py-6">
+                    <div class="bg-[#111827] backdrop-blur-sm px-8 py-6">
                         <h3 class="text-2xl font-bold text-white mb-2">Semestre 2</h3>
-                        <p class="text-green-100">Deuxième partie de l'année scolaire</p>
+                        <p class="text-gray-300">Deuxième partie de l'année scolaire</p>
                     </div>
                     <div class="p-8">
                         <div class="space-y-6">
                             @foreach($semester2Materials as $material)
                             @php
                                 // Determine the color for the main accordion button based on material types
-                                $mainButtonColor = 'bg-white';
-                                $mainBorderColor = 'border-gray-200';
-                                $mainTextColor = 'text-gray-800';
-                                
                                 $semester2Blocks = $material->blocks->where('semester', 'Semestre 2');
                                 $hasDevoirs = $semester2Blocks->where('material_type', 'Devoirs')->count() > 0;
                                 $hasExamens = $semester2Blocks->where('material_type', 'Examens')->count() > 0;
+                                $hasCours = $semester2Blocks->where('material_type', 'Cours')->count() > 0;
+                                $hasSeries = $semester2Blocks->where('material_type', 'Series')->count() > 0;
                                 
+                                // Set button colors based on material types
                                 if ($hasExamens) {
-                                    $mainButtonColor = 'bg-purple-50';
-                                    $mainBorderColor = 'border-purple-200';
-                                    $mainTextColor = 'text-purple-800';
+                                    $buttonBg = 'bg-yellow-500/20';
+                                    $buttonBorder = 'border-yellow-400/30';
+                                    $buttonHover = 'hover:bg-yellow-500/30';
+                                    $buttonText = 'text-yellow-100';
                                 } elseif ($hasDevoirs) {
-                                    $mainButtonColor = 'bg-red-50';
-                                    $mainBorderColor = 'border-red-200';
-                                    $mainTextColor = 'text-red-800';
+                                    $buttonBg = 'bg-red-500/20';
+                                    $buttonBorder = 'border-red-400/30';
+                                    $buttonHover = 'hover:bg-red-500/30';
+                                    $buttonText = 'text-red-100';
+                                } else {
+                                    // Normal color for Cours/Series
+                                    $buttonBg = 'bg-white/10';
+                                    $buttonBorder = 'border-white/20';
+                                    $buttonHover = 'hover:bg-white/20';
+                                    $buttonText = 'text-white';
                                 }
                             @endphp
                             <div class="bg-white bg-opacity-10 backdrop-blur-md border border-white border-opacity-20 rounded-xl overflow-hidden">
                                 <!-- Material Header (Accordion Button) -->
                                 <button @click="openAccordion = openAccordion === '{{ $material->id }}' ? null : '{{ $material->id }}'"
-                                    class="w-full flex items-center justify-between px-6 py-4 rounded-xl text-white text-xl font-semibold focus:outline-none transition-all duration-300 hover:bg-white/10">
+                                    class="w-full flex items-center justify-between px-6 py-4 rounded-xl {{ $buttonText }} text-xl font-semibold focus:outline-none transition-all duration-300 {{ $buttonBg }} {{ $buttonBorder }} border {{ $buttonHover }} backdrop-blur-sm">
                                     <span>{{ $material->title }}</span>
                                     <svg :class="{'rotate-180': openAccordion === '{{ $material->id }}'}" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
                                         <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -200,7 +220,13 @@
                                     <div class="bg-white bg-opacity-5 backdrop-blur-sm rounded-lg p-4">
                                         <!-- Block Type Header -->
                                         <div class="flex items-center justify-between mb-4 px-4 py-3 rounded-lg bg-white bg-opacity-10 backdrop-blur-sm">
-                                            <span class="font-semibold text-white">{{ $block->material_type }}</span>
+                                            <span class="font-semibold text-white">
+                                                @if($block->name)
+                                                    {{ $block->name }}
+                                                @else
+                                                    {{ $block->material_type }}
+                                                @endif
+                                            </span>
                                             @if($block->material_type == 'Examens' && $block->exam_type)
                                                 <span class="text-sm opacity-75 text-blue-100">{{ $block->exam_type }}</span>
                                             @endif

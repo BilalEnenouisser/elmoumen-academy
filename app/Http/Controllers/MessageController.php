@@ -11,13 +11,19 @@ class MessageController extends Controller
     {
         $request->validate([
             'name'    => 'required|string|max:255',
-            'email'   => 'required|email',
+            'phone'   => 'required|string|max:20',
             'subject' => 'required|string|max:255',
             'message' => 'required|string',
         ]);
 
-        Message::create($request->all());
+        Message::create([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'subject' => $request->subject,
+            'message' => $request->message,
+            'read' => false
+        ]);
 
-        return redirect()->back()->with('success', 'Votre message a été envoyé avec succès.');
+        return redirect()->back()->with('success', 'Votre message a été envoyé avec succès. Nous vous répondrons dans les plus brefs délais.');
     }
 }
