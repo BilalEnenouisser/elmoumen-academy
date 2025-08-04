@@ -11,6 +11,7 @@ use App\Models\BookClick;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User; // Added this import for the new_code
 
 class AnalyticsService
 {
@@ -55,6 +56,23 @@ class AnalyticsService
 
     public static function trackTeacherActivity($userId, $action, $details = null)
     {
+        // Check if we're using the teacher guard or web guard
+        if (Auth::guard('teacher')->check()) {
+            // If using teacher guard, we need to find the corresponding user
+            $teacher = Auth::guard('teacher')->user();
+            $user = User::where('email', $teacher->email)->first();
+            
+            if ($user) {
+                $userId = $user->id;
+            } else {
+                // If no corresponding user found, skip tracking
+                return;
+            }
+        } else {
+            // Using web guard, use the provided userId
+            $userId = $userId ?? Auth::id();
+        }
+
         TeacherActivity::create([
             'user_id' => $userId,
             'action' => $action,

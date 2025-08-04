@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Elmoumen Academy</title>
+    <title>El Moumen Academy</title>
 
     @vite('resources/css/app.css')
     <!-- Google Fonts: Montserrat -->
@@ -161,7 +161,7 @@
             <div class="col-span-1 md:col-span-2">
                 <a href="{{ url('/') }}" class="flex items-center mb-4 space-x-3 rtl:space-x-reverse">
                     <img src="{{ asset('images/logocam.png') }}" class="h-12" alt="Elmoumen Academy Logo" />
-                    <span class="self-center text-2xl font-semibold whitespace-nowrap">Elmoumen Academy</span>
+                    <span class="self-center text-2xl font-semibold whitespace-nowrap">El Moumen Academy</span>
                 </a>
                 <p class="text-gray-300 mb-4">
                     Académie d'excellence offrant une éducation de qualité pour tous les niveaux : Primaire, Collège, Lycée et Concours.

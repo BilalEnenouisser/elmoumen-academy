@@ -185,13 +185,29 @@
 
 <section class="py-32 px-6 bg-white">
     <div class="max-w-4xl  mx-auto text-center">
-        <h2 class="text-4xl font-bold mb-4 font-[Montserrat]">Pourquoi Elmoumen Academy ?</h2>
+        <h2 class="text-4xl font-bold mb-4 font-[Montserrat]">Pourquoi El Moumen Academy ?</h2>
         <p class="text-gray-600 mb-6">Nous fournissons une éducation de haute qualité avec des professeurs certifiés et une approche interactive de l’apprentissage.</p>
-        <img src="{{ asset('images/about-us.jpg') }}" class="mx-auto rounded shadow" alt="Academy Presentation">
+        <img src="{{ asset('images/imageElMoumen.jpeg') }}" class="mx-auto rounded shadow" alt="Academy Presentation">
     </div>
 </section>
 
 
+
+<section class="py-32 px-6 bg-white">
+    <div class="max-w-4xl  mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-4 font-[Montserrat]">Pourquoi El Moumen Academy ?</h2>
+        <p class="text-gray-600 mb-6">Nous fournissons une éducation de haute qualité avec des professeurs certifiés et une approche interactive de l’apprentissage.</p>
+        <img src="{{ asset('images/imageElMoumen2.png') }}" class="mx-auto rounded shadow" alt="Academy Presentation">
+    </div>
+</section>
+
+<section class="py-32 px-6 bg-white">
+    <div class="max-w-4xl  mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-4 font-[Montserrat]">Pourquoi El Moumen Academy ?</h2>
+        <p class="text-gray-600 mb-6">Nous fournissons une éducation de haute qualité avec des professeurs certifiés et une approche interactive de l’apprentissage.</p>
+        <img src="{{ asset('images/imageElMoumen3.png') }}" class="mx-auto rounded shadow" alt="Academy Presentation">
+    </div>
+</section>
 
 
 

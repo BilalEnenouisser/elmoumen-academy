@@ -1,68 +1,103 @@
 <x-guest-layout>
-    <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full space-y-8">
-            <div>
-                <div class="mx-auto h-12 w-12 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full flex items-center justify-center">
+            <!-- Logo and Header -->
+            <div class="text-center">
+                <div class="mx-auto h-16 w-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
                     <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                     </svg>
                 </div>
-                <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                    👨‍🏫 Espace Enseignant
+                <h2 class="mt-6 text-center text-3xl font-bold text-white">
+                    Espace Enseignant
                 </h2>
-                <p class="mt-2 text-center text-sm text-gray-600">
+                <p class="mt-2 text-center text-sm text-gray-400">
                     Connectez-vous à votre espace personnel
                 </p>
             </div>
             
-            <form class="mt-8 space-y-6" action="{{ route('teacher.login') }}" method="POST">
-                @csrf
-                
-                <div class="rounded-md shadow-sm -space-y-px">
+            <!-- Login Form -->
+            <div class="bg-gray-800 rounded-xl shadow-2xl p-8 border border-gray-700">
+                <form class="space-y-6" action="{{ route('teacher.login') }}" method="POST">
+                    @csrf
+                    
+                    <!-- Email Field -->
                     <div>
-                        <label for="email" class="sr-only">Adresse email</label>
-                        <input id="email" name="email" type="email" autocomplete="email" required 
-                               value="{{ old('email') }}"
-                               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm @error('email') border-red-500 @enderror"
-                               placeholder="Adresse email">
+                        <label for="email" class="block text-sm font-medium text-gray-300 mb-2">
+                            Adresse email
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
+                                </svg>
+                            </div>
+                            <input id="email" name="email" type="email" autocomplete="email" required 
+                                   value="{{ old('email') }}"
+                                   class="block w-full pl-10 pr-3 py-3 border border-gray-600 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 @error('email') border-red-500 focus:ring-red-500 @enderror"
+                                   placeholder="votre@email.com">
+                        </div>
+                        @error('email')
+                            <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
+                        @enderror
                     </div>
+
+                    <!-- Password Field -->
                     <div>
-                        <label for="password" class="sr-only">Mot de passe</label>
-                        <input id="password" name="password" type="password" autocomplete="current-password" required 
-                               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm @error('password') border-red-500 @enderror"
-                               placeholder="Mot de passe">
+                        <label for="password" class="block text-sm font-medium text-gray-300 mb-2">
+                            Mot de passe
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                </svg>
+                            </div>
+                            <input id="password" name="password" type="password" autocomplete="current-password" required 
+                                   class="block w-full pl-10 pr-3 py-3 border border-gray-600 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 @error('password') border-red-500 focus:ring-red-500 @enderror"
+                                   placeholder="••••••••">
+                        </div>
+                        @error('password')
+                            <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
+                        @enderror
                     </div>
-                </div>
 
-                @if ($errors->any())
-                    <div class="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md">
-                        <ul class="list-disc list-inside text-sm">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
+                    <!-- Error Messages -->
+                    @if ($errors->any())
+                        <div class="bg-red-900/50 border border-red-700 text-red-300 px-4 py-3 rounded-lg">
+                            <ul class="list-disc list-inside text-sm space-y-1">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <!-- Submit Button -->
+                    <div>
+                        <button type="submit" 
+                                class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-all duration-200 shadow-lg hover:shadow-xl">
+                            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                                <svg class="h-5 w-5 text-purple-300 group-hover:text-purple-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
+                            </span>
+                            Se connecter
+                        </button>
                     </div>
-                @endif
+                </form>
+            </div>
 
-                <div>
-                    <button type="submit" 
-                            class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200">
-                        <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-                            <svg class="h-5 w-5 text-blue-500 group-hover:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                            </svg>
-                        </span>
-                        Se connecter
-                    </button>
-                </div>
-
-                <div class="text-center">
-                    <a href="{{ url('/') }}" 
-                       class="font-medium text-blue-600 hover:text-blue-500 text-sm">
-                        ← Retour à l'accueil
-                    </a>
-                </div>
-            </form>
+            <!-- Back to Home Link -->
+            <div class="text-center">
+                <a href="{{ url('/') }}" 
+                   class="inline-flex items-center text-sm text-gray-400 hover:text-white transition-colors duration-200">
+                    <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Retour à l'accueil
+                </a>
+            </div>
         </div>
     </div>
 </x-guest-layout> 

@@ -99,12 +99,12 @@ class MaterialController extends Controller
                             $pdf = $block->pdfs()->create([
                                 'pdf_path' => $path,
                                 'title' => $request->pdf_titles[$blockIndex][$pdfIndex] ?? $pdf->getClientOriginalName(),
-                                'teacher_id' => auth()->id(),
+                                'teacher_id' => auth('teacher')->id(),
                             ]);
                             
                             // Track teacher activity
                             AnalyticsService::trackTeacherActivity(
-                                auth()->id(), 
+                                null, 
                                 'upload_pdf', 
                                 "Uploaded PDF: {$pdf->title} to {$material->title}"
                             );
@@ -207,12 +207,12 @@ class MaterialController extends Controller
                             $pdf = $block->pdfs()->create([
                                 'pdf_path' => $path,
                                 'title' => $request->pdf_titles[$blockIndex][$pdfIndex] ?? $pdf->getClientOriginalName(),
-                                'teacher_id' => auth()->id(),
+                                'teacher_id' => auth('teacher')->id(),
                             ]);
                             
                             // Track teacher activity
                             AnalyticsService::trackTeacherActivity(
-                                auth()->id(), 
+                                null, 
                                 'upload_pdf', 
                                 "Uploaded PDF: {$pdf->title} to {$material->title}"
                             );

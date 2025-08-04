@@ -109,6 +109,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     //  MarqueeController
     Route::get('marquees', [MarqueeController::class, 'index'])->name('marquees.index');
     Route::post('marquees', [MarqueeController::class, 'store'])->name('marquees.store');
+    Route::get('marquees/{marquee}/edit', [MarqueeController::class, 'edit'])->name('marquees.edit');
+    Route::put('marquees/{marquee}', [MarqueeController::class, 'update'])->name('marquees.update');
     Route::delete('marquees/{marquee}', [MarqueeController::class, 'destroy'])->name('marquees.destroy');
 
     // 📚 Books Management
