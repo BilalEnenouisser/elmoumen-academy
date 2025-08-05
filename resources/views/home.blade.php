@@ -183,14 +183,6 @@
     </div>
 </section>
 
-<section class="py-32 px-6 bg-white">
-    <div class="max-w-4xl  mx-auto text-center">
-        <h2 class="text-4xl font-bold mb-4 font-[Montserrat]">Pourquoi El Moumen Academy ?</h2>
-        <p class="text-gray-600 mb-6">Nous fournissons une éducation de haute qualité avec des professeurs certifiés et une approche interactive de l’apprentissage.</p>
-        <img src="{{ asset('images/imageElMoumen.jpeg') }}" class="mx-auto rounded shadow" alt="Academy Presentation">
-    </div>
-</section>
-
 
 
 <section class="py-32 px-6 bg-white">
@@ -200,16 +192,6 @@
         <img src="{{ asset('images/imageElMoumen2.png') }}" class="mx-auto rounded shadow" alt="Academy Presentation">
     </div>
 </section>
-
-<section class="py-32 px-6 bg-white">
-    <div class="max-w-4xl  mx-auto text-center">
-        <h2 class="text-4xl font-bold mb-4 font-[Montserrat]">Pourquoi El Moumen Academy ?</h2>
-        <p class="text-gray-600 mb-6">Nous fournissons une éducation de haute qualité avec des professeurs certifiés et une approche interactive de l’apprentissage.</p>
-        <img src="{{ asset('images/imageElMoumen3.png') }}" class="mx-auto rounded shadow" alt="Academy Presentation">
-    </div>
-</section>
-
-
 
 
 <!-- Section 3: Advice Cards section  - RTL Adjusted -->
@@ -378,37 +360,18 @@
     <div class="relative z-10 max-w-7xl mx-auto px-4">
         <!-- Section Title -->
         <div class="text-center mb-16">
-            <div class="inline-block backdrop-blur-lg bg-white/10 text-white px-6 py-2 rounded-full text-sm font-medium mb-4">
-                Cours Individuels
-            </div>
             <h2 class="text-white text-4xl md:text-5xl font-bold mb-4 leading-tight">
-                Apprentissage Personnalisé
+                Cours Individuels
             </h2>
-            <p class="text-blue-100 text-xl max-w-3xl mx-auto">
-                Des cours sur mesure adaptés à vos besoins spécifiques et à votre rythme d'apprentissage
-            </p>
         </div>
         
         <div class="backdrop-blur-lg bg-white/10 rounded-2xl p-8 md:p-12 shadow-xl">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <!-- Left Side - Image and Content -->
+                <!-- Left Side - Image -->
                 <div class="space-y-6">
-                    <div class="relative">
-                        <img src="{{ asset('images/about-us.jpg') }}" alt="Contact Us" class="w-full h-64 md:h-80 object-cover rounded-xl shadow-lg" />
-                        <div class="absolute inset-0" style="background-color: rgba(1, 14, 44, 0.6);"></div>
-                    </div>
-                    
-                    <div class="space-y-4">
-                        <div class="inline-block bg-blue-500 text-white px-4 py-2 rounded-full text-sm font-medium">
-                            Contactez-nous
-                        </div>
-                        <h2 class="text-white text-3xl md:text-4xl font-bold leading-tight">
-                            Prêt à Commencer Votre Voyage d'Apprentissage ?
-                        </h2>
-                        <p class="text-blue-100 text-lg leading-relaxed">
-                            Notre équipe d'experts est là pour vous accompagner dans votre parcours éducatif. 
-                            Contactez-nous dès maintenant pour obtenir des informations personnalisées sur nos cours.
-                        </p>
+                    <div class="relative h-full">
+                        <img src="{{ asset('images/about-us.jpg') }}" alt="Cours Individuels" class="w-full h-full object-cover rounded-xl shadow-lg" />
+                        <div class="absolute inset-0 rounded-xl" style="background-color: rgba(1, 14, 44, 0.6);"></div>
                     </div>
                 </div>
 
