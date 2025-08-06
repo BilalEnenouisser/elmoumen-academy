@@ -164,7 +164,7 @@
                     <span class="self-center text-2xl font-semibold whitespace-nowrap">El Moumen Academy</span>
                 </a>
                 <p class="text-gray-300 mb-4">
-                    Académie d'excellence offrant une éducation de qualité pour tous les niveaux : Primaire, Collège, Lycée et Concours.
+                El Moumen Academy, votre partenaire de confiance pour la réussite scolaire et l’épanouissement éducatif à tous les niveaux.
                 </p>
                 <div class="flex space-x-4">
                     <a href="#" class="bg-white/10 text-white rounded-full p-2 hover:bg-white/20 transition">

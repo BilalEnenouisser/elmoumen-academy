@@ -18,12 +18,12 @@
         <!-- Left: Text -->
         <div class="w-full md:w-1/2 max-w-lg text-center md:text-left text-white mb-12 md:mb-0">
             <h1 class="text-4xl sm:text-5xl font-normal	leading-[1.3] mb-6">
-                <span class="text-cyan-400">Transformer</span> les Vies<br>
-                Par l'Éducation<br>
-                En Ligne.
+                <span class="text-cyan-400">Bienvenue sur</span> El Moumen Academy<br>
+                votre avenir <br>
+                commence ici
             </h1>
-            <p class="mb-8 text-base sm:text-sm text-gray-200">Rejoignez Elmoumen Academy pour une éducation d'excellence adaptée à tous les niveaux : Primaire, Collège, Lycée et Concours.</p>
-            <a href="#" class="inline-block bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white px-6 py-3 sm:px-8 sm:py-3 rounded-full   shadow-lg transition">En Savoir Plus</a>
+            <p class="mb-8 text-base sm:text-sm text-gray-200">Un accompagnement pédagogique personnalisé pour chaque élève, tous niveaux confondus, avec des résultats prouvés et durables.</p>
+            <a href="#" class="inline-block bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white px-6 py-3 sm:px-8 sm:py-3 rounded-full   shadow-lg transition">Voir les cours individuels</a>
         </div>
 
         <!-- Right: Play Button - centered on mobile -->
@@ -114,29 +114,29 @@
             <div class="rounded-2xl overflow-hidden mb-6">
                 <img src="{{ asset('images/about-us.jpg') }}" alt="À Propos" class="w-full h-64 md:h-80 object-cover" />
             </div>
-            <h2 class="text-3xl md:text-4xl font-normal  mb-2 text-gray-800 font-[Montserrat]">Développer l'Excellence</h2>
+            <h2 class="text-3xl md:text-4xl font-normal  mb-2 text-gray-800 font-[Montserrat]">El Moumen Academy</h2>
             <p class="text-gray-600 mb-6">
-                Elmoumen Academy s'engage à fournir une éducation de qualité supérieure avec des professeurs expérimentés et des méthodes d'apprentissage innovantes.
+            Centre dirigé par des enseignants expérimentés avec suivi annuel, orientation, soutien intensif et activités pédagogiques variées.
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
                 <div class="flex-1 flex flex-col items-center border-r border-gray-300 last:border-none">
-                    <span class="text-3xl font-bold text-gray-800">5+</span>
-                    <span class="text-gray-500">Années d'Expérience</span>
+                    <span class="text-3xl font-bold text-gray-800">100%</span>
+                    <span class="text-gray-500">Réussite</span>
                 </div>
                 <div class="flex-1 flex flex-col items-center border-r border-gray-300 last:border-none">
-                    <span class="text-3xl font-bold text-gray-800">50+</span>
-                    <span class="text-gray-500">Professeurs Qualifiés</span>
+                    <span class="text-3xl font-bold text-gray-800">300+</span>
+                    <span class="text-gray-500">Élèves </span>
                 </div>
                 <div class="flex-1 flex flex-col items-center">
-                    <span class="text-3xl font-bold text-gray-800">1000+</span>
-                    <span class="text-gray-500">Étudiants Satisfaits</span>
+                    <span class="text-3xl font-bold text-gray-800">9+</span>
+                    <span class="text-gray-500">Enseignants</span>
                 </div>
             </div>
         </div>
         <!-- Right: Vision, Mission, Social -->
         <div class="flex-1 flex flex-col justify-center">
             <h2 class="text-4xl md:text-5xl font-normal mb-8 text-gray-800 font-[Montserrat] leading-tight">
-                Développer l'Excellence<br>Par l'Apprentissage en Ligne
+            Un centre engagé pour<br>votre réussite scolaire
             </h2>
             <div class="space-y-6 mb-8">
                 <div class="flex items-center bg-white rounded-2xl shadow-md p-6 gap-6">
@@ -148,7 +148,7 @@
                     </div>
                     <div>
                         <h3 class="text-2xl   text-gray-800 mb-1">Notre Vision</h3>
-                        <p class="text-gray-600 text-base">Devenir la référence en matière d'éducation en ligne au Maroc, en offrant des programmes d'excellence accessibles à tous.</p>
+                        <p class="text-gray-600 text-base">Assurer un futur brillant à chaque élève grâce à un encadrement pédagogique humain, professionnel et constant..</p>
                     </div>
                 </div>
                 <div class="flex items-center bg-white rounded-2xl shadow-md p-6 gap-6">
@@ -160,7 +160,7 @@
                     </div>
                     <div>
                         <h3 class="text-2xl   text-gray-800 mb-1">Notre Mission</h3>
-                        <p class="text-gray-600 text-base">Former les leaders de demain en offrant une éducation de qualité adaptée aux besoins de chaque étudiant.</p>
+                        <p class="text-gray-600 text-base">Encadrer, motiver et accompagner chaque élève de façon individuelle pour garantir réussite et développement personnel durable.</p>
                     </div>
                 </div>
             </div>
@@ -187,8 +187,8 @@
 
 <section class="py-32 px-6 bg-white">
     <div class="max-w-4xl  mx-auto text-center">
-        <h2 class="text-4xl font-bold mb-4 font-[Montserrat]">Pourquoi El Moumen Academy ?</h2>
-        <p class="text-gray-600 mb-6">Nous fournissons une éducation de haute qualité avec des professeurs certifiés et une approche interactive de l’apprentissage.</p>
+        <h2 class="text-4xl font-bold mb-4 font-[Montserrat]">Pourquoi nous faire confiance ?</h2>
+        <p class="text-gray-600 mb-6">Résultats excellents, pédagogie innovante, suivi personnalisé, ambiance motivante, événements éducatifs tout au long de l’année scolaire.</p>
         <img src="{{ asset('images/imageElMoumen2.png') }}" class="mx-auto rounded shadow" alt="Academy Presentation">
     </div>
 </section>
@@ -294,8 +294,8 @@
                         </svg>
                     </div>
                     <div class="text-left">
-                        <div class="text-3xl md:text-4xl font-bold text-white" x-data="{ count: 0, target: 3000 }" x-init="() => { const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { const increment = target / 100; const timer = setInterval(() => { if (count < target) { count += increment; } else { count = target; clearInterval(timer); } }, 20); observer.unobserve(entry.target); } }); }); observer.observe($el); }" x-text="Math.floor(count) + '+'"></div>
-                        <div class="text-white text-sm">Formés avec succès</div>
+                        <div class="text-3xl md:text-4xl font-bold text-white" x-data="{ count: 0, target: 10 }" x-init="() => { const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { const increment = target / 100; const timer = setInterval(() => { if (count < target) { count += increment; } else { count = target; clearInterval(timer); } }, 20); observer.unobserve(entry.target); } }); }); observer.observe($el); }" x-text="Math.floor(count) + '+'"></div>
+                        <div class="text-white text-sm">Enseignants</div>
                     </div>
                 </div>
 
@@ -307,7 +307,7 @@
                         </svg>
                     </div>
                     <div class="text-left">
-                        <div class="text-3xl md:text-4xl font-bold text-white" x-data="{ count: 0, target: 15000 }" x-init="() => { const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { const increment = target / 100; const timer = setInterval(() => { if (count < target) { count += increment; } else { count = target; clearInterval(timer); } }, 20); observer.unobserve(entry.target); } }); }); observer.observe($el); }" x-text="Math.floor(count) + '+'"></div>
+                        <div class="text-3xl md:text-4xl font-bold text-white" x-data="{ count: 0, target: 500 }" x-init="() => { const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { const increment = target / 100; const timer = setInterval(() => { if (count < target) { count += increment; } else { count = target; clearInterval(timer); } }, 20); observer.unobserve(entry.target); } }); }); observer.observe($el); }" x-text="Math.floor(count) + '+'"></div>
                         <div class="text-white text-sm">Cours terminés</div>
                     </div>
                 </div>
@@ -320,8 +320,8 @@
                         </svg>
                     </div>
                     <div class="text-left">
-                        <div class="text-3xl md:text-4xl font-bold text-white" x-data="{ count: 0, target: 97000 }" x-init="() => { const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { const increment = target / 100; const timer = setInterval(() => { if (count < target) { count += increment; } else { count = target; clearInterval(timer); } }, 20); observer.unobserve(entry.target); } }); }); observer.observe($el); }" x-text="Math.floor(count) + '+'"></div>
-                        <div class="text-white text-sm">Taux de satisfaction</div>
+                        <div class="text-3xl md:text-4xl font-bold text-white" x-data="{ count: 0, target: 100 }" x-init="() => { const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { const increment = target / 100; const timer = setInterval(() => { if (count < target) { count += increment; } else { count = target; clearInterval(timer); } }, 20); observer.unobserve(entry.target); } }); }); observer.observe($el); }" x-text="Math.floor(count) + '%'"></div>
+                        <div class="text-white text-sm">Réussite</div>
                     </div>
                 </div>
 
@@ -333,8 +333,8 @@
                         </svg>
                     </div>
                     <div class="text-left">
-                        <div class="text-3xl md:text-4xl font-bold text-white" x-data="{ count: 0, target: 102000 }" x-init="() => { const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { const increment = target / 100; const timer = setInterval(() => { if (count < target) { count += increment; } else { count = target; clearInterval(timer); } }, 20); observer.unobserve(entry.target); } }); }); observer.observe($el); }" x-text="Math.floor(count) + '+'"></div>
-                        <div class="text-white text-sm">Communauté d'étudiants</div>
+                        <div class="text-3xl md:text-4xl font-bold text-white" x-data="{ count: 0, target: 3 }" x-init="() => { const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { const increment = target / 100; const timer = setInterval(() => { if (count < target) { count += increment; } else { count = target; clearInterval(timer); } }, 20); observer.unobserve(entry.target); } }); }); observer.observe($el); }" x-text="Math.floor(count) + '+'"></div>
+                        <div class="text-white text-sm">Partenaires </div>
                     </div>
                 </div>
             </div>
@@ -360,10 +360,9 @@
     <div class="relative z-10 max-w-7xl mx-auto px-4">
         <!-- Section Title -->
         <div class="text-center mb-16">
-            <h2 class="text-white text-4xl md:text-5xl font-bold mb-4 leading-tight">
-                Cours Individuels
-            </h2>
+            <h2 class="text-3xl text-white md:text-4xl font-bold text-gray-900 mb-4">Cours Individuels</h2>
         </div>
+        
         
         <div class="backdrop-blur-lg bg-white/10 rounded-2xl p-8 md:p-12 shadow-xl">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -445,32 +444,32 @@ function sendWhatsAppMessage() {
 <section class="py-20 bg-gray-50">
     <div class="max-w-4xl mx-auto px-6">
         <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Questions Fréquentes</h2>
-            <p class="text-gray-600 text-lg">Trouvez rapidement des réponses à vos questions</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Questions fréquentes importantes</h2>
+            <p class="text-gray-600 text-lg">Réponses claires à vos interrogations les plus fréquentes concernant nos services éducatifs, activités et organisation interne.</p>
         </div>
         
         <div class="space-y-4">
             <div class="bg-white rounded-lg shadow-sm border border-gray-200">
                 <button class="flex items-center justify-between w-full p-6 text-left" onclick="toggleContactFAQ(1)">
-                    <span class="font-medium text-gray-900">Comment puis-je m'inscrire aux cours ?</span>
+                    <span class="font-medium text-gray-900">Quels niveaux sont acceptés ?</span>
                     <svg class="w-5 h-5 text-gray-500 transform transition-transform" id="faq-icon-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
                 <div id="faq-content-contact-1" class="hidden px-6 pb-6">
-                    <p class="text-gray-600">Vous pouvez vous inscrire directement sur notre site web en créant un compte, ou nous contacter par téléphone ou WhatsApp pour un accompagnement personnalisé.</p>
+                    <p class="text-gray-600">→ Tous niveaux : primaire, collège, lycée.</p>
                 </div>
             </div>
             
             <div class="bg-white rounded-lg shadow-sm border border-gray-200">
                 <button class="flex items-center justify-between w-full p-6 text-left" onclick="toggleContactFAQ(2)">
-                    <span class="font-medium text-gray-900">Quels sont les moyens de paiement acceptés ?</span>
+                    <span class="font-medium text-gray-900">Avez-vous des cours en ligne ?</span>
                     <svg class="w-5 h-5 text-gray-500 transform transition-transform" id="faq-icon-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
                 <div id="faq-content-contact-2" class="hidden px-6 pb-6">
-                    <p class="text-gray-600">Nous acceptons les paiements en espèces, par virement bancaire, et via les services de paiement mobile comme PayPal et les portefeuilles électroniques locaux.</p>
+                    <p class="text-gray-600">→ Oui, en direct via réseaux sociaux.</p>
                 </div>
             </div>
             
@@ -485,6 +484,32 @@ function sendWhatsAppMessage() {
                     <p class="text-gray-600">Oui, nous proposons des cours d'essai gratuits et certaines ressources éducatives gratuites. Contactez-nous pour plus d'informations sur nos offres gratuites.</p>
                 </div>
             </div>
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                <button class="flex items-center justify-between w-full p-6 text-left" onclick="toggleContactFAQ(4)">
+                    <span class="font-medium text-gray-900">Y a-t-il des cours gratuits ?</span>
+                    <svg class="w-5 h-5 text-gray-500 transform transition-transform" id="faq-icon-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div id="faq-content-contact-4" class="hidden px-6 pb-6">
+                    <p class="text-gray-600">→ Oui, pendant les périodes d’examens.</p>
+                </div>
+            </div>
+            
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                <button class="flex items-center justify-between w-full p-6 text-left" onclick="toggleContactFAQ(5)">
+                    <span class="font-medium text-gray-900">Fournissez-vous les manuels ?</span>
+                    <svg class="w-5 h-5 text-gray-500 transform transition-transform" id="faq-icon-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div id="faq-content-contact-5" class="hidden px-6 pb-6">
+                    <p class="text-gray-600">→ Oui, adaptés selon le niveau.</p>
+                </div>
+            </div>
+            
         </div>
     </div>
 </section>
@@ -539,9 +564,11 @@ function toggleContactFAQ(id) {
     </div>
     <!-- Content -->
     <div class="relative z-10 max-w-7xl mx-auto px-4">
-        <h2 class="text-white text-4xl md:text-5xl font-bold text-center mb-16 leading-tight font-[Montserrat]">
-            Créer une Communauté<br>d'Apprenants à Vie
-        </h2>
+    <div class="text-center mb-16">
+            <h2 class="text-3xl text-white md:text-4xl font-bold text-gray-900 mb-4">Avis et Témoignages</h2>
+            <p class="text-gray-600  text-white text-lg">Découvrez les témoignages sincères de nos élèves, parents et partenaires sur leur expérience avec notre académie.</p>
+        </div>
+        
         
         @if($testimonials->count() > 0)
             <!-- Testimonials Slider -->

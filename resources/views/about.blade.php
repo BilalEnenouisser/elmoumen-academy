@@ -10,17 +10,17 @@
     <div class="relative z-20 text-center text-white px-6">
         <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
             À Propos de<br>
-            <span class="text-cyan-400">Elmoumen Academy</span>
+            <span class="text-cyan-400">El Moumen Academy</span>
         </h1>
         <p class="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto mb-8">
-            Votre partenaire de confiance pour une éducation d'excellence depuis plus de 5 ans
+        Un centre éducatif novateur, soutenu par des enseignants qualifiés, dédié à la réussite et au développement personnel.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="#mission" class="bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white px-8 py-4 rounded-full font-medium transition shadow-lg">
-                Notre Mission
+            Découvrir les livres
             </a>
             <a href="#contact" class="border-2 border-white text-white px-8 py-4 rounded-full font-medium hover:bg-white hover:text-gray-900 transition">
-                Nous Contacter
+            Voir nos cours
             </a>
         </div>
     </div>
@@ -84,7 +84,7 @@
         <div class="text-center mb-16">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-[Montserrat]">Notre Académie en Images</h2>
             <p class="text-gray-600 text-lg max-w-3xl mx-auto">
-                Découvrez notre environnement d'apprentissage moderne et nos installations
+            Explorez des moments forts de nos activités pédagogiques, événements ludiques, et sorties éducatives durant l’année.
             </p>
         </div>
         
@@ -134,9 +134,9 @@
 <section id="mission" class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-[Montserrat]">Notre Mission & Vision</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-[Montserrat]">Nos fondements éducatifs</h2>
             <p class="text-gray-600 text-lg max-w-3xl mx-auto">
-                Nous nous engageons à transformer l'éducation en ligne et à rendre l'apprentissage accessible à tous
+            Découvrez notre engagement pédagogique fondé sur la mission éducative et la vision d’avenir d’El Moumen Academy.
             </p>
         </div>
         
@@ -150,10 +150,7 @@
                 </div>
                 <h3 class="text-2xl font-bold text-gray-900 mb-4">Notre Mission</h3>
                 <p class="text-gray-600 leading-relaxed">
-                    Fournir une éducation de qualité supérieure accessible à tous les étudiants, 
-                    quel que soit leur niveau ou leur situation géographique. Nous nous engageons 
-                    à créer un environnement d'apprentissage innovant et inclusif qui favorise 
-                    l'excellence académique et le développement personnel.
+                Notre mission est d’accompagner chaque élève tout au long de son parcours scolaire avec une pédagogie différenciée, un encadrement régulier, et une écoute active afin de garantir sa réussite académique, son épanouissement personnel et le développement de ses compétences clés.
                 </p>
             </div>
             
@@ -167,10 +164,7 @@
                 </div>
                 <h3 class="text-2xl font-bold text-gray-900 mb-4">Notre Vision</h3>
                 <p class="text-gray-600 leading-relaxed">
-                    Devenir la référence en matière d'éducation en ligne au Maroc, en créant 
-                    une plateforme qui révolutionne l'apprentissage et permet à chaque étudiant 
-                    d'atteindre son plein potentiel. Nous aspirons à former les leaders de demain 
-                    avec des compétences adaptées aux défis du 21ème siècle.
+                Créer un environnement éducatif propice au développement intellectuel, émotionnel et social de chaque élève, en assurant une égalité des chances et un accompagnement humain et structuré tout au long de sa scolarité.
                 </p>
             </div>
         </div>
@@ -181,8 +175,8 @@
 <section class="py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Nos Valeurs</h2>
-            <p class="text-gray-600 text-lg">Les principes qui guident notre action quotidienne</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Nos valeurs clés</h2>
+            <p class="text-gray-600 text-lg">Des principes solides guidant chaque action : excellence, accessibilité, innovation et accompagnement bienveillant au quotidien.</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -235,8 +229,8 @@
 <section class="py-20 bg-[#001226]">
     <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Notre Équipe</h2>
-            <p class="text-gray-300 text-lg">Des experts passionnés par l'éducation</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Notre équipe enseignante</h2>
+            <p class="text-gray-300 text-lg">Des professeurs passionnés, expérimentés et engagés dans l’encadrement pédagogique personnalisé de chaque élève inscrit.</p>
         </div>
         
         @php
@@ -276,72 +270,7 @@
                 </div>
             @endforeach
         @else
-            <!-- Fallback Team Members -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Team Member 1 -->
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-                    <div class="h-64 bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center">
-                        <svg class="w-24 h-24 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                    </div>
-                    <div class="p-6 text-center">
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Dr. Ahmed Elmoumen</h3>
-                        <p class="text-cyan-600 font-medium mb-3">Fondateur & Directeur</p>
-                        <p class="text-gray-600 text-sm">
-                            Expert en pédagogie avec plus de 15 ans d'expérience dans l'éducation en ligne.
-                        </p>
-                    </div>
-                </div>
-                
-                <!-- Team Member 2 -->
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-                    <div class="h-64 bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center">
-                        <svg class="w-24 h-24 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                    </div>
-                    <div class="p-6 text-center">
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Prof. Fatima Zahra</h3>
-                        <p class="text-cyan-600 font-medium mb-3">Responsable Pédagogique</p>
-                        <p class="text-gray-600 text-sm">
-                            Spécialiste en sciences de l'éducation et en développement de programmes d'études.
-                        </p>
-                    </div>
-                </div>
-                
-                <!-- Team Member 3 -->
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-                    <div class="h-64 bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center">
-                        <svg class="w-24 h-24 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                    </div>
-                    <div class="p-6 text-center">
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Ing. Youssef Benali</h3>
-                        <p class="text-cyan-600 font-medium mb-3">Responsable Technique</p>
-                        <p class="text-gray-600 text-sm">
-                            Expert en technologies éducatives et en développement de plateformes d'apprentissage.
-                        </p>
-                    </div>
-                </div>
-                
-                <!-- Team Member 4 -->
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-                    <div class="h-64 bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center">
-                        <svg class="w-24 h-24 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                    </div>
-                    <div class="p-6 text-center">
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Prof. Sara Alami</h3>
-                        <p class="text-cyan-600 font-medium mb-3">Experte en Langues</p>
-                        <p class="text-gray-600 text-sm">
-                            Spécialiste en langues étrangères et en méthodes d'apprentissage innovantes.
-                        </p>
-                    </div>
-                </div>
-            </div>
+            
         @endif
     </div>
 </section>
@@ -541,17 +470,17 @@
 <section class="py-20 bg-gradient-to-r from-cyan-400 to-blue-500">
     <div class="max-w-4xl mx-auto px-6 text-center">
         <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
-            Prêt à Commencer Votre Voyage Éducatif ?
+        Commencez aujourd’hui
         </h2>
         <p class="text-xl text-white mb-8 opacity-90">
-            Rejoignez des milliers d'étudiants qui ont déjà transformé leur avenir avec Elmoumen Academy
+        Faites le premier pas vers la réussite scolaire avec nos cours personnalisés et notre équipe dédiée.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="{{ route('register') }}" class="bg-white text-gray-900 px-8 py-4 rounded-full font-medium hover:bg-gray-100 transition shadow-lg">
-                Commencer Maintenant
+            Nous contacter
             </a>
             <a href="#contact" class="border-2 border-white text-white px-8 py-4 rounded-full font-medium hover:bg-white hover:text-gray-900 transition">
-                En Savoir Plus
+            Voir les cours
             </a>
         </div>
     </div>

@@ -13,8 +13,8 @@
 <section class="py-12" style="background-color: #dee7f1;">
     <div class="container mx-auto px-4">
         <div class="text-center mb-8">
-            <h2 class="text-3xl font-bold text-gray-900 mb-2">Livres Recommandés</h2>
-            <p class="text-gray-600">Découvrez nos meilleurs livres avec des réductions exclusives</p>
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">Nos meilleurs livres</h2>
+            <p class="text-gray-600">Accédez à des livres scolaires soigneusement conçus pour renforcer l’apprentissage et compléter les cours individuels.</p>
         </div>
 
         <!-- Book Slider Container -->
@@ -267,10 +267,10 @@
     <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
             <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Achetez Nos Livres
+            Livres populaires actuels
             </h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                Découvrez notre collection de livres éducatifs et profitez de nos offres spéciales
+            Explorez les livres récemment ajoutés et plébiscités par nos élèves pour améliorer leurs résultats scolaires.
             </p>
         </div>
 
