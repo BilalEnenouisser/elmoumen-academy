@@ -36,8 +36,8 @@
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-3">Téléphone</h3>
                 <p class="text-gray-600 mb-4">Appelez-nous directement</p>
-                <a href="tel:+212661234567" class="text-green-600 font-semibold text-lg hover:text-green-700 transition">
-                    +212 661 234 567
+                <a href="tel:+212771284243" class="text-green-600 font-semibold text-lg hover:text-green-700 transition">
+                    +212 771 284 243
                 </a>
             </div>
             
@@ -50,8 +50,8 @@
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-3">Email</h3>
                 <p class="text-gray-600 mb-4">Envoyez-nous un message</p>
-                <a href="mailto:contact@elmoumen-academy.ma" class="text-blue-600 font-semibold text-lg hover:text-blue-700 transition">
-                    contact@elmoumen-academy.ma
+                <a href="mailto:centreelmoumen@gmail.com " class="text-blue-600 font-semibold text-lg hover:text-blue-700 transition">
+                    centreelmoumen@gmail.com 
                 </a>
             </div>
             
@@ -64,8 +64,8 @@
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-3">WhatsApp</h3>
                 <p class="text-gray-600 mb-4">Message instantané</p>
-                <a href="https://wa.me/212661234567" target="_blank" class="text-green-600 font-semibold text-lg hover:text-green-700 transition">
-                    +212 661 234 567
+                <a href="https://wa.me/212771284243" target="_blank" class="text-green-600 font-semibold text-lg hover:text-green-700 transition">
+                    +212 771 284 243
                 </a>
             </div>
         </div>
@@ -177,8 +177,8 @@
                             </div>
                             <div>
                                 <p class="text-gray-900 font-medium">Centre Elmoumen</p>
-                                <p class="text-gray-600">Rue Principale, Elmoumen</p>
-                                <p class="text-gray-600">Province de Taza, Maroc</p>
+                                <p class="text-gray-600">54 Rue Ikhlas, Secteur Nahda</p>
+                                <p class="text-gray-600">Laayayda, Salé, Maroc</p>
                             </div>
                         </div>
                         
@@ -190,8 +190,8 @@
                             </div>
                             <div>
                                 <p class="text-gray-900 font-medium">Horaires d'Ouverture</p>
-                                <p class="text-gray-600">Lundi - Vendredi: 8h00 - 18h00</p>
-                                <p class="text-gray-600">Samedi: 9h00 - 16h00</p>
+                                <p class="text-gray-600">Lundi - Vendredi: 9h00 - 22h00</p>
+                                <p class="text-gray-600">Samedi: 9h00 - 18h00</p>
                                 <p class="text-gray-600">Dimanche: Fermé</p>
                             </div>
                         </div>
