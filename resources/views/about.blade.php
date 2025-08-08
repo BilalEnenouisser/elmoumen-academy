@@ -88,44 +88,100 @@
             </p>
         </div>
         
-        <!-- Image Slider -->
-        <div id="gallery" class="relative w-full max-w-4xl mx-auto" data-carousel="slide">
-            <!-- Carousel wrapper -->
-            <div class="relative h-64 md:h-96 overflow-hidden rounded-2xl shadow-2xl">
-                 <!-- Item 1 -->
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="{{ asset('images/about-us.jpg') }}" class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Notre Académie">
+        <!-- Full Width Swiper Gallery -->
+        <div class="gallery-swiper-container">
+            <div class="swiper gallery-swiper">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 -->
+                     <div class="swiper-slide">
+                        <div class="gallery-slide-content">
+                            <img src="{{ asset('images/slider/1.jpg') }}" alt="Notre Académie" class="gallery-image">
+                            <div class="gallery-overlay">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="gallery-slide-content">
+                            <img src="{{ asset('images/slider/2.jpg') }}" alt="Notre Académie" class="gallery-image">
+                            <div class="gallery-overlay">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="gallery-slide-content">
+                            <img src="{{ asset('images/slider/3.jpg') }}" alt="Notre Académie" class="gallery-image">
+                            <div class="gallery-overlay">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="gallery-slide-content">
+                            <img src="{{ asset('images/slider/4.jpg') }}" alt="Notre Académie" class="gallery-image">
+                            <div class="gallery-overlay">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="gallery-slide-content">
+                            <img src="{{ asset('images/slider/5.jpg') }}" alt="Notre Académie" class="gallery-image">
+                            <div class="gallery-overlay">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="gallery-slide-content">
+                            <img src="{{ asset('images/slider/6.jpg') }}" alt="Notre Académie" class="gallery-image">
+                            <div class="gallery-overlay">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="gallery-slide-content">
+                            <img src="{{ asset('images/slider/7.jpg') }}" alt="Notre Académie" class="gallery-image">
+                            <div class="gallery-overlay">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="gallery-slide-content">
+                            <img src="{{ asset('images/slider/8.jpg') }}" alt="Notre Académie" class="gallery-image">
+                            <div class="gallery-overlay">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="gallery-slide-content">
+                            <img src="{{ asset('images/slider/9.jpg') }}" alt="Notre Académie" class="gallery-image">
+                            <div class="gallery-overlay">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="gallery-slide-content">
+                            <img src="{{ asset('images/slider/10.jpg') }}" alt="Notre Académie" class="gallery-image">
+                            <div class="gallery-overlay">
+                            </div>
+                        </div>
+                    </div>
+                   
                 </div>
-                <!-- Item 2 -->
-                <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
-                    <img src="{{ asset('images/college.jpg') }}" class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Salle de Classe">
-                </div>
-                <!-- Item 3 -->
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="{{ asset('images/lycee.jpg') }}" class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Laboratoire">
-                </div>
-                <!-- Item 4 -->
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="{{ asset('images/primaire.jpg') }}" class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Bibliothèque">
-                </div>
-                <!-- Item 5 -->
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="{{ asset('images/concours.jpg') }}" class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Espace d'Étude">
-                </div>
+                
+                <!-- Navigation Arrows -->
+                <div class="swiper-button-next gallery-swiper-button-next"></div>
+                <div class="swiper-button-prev gallery-swiper-button-prev"></div>
+                
+                <!-- Pagination -->
+                <div class="swiper-pagination gallery-swiper-pagination"></div>
             </div>
-            <!-- Slider controls -->
-            <button type="button" class="absolute top-1/2 start-4 z-30 flex items-center justify-center h-10 w-10 rounded-full bg-white/30 hover:bg-white/50 focus:ring-4 focus:ring-white focus:outline-none transition-all duration-300" data-carousel-prev>
-                <svg class="w-4 h-4 text-white rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-                </svg>
-                <span class="sr-only">Précédent</span>
-            </button>
-            <button type="button" class="absolute top-1/2 end-4 z-30 flex items-center justify-center h-10 w-10 rounded-full bg-white/30 hover:bg-white/50 focus:ring-4 focus:ring-white focus:outline-none transition-all duration-300" data-carousel-next>
-                <svg class="w-4 h-4 text-white rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                </svg>
-                <span class="sr-only">Suivant</span>
-            </button>
         </div>
     </div>
 </section>
@@ -666,5 +722,234 @@ function trackBookClick(bookId) {
         </div>
     </div>
 </section>
+
+<style>
+/* Gallery Swiper Styles */
+.gallery-swiper-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.gallery-swiper {
+    width: 100%;
+    height: 500px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.gallery-swiper .swiper-slide {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.gallery-slide-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease-in-out;
+}
+
+.gallery-swiper .swiper-slide-active .gallery-image {
+    transform: scale(1.05);
+}
+
+.gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    color: white;
+    padding: 40px 30px 30px;
+    transform: translateY(100%);
+    transition: transform 0.4s ease-in-out;
+}
+
+.gallery-swiper .swiper-slide-active .gallery-overlay {
+    transform: translateY(0);
+}
+
+.gallery-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-in-out 0.2s;
+}
+
+.gallery-description {
+    font-size: 1rem;
+    opacity: 0.9;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-in-out 0.4s;
+}
+
+.gallery-swiper .swiper-slide-active .gallery-title,
+.gallery-swiper .swiper-slide-active .gallery-description {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Navigation Buttons */
+.gallery-swiper-button-next,
+.gallery-swiper-button-prev {
+    color: white;
+    background: rgba(255, 255, 255, 0.15);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.gallery-swiper-button-next:hover,
+.gallery-swiper-button-prev:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.1);
+}
+
+.gallery-swiper-button-next::after,
+.gallery-swiper-button-prev::after {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Pagination */
+.gallery-swiper-pagination {
+    bottom: 20px;
+}
+
+.gallery-swiper-pagination .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.3);
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.gallery-swiper-pagination .swiper-pagination-bullet-active {
+    background: #06b6d4;
+    transform: scale(1.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .gallery-swiper {
+        height: 400px;
+        border-radius: 15px;
+    }
+    
+    .gallery-overlay {
+        padding: 30px 20px 20px;
+    }
+    
+    .gallery-title {
+        font-size: 1.25rem;
+    }
+    
+    .gallery-description {
+        font-size: 0.9rem;
+    }
+    
+    .gallery-swiper-button-next,
+    .gallery-swiper-button-prev {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .gallery-swiper-button-next::after,
+    .gallery-swiper-button-prev::after {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-swiper {
+        height: 350px;
+        border-radius: 12px;
+    }
+    
+    .gallery-overlay {
+        padding: 25px 15px 15px;
+    }
+    
+    .gallery-title {
+        font-size: 1.1rem;
+    }
+    
+    .gallery-description {
+        font-size: 0.85rem;
+    }
+}
+</style>
+
+<script>
+// Initialize Gallery Swiper when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Gallery Swiper
+    const gallerySwiper = new Swiper('.gallery-swiper', {
+        slidesPerView: 1,
+        spaceBetween: 0,
+        loop: true,
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+        },
+        speed: 800,
+        effect: 'slide',
+        pagination: {
+            el: '.gallery-swiper-pagination',
+            clickable: true,
+            dynamicBullets: true,
+        },
+        navigation: {
+            nextEl: '.gallery-swiper-button-next',
+            prevEl: '.gallery-swiper-button-prev',
+        },
+        // Enhanced touch/swipe gestures
+        allowTouchMove: true,
+        touchRatio: 1,
+        touchAngle: 45,
+        grabCursor: true,
+        // Smooth transitions
+        roundLengths: true,
+        // Callbacks for animations
+        on: {
+            slideChangeTransitionStart: function () {
+                // Add any custom animation logic here if needed
+            },
+            slideChangeTransitionEnd: function () {
+                // Trigger any post-transition effects
+            }
+        }
+    });
+    
+    // Pause autoplay on hover
+    const swiperContainer = document.querySelector('.gallery-swiper');
+    if (swiperContainer) {
+        swiperContainer.addEventListener('mouseenter', () => {
+            gallerySwiper.autoplay.stop();
+        });
+        
+        swiperContainer.addEventListener('mouseleave', () => {
+            gallerySwiper.autoplay.start();
+        });
+    }
+});
+</script>
 
 @endsection 
