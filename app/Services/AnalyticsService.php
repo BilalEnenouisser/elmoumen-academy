@@ -46,6 +46,16 @@ class AnalyticsService
         ]);
     }
 
+    public static function trackMaterialVideoClick(Request $request, $materialVideoId)
+    {
+        \App\Models\MaterialVideoClick::create([
+            'material_video_id' => $materialVideoId,
+            'user_id' => Auth::id(),
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+        ]);
+    }
+
     public static function trackUserSession($userId, $sessionId)
     {
         UserSession::updateOrCreate(

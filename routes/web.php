@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\TeacherController as AdminTeacherController;
@@ -186,6 +187,12 @@ Route::post('track/video-click/{video}', function (Request $request, $video) {
     \App\Services\AnalyticsService::trackVideoClick($request, $video);
     return response()->json(['success' => true]);
 })->name('track.video-click');
+
+// Track material video clicks (videos inside course materials)
+Route::post('track/material-video-click/{video}', function (Request $request, $video) {
+    \App\Services\AnalyticsService::trackMaterialVideoClick($request, $video);
+    return response()->json(['success' => true]);
+})->name('track.material-video-click');
 
 
 

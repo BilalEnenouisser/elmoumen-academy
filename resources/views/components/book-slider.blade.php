@@ -266,13 +266,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function trackBookClick(bookId) {
-    fetch('/api/book-clicks', {
+    fetch(`/books/${bookId}/click`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: JSON.stringify({ book_id: bookId })
+        }
     }).catch(error => {
         console.error('Error tracking book click:', error);
     });

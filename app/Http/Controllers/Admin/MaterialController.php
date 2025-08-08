@@ -159,6 +159,8 @@ class MaterialController extends Controller
             'semesters.*' => 'required|in:Semestre 1,Semestre 2,Concour',
             'material_types' => 'required|array',
             'material_types.*' => 'required|in:Cours,Séries,Devoirs,Examens,Concour',
+            'devoir_types' => 'nullable|array',
+            'devoir_types.*' => 'nullable|in:Devoir 1,Devoir 2,Devoir 3,Devoir 4',
             'exam_types' => 'nullable|array',
             'exam_types.*' => 'nullable|in:إمتحانات محلية,إمتحانات إقليمية,Examens Locaux,Examens Régionaux,Examens Nationaux Blanc,Examens Nationaux',
             'concour_types' => 'nullable|array',
@@ -181,6 +183,13 @@ class MaterialController extends Controller
         
         // Update or create blocks
         foreach ($request->material_types as $blockIndex => $materialType) {
+            // Determine the display name for the block (e.g., "Devoir 3")
+            $blockName = null;
+            if ($materialType === 'Devoirs' && isset($request->devoir_types[$blockIndex])) {
+                $blockName = $request->devoir_types[$blockIndex];
+            } elseif ($materialType === 'Concour' && isset($request->concour_types[$blockIndex])) {
+                $blockName = $request->concour_types[$blockIndex];
+            }
             // Update existing block or create new one
             if (isset($existingBlocks[$blockIndex])) {
                 $block = $existingBlocks[$blockIndex];
@@ -188,6 +197,7 @@ class MaterialController extends Controller
                     'type' => $materialType,
                     'semester' => $request->semesters[$blockIndex],
                     'material_type' => $request->material_types[$blockIndex],
+                    'name' => $blockName,
                     'exam_type' => $request->exam_types[$blockIndex] ?? null,
                     'concour_type' => $request->concour_types[$blockIndex] ?? null,
                 ]);
@@ -196,6 +206,7 @@ class MaterialController extends Controller
                     'type' => $materialType,
                     'semester' => $request->semesters[$blockIndex],
                     'material_type' => $request->material_types[$blockIndex],
+                    'name' => $blockName,
                     'exam_type' => $request->exam_types[$blockIndex] ?? null,
                     'concour_type' => $request->concour_types[$blockIndex] ?? null,
                     'order' => $blockIndex,

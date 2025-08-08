@@ -24,4 +24,9 @@ class MaterialVideo extends Model
     {
         return $this->hasOneThrough(StudyMaterial::class, MaterialBlock::class);
     }
+
+    public function clicks()
+    {
+        return $this->hasMany(\App\Models\MaterialVideoClick::class);
+    }
 } 

@@ -89,7 +89,7 @@
                         
                         <a href="{{ route('courses.year', ['level' => 'lycee', 'year' => $year->slug]) }}" 
                            class="block w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white text-center py-3 px-6 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105">
-                            Voir les matières
+                            Voir les Filières
                         </a>
                     </div>
                 </div>

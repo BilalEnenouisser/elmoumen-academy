@@ -71,7 +71,7 @@
                                 $hasDevoirs = $semester1Blocks->where('material_type', 'Devoirs')->count() > 0;
                                 $hasExamens = $semester1Blocks->where('material_type', 'Examens')->count() > 0;
                                 $hasCours = $semester1Blocks->where('material_type', 'Cours')->count() > 0;
-                                $hasSeries = $semester1Blocks->where('material_type', 'Series')->count() > 0;
+                                $hasSeries = $semester1Blocks->where('material_type', 'Séries')->count() > 0;
                                 
                                 // Set button colors based on material types
                                 if ($hasExamens) {
@@ -128,7 +128,7 @@
                                             </div>
                                             <div class="flex-1">
                                                 <div class="text-white font-semibold">{{ $pdf->title ?? 'PDF' }}</div>
-                                                <div class="text-sm text-blue-100">PDF • {{ $block->material_type }}</div>
+                                                <div class="text-sm text-blue-100">PDF • {{ $block->name ?? $block->material_type }}</div>
                                             </div>
                                             <a href="{{ asset('storage/' . $pdf->pdf_path) }}" target="_blank" class="ml-2 p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors" onclick="trackPdfDownload({{ $pdf->id }})">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
@@ -142,7 +142,7 @@
 
                                         <!-- Videos for this block -->
                                         @foreach($block->videos as $video)
-                                        <div class="flex items-center gap-4 p-4 bg-white bg-opacity-5 backdrop-blur-sm rounded-lg mb-3 cursor-pointer" onclick="window.open('{{ $video->video_link }}', '_blank')">
+                                        <div class="flex items-center gap-4 p-4 bg-white bg-opacity-5 backdrop-blur-sm rounded-lg mb-3 cursor-pointer" onclick="trackVideoClick({{ $video->id }}); window.open('{{ $video->video_link }}', '_blank')">
                                             <div>
                                                 <div class="w-10 h-10 rounded bg-red-500 flex items-center justify-center">
                                                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -154,7 +154,7 @@
                                                 <div class="text-sm text-blue-100">voir la vidéo</div>
                                                 <div class="text-white font-semibold">{{ $video->title ?? 'Vidéo' }}</div>
                                             </div>
-                                            <a href="{{ $video->video_link }}" target="_blank" class="ml-2 p-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+                                            <a href="{{ $video->video_link }}" target="_blank" class="ml-2 p-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors" onclick="trackVideoClick({{ $video->id }})">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                     <polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/>
                                                 </svg>
@@ -186,7 +186,7 @@
                                 $hasDevoirs = $semester2Blocks->where('material_type', 'Devoirs')->count() > 0;
                                 $hasExamens = $semester2Blocks->where('material_type', 'Examens')->count() > 0;
                                 $hasCours = $semester2Blocks->where('material_type', 'Cours')->count() > 0;
-                                $hasSeries = $semester2Blocks->where('material_type', 'Series')->count() > 0;
+                                $hasSeries = $semester2Blocks->where('material_type', 'Séries')->count() > 0;
                                 
                                 // Set button colors based on material types
                                 if ($hasExamens) {
@@ -243,7 +243,7 @@
                                             </div>
                                             <div class="flex-1">
                                                 <div class="text-white font-semibold">{{ $pdf->title ?? 'PDF' }}</div>
-                                                <div class="text-sm text-blue-100">PDF • {{ $block->material_type }}</div>
+                                                <div class="text-sm text-blue-100">PDF • {{ $block->name ?? $block->material_type }}</div>
                                             </div>
                                             <a href="{{ asset('storage/' . $pdf->pdf_path) }}" target="_blank" class="ml-2 p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors" onclick="trackPdfDownload({{ $pdf->id }})">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
@@ -257,7 +257,7 @@
 
                                         <!-- Videos for this block -->
                                         @foreach($block->videos as $video)
-                                        <div class="flex items-center gap-4 p-4 bg-white bg-opacity-5 backdrop-blur-sm rounded-lg mb-3 cursor-pointer" onclick="window.open('{{ $video->video_link }}', '_blank')">
+                                        <div class="flex items-center gap-4 p-4 bg-white bg-opacity-5 backdrop-blur-sm rounded-lg mb-3 cursor-pointer" onclick="trackVideoClick({{ $video->id }}); window.open('{{ $video->video_link }}', '_blank')">
                                             <div>
                                                 <div class="w-10 h-10 rounded bg-red-500 flex items-center justify-center">
                                                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -269,7 +269,7 @@
                                                 <div class="text-sm text-blue-100">voir la vidéo</div>
                                                 <div class="text-white font-semibold">{{ $video->title ?? 'Vidéo' }}</div>
                                             </div>
-                                            <a href="{{ $video->video_link }}" target="_blank" class="ml-2 p-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+                                            <a href="{{ $video->video_link }}" target="_blank" class="ml-2 p-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors" onclick="trackVideoClick({{ $video->id }})">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                     <polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/>
                                                 </svg>
@@ -352,7 +352,7 @@
                                             </div>
                                             <div class="flex-1">
                                                 <div class="text-white font-semibold">{{ $pdf->title ?? 'PDF' }}</div>
-                                                <div class="text-sm text-purple-100">PDF • {{ $block->material_type }}</div>
+                                                <div class="text-sm text-purple-100">PDF • {{ $block->name ?? $block->material_type }}</div>
                                             </div>
                                             <a href="{{ asset('storage/' . $pdf->pdf_path) }}" target="_blank" class="ml-2 p-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors" onclick="trackPdfDownload({{ $pdf->id }})">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
@@ -414,7 +414,7 @@ function trackPdfDownload(pdfId) {
 }
 
 function trackVideoClick(videoId) {
-    fetch(`/track/video-click/${videoId}`, {
+    fetch(`/track/material-video-click/${videoId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

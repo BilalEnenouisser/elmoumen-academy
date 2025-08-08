@@ -88,7 +88,7 @@
                         
                         <a href="{{ route('courses.year', ['level' => $level->slug, 'year' => $year->slug]) }}"
                            class="block w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-center py-3 px-6 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105">
-                            Voir les matières
+                            {{ $level->slug === 'lycee' ? 'Voir les Filières' : 'Voir les matières' }}
                         </a>
                     </div>
                 </div>

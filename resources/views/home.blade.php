@@ -112,7 +112,7 @@
         <!-- Left: Image and Info -->
         <div class="flex-1 flex flex-col">
             <div class="rounded-2xl overflow-hidden mb-6">
-                <img src="{{ asset('images/about-us.jpg') }}" alt="À Propos" class="w-full h-64 md:h-80 object-cover" />
+                <img src="{{ asset('images/about1.jpeg') }}" alt="À Propos" class="w-full h-64 md:h-80 object-cover" />
             </div>
             <h2 class="text-3xl md:text-4xl font-normal  mb-2 text-gray-800 font-[Montserrat]">El Moumen Academy</h2>
             <p class="text-gray-600 mb-6">
@@ -366,6 +366,9 @@
 <!-- Section 3.5: Book Slider -->
 @include('components.book-slider')
 
+<!-- Section 3.6: Book Trend (Popular/Recent) -->
+@include('components.book-trend')
+
 <!-- Section 4: Courses Individual -->
 
 @php
@@ -389,8 +392,8 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <!-- Left Side - Image -->
                 <div class="space-y-6">
-                    <div class="relative h-full">
-                        <img src="{{ asset('images/about-us.jpg') }}" alt="Cours Individuels" class="w-full h-full object-cover rounded-xl shadow-lg" />
+                    <div class="relative h-96 ">
+                        <img src="{{ asset('images/indv.jpeg') }}" alt="Cours Individuels" class="w-full h-full object-cover rounded-xl shadow-lg" />
                         <div class="absolute inset-0 rounded-xl" style="background-color: rgba(1, 14, 44, 0.6);"></div>
                     </div>
                 </div>

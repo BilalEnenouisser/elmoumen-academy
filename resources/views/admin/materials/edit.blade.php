@@ -492,6 +492,7 @@
                         <option value="">Sélectionner le semestre...</option>
                         <option value="Semestre 1">Semestre 1</option>
                         <option value="Semestre 2">Semestre 2</option>
+                        <option value="Concour">Concour</option>
                     </select>
                 </div>
 
