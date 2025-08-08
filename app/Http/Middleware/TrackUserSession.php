@@ -20,16 +20,11 @@ class TrackUserSession
             AnalyticsService::trackUserSession(Auth::id(), $sessionId);
         }
 
-        // Track teacher sessions by mapping teacher -> user (via email)
+        // Track teacher sessions
         if (Auth::guard('teacher')->check()) {
             $sessionId = $request->session()->getId();
-            // AnalyticsService handles mapping internally when passing null userId under teacher guard
-            // but trackUserSession needs a user id, so map here similarly
             $teacher = Auth::guard('teacher')->user();
-            $user = \App\Models\User::where('email', $teacher->email)->first();
-            if ($user) {
-                AnalyticsService::trackUserSession($user->id, $sessionId);
-            }
+            AnalyticsService::trackTeacherSession($teacher->id, $sessionId);
         }
 
         return $response;

@@ -797,7 +797,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <div>
                                 <h4 class="font-semibold text-gray-900">Téléphone</h4>
-                                <p class="text-gray-600">+212 600 000 000</p>
+                                <p class="text-gray-600">+212 771 284 243</p>
                             </div>
                         </div>
 
@@ -810,7 +810,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <div>
                                 <h4 class="font-semibold text-gray-900">Email</h4>
-                                <p class="text-gray-600">contact@elmoumen-academy.ma</p>
+                                <p class="text-gray-600">centreelmoumen@gmail.com</p>
                             </div>
                         </div>
 

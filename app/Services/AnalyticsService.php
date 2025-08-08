@@ -6,9 +6,11 @@ use App\Models\PageView;
 use App\Models\PdfDownload;
 use App\Models\VideoClick;
 use App\Models\UserSession;
+use App\Models\TeacherSession;
 use App\Models\TeacherActivity;
 use App\Models\BookClick;
 use App\Models\Book;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User; // Added this import for the new_code
@@ -64,6 +66,14 @@ class AnalyticsService
         );
     }
 
+    public static function trackTeacherSession($teacherId, $sessionId)
+    {
+        TeacherSession::updateOrCreate(
+            ['teacher_id' => $teacherId, 'session_id' => $sessionId],
+            ['last_activity' => now()]
+        );
+    }
+
     public static function trackTeacherActivity($userId, $action, $details = null)
     {
         // Check if we're using the teacher guard or web guard
@@ -100,19 +110,16 @@ class AnalyticsService
 
     public static function getOnlineTeachers()
     {
-        return UserSession::where('last_activity', '>=', now()->subMinutes(5))
-            ->whereHas('user', function ($query) {
-                $query->where('role', 'teacher');
-            })
-            ->with('user')
+        return TeacherSession::where('last_activity', '>=', now()->subMinutes(5))
+            ->with('teacher')
             ->get()
-            ->unique('user_id');
+            ->unique('teacher_id');
     }
 
     public static function getDashboardStats()
     {
-        $totalUsers = \App\Models\User::count();
-        $totalTeachers = \App\Models\User::where('role', 'teacher')->count();
+        $totalUsers = User::count();
+        $totalTeachers = Teacher::count();
         $onlineUsers = self::getOnlineUsers()->count();
         $onlineTeachers = self::getOnlineTeachers()->count();
         
