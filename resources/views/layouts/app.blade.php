@@ -21,12 +21,12 @@
     <!-- Swiper.js JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </head>
-<body class=" bg-gray-100 text-gray-800">
+<body class=" bg-gray-900 text-gray-800">
 
     <!-- Navbar -->
    
 
-<nav id="navbar" class="bg-white border-gray-200 dark:bg-gray-900 transition-all duration-300">
+<nav id="navbar" class="  bg-gray-900 transition-all duration-300">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="{{ url('/') }}" class="flex pr-24 items-center space-x-3 rtl:space-x-reverse">
       <img src="{{ asset('images/logocam.png') }}" class="h-8" alt="Elmoumen Academye Logo" />
@@ -36,7 +36,7 @@
     <div class="flex items-center md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse">
       <!-- Language Selector -->
       <div class="relative" x-data="{ open: false }">
-        <button @click="open = !open" type="button" class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+        <button @click="open = !open" type="button" class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900  text-white rounded-lg cursor-pointer hover:bg-gray-100  hover:bg-gray-700  hover:text-white">
         <svg class="w-5 h-5 rounded-full me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-fr" viewBox="0 0 512 512">
                     <path fill="#fff" d="M0 0h512v512H0z"/>
                     <path fill="#002654" d="M0 0h170.7v512H0z"/>
@@ -45,10 +45,10 @@
           Français
         </button>
         <!-- Language Dropdown - shows on click -->
-        <div x-show="open" @click.away="open = false" class="absolute z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600">
+        <div x-show="open" @click.away="open = false" class="absolute z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-sm  bg-gray-700  divide-gray-600">
           <ul class="py-2 font-medium" role="none">
             <li>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100  text-gray-400  hover:bg-gray-600  hover:text-white" role="menuitem">
                 <div class="inline-flex items-center">
                   <svg class="w-5 h-5 rounded-full me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-fr" viewBox="0 0 512 512">
                     <path fill="#fff" d="M0 0h512v512H0z"/>
@@ -60,7 +60,7 @@
               </a>
             </li>
             <li>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100  text-gray-400  hover:bg-gray-600  hover:text-white" role="menuitem">
                 <div class="inline-flex items-center">
                   <svg aria-hidden="true" class="h-3.5 w-3.5 rounded-full me-2" xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-us" viewBox="0 0 512 512">
                     <g fill-rule="evenodd"><g stroke-width="1pt"><path fill="#bd3d44" d="M0 0h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z" transform="scale(3.9385)"/><path fill="#fff" d="M0 10h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z" transform="scale(3.9385)"/></g><path fill="#192f5d" d="M0 0h98.8v70H0z" transform="scale(3.9385)"/><path fill="#fff" d="M8.2 3l1 2.8H12L9.7 7.5l.9 2.7-2.4-1.7L6 10.2l.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7L74 8.5l-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 7.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 24.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 21.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 38.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 35.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 52.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 49.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 66.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 63.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9z" transform="scale(3.9385)"/></g></svg>              
@@ -73,7 +73,7 @@
       </div>
       
       <!-- Mobile menu button -->
-      <button data-collapse-toggle="navbar-language" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-language" aria-expanded="false">        <span class="sr-only">Open main menu</span>
+      <button data-collapse-toggle="navbar-language" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200  text-gray-400  hover:bg-gray-700  focus:ring-gray-600" aria-controls="navbar-language" aria-expanded="false">        <span class="sr-only">Open main menu</span>
         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
         </svg>
@@ -82,17 +82,17 @@
     
     <!-- Main Navigation -->
     <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-language">
-      <ul class="flex flex-col font-semibold p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 font-[Montserrat]">
+      <ul class="flex flex-col font-semibold p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0    bg-gray-800 md: bg-gray-900  border-gray-700 font-[Montserrat]">
         <li class="flex items-center">
           <a href="{{ url('/') }}" 
-             class="block py-2 px-3 rounded-sm transition-all duration-300 relative {{ request()->is('/') ? 'text-white bg-blue-700 md:bg-transparent md:text-blue-700 md:dark:text-blue-500' : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700' }} {{ request()->is('/') ? 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-700 md:after:bg-blue-700' : 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-700 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300' }}"
+             class="block py-2 px-3 rounded-sm transition-all duration-300 relative {{ request()->is('/') ? 'text-white bg-blue-700 md:bg-transparent md:text-blue-700 md: text-blue-500' : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700  text-white md: hover:text-blue-500  hover:bg-gray-700  hover:text-white md: hover:bg-transparent  border-gray-700' }} {{ request()->is('/') ? 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-700 md:after:bg-blue-700' : 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-700 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300' }}"
              {{ request()->is('/') ? 'aria-current="page"' : '' }}>
             ACCUEIL
           </a>
         </li>
         <li class="flex items-center">
           <a href="{{ url('/about') }}" 
-             class="block py-2 px-3 rounded-sm transition-all duration-300 relative {{ request()->is('about') ? 'text-white bg-blue-700 md:bg-transparent md:text-blue-700 md:dark:text-blue-500' : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700' }} {{ request()->is('about') ? 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-700 md:after:bg-blue-700' : 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-700 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300' }}"
+             class="block py-2 px-3 rounded-sm transition-all duration-300 relative {{ request()->is('about') ? 'text-white bg-blue-700 md:bg-transparent md:text-blue-700 md: text-blue-500' : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700  text-white md: hover:text-blue-500  hover:bg-gray-700  hover:text-white md: hover:bg-transparent  border-gray-700' }} {{ request()->is('about') ? 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-700 md:after:bg-blue-700' : 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-700 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300' }}"
              {{ request()->is('about') ? 'aria-current="page"' : '' }}>
             À Propos
           </a>
@@ -101,36 +101,36 @@
         <!-- COURS Dropdown - shows on hover -->
         <li class="relative group flex items-center">
           <button type="button" 
-                  class="flex items-center justify-between py-2 px-3 rounded-sm transition-all duration-300 relative {{ request()->is('courses*') ? 'text-white bg-blue-700 md:bg-transparent md:text-blue-700 md:dark:text-blue-500' : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent' }} {{ request()->is('courses*') ? 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-700 md:after:bg-blue-700' : 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-700 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300' }}">
+                  class="flex items-center justify-between py-2 px-3 rounded-sm transition-all duration-300 relative {{ request()->is('courses*') ? 'text-white bg-blue-700 md:bg-transparent md:text-blue-700 md: text-blue-500' : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto  text-white md: hover:text-blue-500  focus:text-white  hover:bg-gray-700 md: hover:bg-transparent' }} {{ request()->is('courses*') ? 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-700 md:after:bg-blue-700' : 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-700 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300' }}">
             Cours 
             <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
             </svg>
           </button>
           <!-- Dropdown menu -->
-          <div class="absolute z-50 hidden group-hover:block font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600 top-full left-0">
-            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+          <div class="absolute z-50 hidden group-hover:block font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44  bg-gray-700  divide-gray-600 top-full left-0">
+            <ul class="py-2 text-sm text-gray-700  text-gray-200">
               <li>
                 <a href="{{ url('/courses/primaire') }}" 
-                   class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white {{ request()->is('courses/primaire*') ? 'bg-blue-50 text-blue-700 dark:bg-blue-600 dark:text-white' : '' }}">
+                   class="block px-4 py-2 hover:bg-gray-100  hover:bg-gray-600  hover:text-white {{ request()->is('courses/primaire*') ? 'bg-blue-50 text-blue-700  bg-blue-600  text-white' : '' }}">
                   Primaire
                 </a>
               </li>
               <li>
                 <a href="{{ url('/courses/college') }}" 
-                   class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white {{ request()->is('courses/college*') ? 'bg-blue-50 text-blue-700 dark:bg-blue-600 dark:text-white' : '' }}">
+                   class="block px-4 py-2 hover:bg-gray-100  hover:bg-gray-600  hover:text-white {{ request()->is('courses/college*') ? 'bg-blue-50 text-blue-700  bg-blue-600  text-white' : '' }}">
                   Collège
                 </a>
               </li>
               <li>
                 <a href="{{ url('/courses/lycee') }}" 
-                   class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white {{ request()->is('courses/lycee*') ? 'bg-blue-50 text-blue-700 dark:bg-blue-600 dark:text-white' : '' }}">
+                   class="block px-4 py-2 hover:bg-gray-100  hover:bg-gray-600  hover:text-white {{ request()->is('courses/lycee*') ? 'bg-blue-50 text-blue-700  bg-blue-600  text-white' : '' }}">
                   Lycée
                 </a>
               </li>
               <li>
                 <a href="{{ url('/courses/concours') }}" 
-                   class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white {{ request()->is('courses/concours*') ? 'bg-blue-50 text-blue-700 dark:bg-blue-600 dark:text-white' : '' }}">
+                   class="block px-4 py-2 hover:bg-gray-100  hover:bg-gray-600  hover:text-white {{ request()->is('courses/concours*') ? 'bg-blue-50 text-blue-700  bg-blue-600  text-white' : '' }}">
                   Concours
                 </a>
               </li>
@@ -141,7 +141,7 @@
         
         <li class="flex items-center">
           <a href="{{ url('/contact') }}" 
-             class="block py-2 px-3 rounded-sm transition-all duration-300 relative {{ request()->is('contact') ? 'text-white bg-blue-700 md:bg-transparent md:text-blue-700 md:dark:text-blue-500' : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700' }} {{ request()->is('contact') ? 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-700 md:after:bg-blue-700' : 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-700 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300' }}"
+             class="block py-2 px-3 rounded-sm transition-all duration-300 relative {{ request()->is('contact') ? 'text-white bg-blue-700 md:bg-transparent md:text-blue-700 md: text-blue-500' : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700  text-white md: hover:text-blue-500  hover:bg-gray-700  hover:text-white md: hover:bg-transparent  border-gray-700' }} {{ request()->is('contact') ? 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-700 md:after:bg-blue-700' : 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-700 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300' }}"
              {{ request()->is('contact') ? 'aria-current="page"' : '' }}>
             Contact
           </a>
@@ -279,11 +279,11 @@ window.addEventListener('scroll', function() {
     const navbar = document.getElementById('navbar');
     if (window.scrollY > 100) {
         navbar.classList.add('fixed', 'top-0', 'left-0', 'right-0', 'z-40', 'shadow-lg');
-        navbar.classList.add('bg-white/95', 'backdrop-blur-sm');
+        navbar.classList.add('bg-gray-900', 'backdrop-blur-sm');
         document.body.style.paddingTop = navbar.offsetHeight + 'px';
     } else {
         navbar.classList.remove('fixed', 'top-0', 'left-0', 'right-0', 'z-40', 'shadow-lg');
-        navbar.classList.remove('bg-white/95', 'backdrop-blur-sm');
+        navbar.classList.remove('bg-gray-900', 'backdrop-blur-sm');
         document.body.style.paddingTop = '0';
     }
 });
