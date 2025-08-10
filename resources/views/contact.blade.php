@@ -37,7 +37,7 @@
                 <h3 class="text-xl font-bold text-gray-900 mb-3">Téléphone</h3>
                 <p class="text-gray-600 mb-4">Appelez-nous directement</p>
                 <a href="tel:+212771284243" class="text-green-600 font-semibold text-lg hover:text-green-700 transition">
-                    +212 771 284 243
+                    +212 666 738 349
                 </a>
             </div>
             
@@ -65,7 +65,7 @@
                 <h3 class="text-xl font-bold text-gray-900 mb-3">WhatsApp</h3>
                 <p class="text-gray-600 mb-4">Message instantané</p>
                 <a href="https://wa.me/212771284243" target="_blank" class="text-green-600 font-semibold text-lg hover:text-green-700 transition">
-                    +212 771 284 243
+                    +212 666 738 349
                 </a>
             </div>
         </div>

@@ -67,6 +67,7 @@
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="p-4 text-left text-sm font-medium text-gray-900">Titre</th>
+                        <th class="p-4 text-left text-sm font-medium text-gray-900">Ajouté par</th>
                         <th class="p-4 text-left text-sm font-medium text-gray-900">Niveau</th>
                         <th class="p-4 text-left text-sm font-medium text-gray-900">Type</th>
                         <th class="p-4 text-center text-sm font-medium text-gray-900">PDFs</th>
@@ -78,6 +79,17 @@
                     @foreach ($materials as $material)
                         <tr class="hover:bg-gray-50">
                             <td class="p-4 text-sm text-gray-900">{{ $material->title }}</td>
+                            <td class="p-4 text-sm text-gray-600">
+                                @php
+                                    $firstTeacherPdf = $material->blocks->flatMap(fn($b) => $b->pdfs)->firstWhere('teacher_id', '!=', null);
+                                    $firstTeacher = $firstTeacherPdf?->teacher?->name;
+                                @endphp
+                                @if($firstTeacher)
+                                    {{ $firstTeacher }}
+                                @else
+                                    Admin
+                                @endif
+                            </td>
                             <td class="p-4 text-sm text-gray-600">{{ $material->level->name }}</td>
                             <td class="p-4 text-sm text-gray-600">{{ $material->blocks->first()?->type ?? 'N/A' }}</td>
                             <td class="p-4 text-center">

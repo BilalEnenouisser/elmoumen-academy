@@ -19,20 +19,22 @@ class AnalyticsService
 {
     public static function trackPageView(Request $request, $pageTitle = null)
     {
+        $webUser = Auth::guard('web')->user();
         PageView::create([
             'page_url' => $request->fullUrl(),
             'page_title' => $pageTitle,
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
-            'user_id' => Auth::id(),
+            'user_id' => $webUser ? $webUser->id : null,
         ]);
     }
 
     public static function trackPdfDownload(Request $request, $materialPdfId)
     {
+        $webUser = Auth::guard('web')->user();
         PdfDownload::create([
             'material_pdf_id' => $materialPdfId,
-            'user_id' => Auth::id(),
+            'user_id' => $webUser ? $webUser->id : null,
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
         ]);
@@ -40,9 +42,10 @@ class AnalyticsService
 
     public static function trackVideoClick(Request $request, $categoryVideoId)
     {
+        $webUser = Auth::guard('web')->user();
         VideoClick::create([
             'category_video_id' => $categoryVideoId,
-            'user_id' => Auth::id(),
+            'user_id' => $webUser ? $webUser->id : null,
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
         ]);
@@ -50,9 +53,10 @@ class AnalyticsService
 
     public static function trackMaterialVideoClick(Request $request, $materialVideoId)
     {
+        $webUser = Auth::guard('web')->user();
         \App\Models\MaterialVideoClick::create([
             'material_video_id' => $materialVideoId,
-            'user_id' => Auth::id(),
+            'user_id' => $webUser ? $webUser->id : null,
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
         ]);
@@ -124,7 +128,7 @@ class AnalyticsService
         $onlineTeachers = self::getOnlineTeachers()->count();
         
         $totalPdfDownloads = PdfDownload::count();
-        $totalVideoClicks = VideoClick::count();
+        $totalVideoClicks = VideoClick::count() + \App\Models\MaterialVideoClick::count();
         $totalPageViews = PageView::count();
         
         $topDownloadedPdfs = PdfDownload::with('materialPdf')

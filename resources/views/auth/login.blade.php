@@ -1,4 +1,7 @@
 <x-guest-layout>
+    <div class="text-center mb-4">
+        <img src="{{ asset('images/logocam.png') }}" alt="El Moumen Academy" class="mx-auto  h-20">
+    </div>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 

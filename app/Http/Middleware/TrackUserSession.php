@@ -11,20 +11,22 @@ class TrackUserSession
 {
     public function handle(Request $request, Closure $next)
     {
-        // Proceed with the request first to ensure session is started
         $response = $next($request);
 
-        // Track web user sessions
-        if (Auth::check()) {
+        if (Auth::guard('web')->check()) {
             $sessionId = $request->session()->getId();
-            AnalyticsService::trackUserSession(Auth::id(), $sessionId);
+            $user = Auth::guard('web')->user();
+            if ($user) {
+                AnalyticsService::trackUserSession($user->id, $sessionId);
+            }
         }
 
-        // Track teacher sessions
         if (Auth::guard('teacher')->check()) {
             $sessionId = $request->session()->getId();
             $teacher = Auth::guard('teacher')->user();
-            AnalyticsService::trackTeacherSession($teacher->id, $sessionId);
+            if ($teacher) {
+                AnalyticsService::trackTeacherSession($teacher->id, $sessionId);
+            }
         }
 
         return $response;

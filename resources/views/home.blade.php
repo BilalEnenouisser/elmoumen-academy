@@ -797,7 +797,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <div>
                                 <h4 class="font-semibold text-gray-900">Téléphone</h4>
-                                <p class="text-gray-600">+212 771 284 243</p>
+                                <p class="text-gray-600">+212 666 738 349</p>
                             </div>
                         </div>
 

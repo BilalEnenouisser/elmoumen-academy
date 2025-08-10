@@ -225,17 +225,17 @@ Route::middleware(['auth:teacher'])->prefix('teacher')->name('teacher.')->group(
 // 🔒 Dashboard Home (Shared)
 // ==============================
 
-Route::get('/dashboard', function () {
-    if (auth()->user()->hasRole('admin')) {
-        return redirect()->route('admin.dashboard');
-    } elseif (auth()->user()->hasRole('teacher')) {
-        return redirect()->route('teacher.dashboard');
-    }
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 // ==============================
 // 🛂 Auth Routes
 // ==============================
 
 require __DIR__.'/auth.php';
+
+// ==============================
+// 🚧 Fallback 404 Route
+// ==============================
+
+Route::fallback(function () {
+    return response()->view('errors.404', [], 404);
+});

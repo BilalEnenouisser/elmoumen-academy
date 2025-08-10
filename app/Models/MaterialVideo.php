@@ -12,7 +12,8 @@ class MaterialVideo extends Model
     protected $fillable = [
         'material_block_id',
         'video_link',
-        'title'
+        'title',
+        'teacher_id'
     ];
 
     public function materialBlock()
@@ -28,5 +29,10 @@ class MaterialVideo extends Model
     public function clicks()
     {
         return $this->hasMany(\App\Models\MaterialVideoClick::class);
+    }
+
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class, 'teacher_id');
     }
 } 

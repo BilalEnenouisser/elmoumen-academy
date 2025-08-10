@@ -22,7 +22,7 @@ class MaterialController extends Controller
      */
     public function index()
     {
-        $materials = StudyMaterial::with(['level', 'blocks.pdfs', 'blocks.videos'])->latest()->get();
+        $materials = StudyMaterial::with(['level', 'blocks.pdfs.teacher', 'blocks.videos.teacher'])->latest()->get();
         return view('admin.materials.index', compact('materials'));
     }
 
@@ -178,10 +178,12 @@ class MaterialController extends Controller
             'title' => $request->title,
         ]);
 
-        // Get existing blocks
+        // Map existing blocks by id and keep index order
         $existingBlocks = $material->blocks()->orderBy('order')->get();
-        
-        // Update or create blocks
+        $existingBlocksById = $existingBlocks->keyBy('id');
+        $submittedBlockIds = $request->input('block_ids', []);
+
+        // Update or create blocks aligned by submitted block_ids
         foreach ($request->material_types as $blockIndex => $materialType) {
             // Determine the display name for the block (e.g., "Devoir 3")
             $blockName = null;
@@ -190,9 +192,10 @@ class MaterialController extends Controller
             } elseif ($materialType === 'Concour' && isset($request->concour_types[$blockIndex])) {
                 $blockName = $request->concour_types[$blockIndex];
             }
-            // Update existing block or create new one
-            if (isset($existingBlocks[$blockIndex])) {
-                $block = $existingBlocks[$blockIndex];
+            // Update existing block or create new one using submitted id
+            $submittedBlockId = $submittedBlockIds[$blockIndex] ?? null;
+            if ($submittedBlockId && isset($existingBlocksById[$submittedBlockId])) {
+                $block = $existingBlocksById[$submittedBlockId];
                 $block->update([
                     'type' => $materialType,
                     'semester' => $request->semesters[$blockIndex],
@@ -239,21 +242,30 @@ class MaterialController extends Controller
             }
         }
 
-        // Remove blocks that are no longer in the form
-        $newBlockCount = count($request->material_types);
-        $existingBlocks->slice($newBlockCount)->each(function($block) {
-            // Delete PDFs
-            foreach ($block->pdfs as $pdf) {
-                Storage::disk('public')->delete($pdf->pdf_path);
+        // Remove blocks that were not submitted (deleted in the form)
+        $submittedIdsSet = collect($submittedBlockIds)->filter()->map(fn($id) => (int)$id)->toArray();
+        $existingBlocks->each(function($block) use ($submittedIdsSet) {
+            if (!in_array($block->id, $submittedIdsSet, true)) {
+                // Delete PDFs
+                foreach ($block->pdfs as $pdf) {
+                    Storage::disk('public')->delete($pdf->pdf_path);
+                }
+                $block->pdfs()->delete();
+                // Delete videos
+                $block->videos()->delete();
+                // Delete block
+                $block->delete();
             }
-            $block->pdfs()->delete();
-            
-            // Delete videos
-            $block->videos()->delete();
-            
-            // Delete block
-            $block->delete();
         });
+
+        // Reassign order based on current request order
+        $currentBlocks = $material->blocks()->orderBy('id')->get();
+        foreach ($request->material_types as $i => $_) {
+            $blockId = $submittedBlockIds[$i] ?? null;
+            if ($blockId) {
+                $material->blocks()->where('id', $blockId)->update(['order' => $i]);
+            }
+        }
 
         return redirect()->route('admin.materials.index')->with('success', 'Matériel mis à jour.');
     }

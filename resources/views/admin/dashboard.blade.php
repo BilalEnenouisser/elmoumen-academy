@@ -99,6 +99,7 @@
                         <span class="font-semibold ml-2">{{ $video->click_count }} clics</span>
                     </div>
                 @endforeach
+                <div class="text-xs text-gray-500 mt-2">Inclut les clics des vidéos de catégories et des vidéos des cours.</div>
             </div>
         </div>
 

@@ -124,6 +124,7 @@ class MaterialController extends Controller
                             $block->videos()->create([
                                 'video_link' => $link,
                                 'title' => $request->video_titles[$blockIndex][$videoIndex] ?? 'Video',
+                                'teacher_id' => auth('teacher')->id(),
                             ]);
                         }
                     }
@@ -189,7 +190,13 @@ class MaterialController extends Controller
         ]);
 
         try {
-            // Create new blocks and their content
+            // Determine current max order to append new blocks at the end
+            $currentMaxOrder = $material->blocks()->max('order');
+            if ($currentMaxOrder === null) {
+                $currentMaxOrder = -1;
+            }
+
+            // Create new blocks and their content, always appending
             foreach ($request->material_types as $blockIndex => $materialType) {
                 // Determine the name for the block
                 $blockName = null;
@@ -199,6 +206,7 @@ class MaterialController extends Controller
                     $blockName = $request->concour_types[$blockIndex];
                 }
                 
+                $currentMaxOrder++;
                 $block = $material->blocks()->create([
                     'type' => $materialType,
                     'semester' => $request->semesters[$blockIndex],
@@ -206,7 +214,7 @@ class MaterialController extends Controller
                     'name' => $blockName,
                     'exam_type' => $request->exam_types[$blockIndex] ?? null,
                     'concour_type' => $request->concour_types[$blockIndex] ?? null,
-                    'order' => $blockIndex,
+                    'order' => $currentMaxOrder,
                 ]);
 
                 // Store PDFs for this block
@@ -237,6 +245,7 @@ class MaterialController extends Controller
                             $block->videos()->create([
                                 'video_link' => $link,
                                 'title' => $request->video_titles[$blockIndex][$videoIndex] ?? 'Video',
+                                'teacher_id' => auth('teacher')->id(),
                             ]);
                         }
                     }

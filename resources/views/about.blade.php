@@ -95,12 +95,19 @@
                     <!-- Slide 1 -->
                      <div class="swiper-slide">
                         <div class="gallery-slide-content">
-                            <img src="{{ asset('images/slider/1.jpg') }}" alt="Notre Académie" class="gallery-image">
+                            <img src="{{ asset('images/slider/4.jpg') }}" alt="Notre Académie" class="gallery-image">
                             <div class="gallery-overlay">
                             </div>
                         </div>
                     </div>
-
+                    <div class="swiper-slide">
+                        <div class="gallery-slide-content">
+                            <img src="{{ asset('images/slider/4.jpg') }}" alt="Notre Académie" class="gallery-image">
+                            <div class="gallery-overlay">
+                            </div>
+                        </div>
+                    </div>
+<!-- Full Width Swiper Gallery 
                     <div class="swiper-slide">
                         <div class="gallery-slide-content">
                             <img src="{{ asset('images/slider/2.jpg') }}" alt="Notre Académie" class="gallery-image">
@@ -119,7 +126,7 @@
 
                     <div class="swiper-slide">
                         <div class="gallery-slide-content">
-                            <img src="{{ asset('images/slider/4.jpg') }}" alt="Notre Académie" class="gallery-image">
+                            <img src="{{ asset('images/slider/1.jpg') }}" alt="Notre Académie" class="gallery-image">
                             <div class="gallery-overlay">
                             </div>
                         </div>
@@ -172,7 +179,7 @@
                             </div>
                         </div>
                     </div>
-                   
+                   -->
                 </div>
                 
                 <!-- Navigation Arrows -->

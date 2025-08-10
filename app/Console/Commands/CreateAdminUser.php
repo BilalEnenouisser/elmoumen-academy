@@ -27,11 +27,12 @@ class CreateAdminUser extends Command
      */
     public function handle()
     {
-        $user = User::where('email', 'admin@example.com')->first();
+        $user = User::where('role', 'admin')->first();
         
         if ($user) {
             $user->update([
-                'password' => Hash::make('password'),
+                'email' => 'elmoumen221133@elmoumen.com',
+                'password' => Hash::make('Elmoumen119237@@'),
                 'role' => 'admin',
                 'email_verified_at' => now(),
             ]);
@@ -39,15 +40,15 @@ class CreateAdminUser extends Command
         } else {
             $user = User::create([
                 'name' => 'Admin',
-                'email' => 'admin@example.com',
-                'password' => Hash::make('password'),
+                'email' => 'elmoumen221133@elmoumen.com',
+                'password' => Hash::make('Elmoumen119237@@'),
                 'role' => 'admin',
                 'email_verified_at' => now(),
             ]);
             $this->info('Admin user created successfully!');
         }
 
-        $this->info('Email: admin@example.com');
-        $this->info('Password: password');
+        $this->info('Email: elmoumen221133@elmoumen.com');
+        $this->info('Password: Elmoumen119237@@');
     }
 }

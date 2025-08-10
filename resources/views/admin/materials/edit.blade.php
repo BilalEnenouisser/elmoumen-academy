@@ -125,17 +125,14 @@
 
         <!-- Material Blocks -->
         <div class="bg-white rounded-lg shadow p-4 md:p-6">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
+            <div class="mb-4">
                 <h3 class="text-lg font-semibold text-gray-900">📚 Blocs de Matériel</h3>
-                <button type="button" onclick="addBlock()" 
-                        class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition w-full sm:w-auto">
-                    ➕ Ajouter un Bloc
-                </button>
             </div>
 
             <div id="blocks-container" class="space-y-4 md:space-y-6">
                 @foreach($material->blocks as $index => $block)
                 <div class="block-item border-2 rounded-lg p-4 {{ $index % 2 == 0 ? 'border-blue-200 bg-blue-50' : 'border-green-200 bg-green-50' }}">
+                    <input type="hidden" name="block_ids[]" value="{{ $block->id }}">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
                         <h4 class="font-medium text-gray-900">Bloc {{ $index + 1 }}</h4>
                         <button type="button" onclick="removeBlock(this)" 
@@ -239,6 +236,8 @@
                                 <span class="text-gray-700">{{ $pdf->title ?? 'PDF' }}</span>
                                 @if($pdf->teacher)
                                     <span class="text-xs text-blue-600">(par {{ $pdf->teacher->name }})</span>
+                                @else
+                                    <span class="text-xs text-gray-500">(par Admin)</span>
                                 @endif
                                 <a href="{{ asset('storage/' . $pdf->pdf_path) }}" target="_blank" class="text-blue-600 hover:text-blue-800 text-xs">Voir</a>
                                 <button 
@@ -280,6 +279,11 @@
                             @foreach($block->videos as $video)
                             <div class="flex items-center gap-2 mb-1 text-sm">
                                 <span class="text-gray-700">{{ $video->title ?? 'Vidéo' }}</span>
+                                @if($video->teacher)
+                                    <span class="text-xs text-blue-600">(par {{ $video->teacher->name }})</span>
+                                @else
+                                    <span class="text-xs text-gray-500">(par Admin)</span>
+                                @endif
                                 <a href="{{ $video->video_link }}" target="_blank" class="text-blue-600 hover:text-blue-800 text-xs">Voir</a>
                                 <button 
                                     type="button" 
@@ -311,6 +315,11 @@
                 </div>
                 @endforeach
             </div>
+
+            <button type="button" onclick="addBlock()" 
+                    class="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition w-full">
+                ➕ Ajouter un Bloc
+            </button>
         </div>
 
         <!-- Submit Button -->
@@ -475,6 +484,7 @@
         const colorClass = blockColors[blockIndex % blockColors.length];
         blockDiv.className = `block-item border-2 rounded-lg p-4 ${colorClass}`;
         blockDiv.innerHTML = `
+            <input type="hidden" name="block_ids[]" value="">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
                 <h4 class="font-medium text-gray-900">Bloc ${blockIndex + 1}</h4>
                 <button type="button" onclick="removeBlock(this)" 

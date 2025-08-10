@@ -87,12 +87,8 @@
 
     <!-- Add New Content Form -->
     <div class="bg-white rounded-lg shadow p-4 md:p-6">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
+        <div class="mb-4">
             <h3 class="text-lg font-semibold text-gray-900">📚 Ajouter de Nouveaux Blocs</h3>
-            <button type="button" onclick="addBlock()" 
-                    class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition w-full sm:w-auto">
-                ➕ Ajouter un Bloc
-            </button>
         </div>
         
         <form action="{{ route('teacher.materials.update', $material) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
@@ -102,6 +98,11 @@
             <div id="blocks-container" class="space-y-4 md:space-y-6">
                 <!-- Block template will be added here -->
             </div>
+
+            <button type="button" onclick="addBlock()" 
+                    class="mt-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition w-full">
+                ➕ Ajouter un Bloc
+            </button>
 
             <!-- Submit Button -->
             <div class="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-3">

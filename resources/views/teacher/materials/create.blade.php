@@ -79,15 +79,10 @@
                     <label for="field_id" class="block text-sm font-medium text-gray-700 mb-2">
                         Filière
                     </label>
-                    <select name="field_id" id="field_id" disabled
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-100 text-gray-500">
-                        <option value="">Sélectionner la filière...</option>
-                        @foreach($fields as $field)
-                            <option value="{{ $field->id }}" {{ old('field_id') == $field->id ? 'selected' : '' }}>
-                                {{ $field->name }}
-                            </option>
-                        @endforeach
-                    </select>
+                     <select name="field_id" id="field_id" disabled
+                             class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-100 text-gray-500">
+                         <option value="">Sélectionner la filière...</option>
+                     </select>
                     @error('field_id')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
@@ -111,17 +106,18 @@
 
         <!-- Material Blocks -->
         <div class="bg-white rounded-lg shadow p-4 md:p-6">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
+            <div class="mb-4">
                 <h3 class="text-lg font-semibold text-gray-900">📚 Blocs de Matériel</h3>
-                <button type="button" onclick="addBlock()" 
-                        class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition w-full sm:w-auto">
-                    ➕ Ajouter un Bloc
-                </button>
             </div>
 
             <div id="blocks-container" class="space-y-4 md:space-y-6">
                 <!-- Block template will be added here -->
             </div>
+
+            <button type="button" onclick="addBlock()" 
+                    class="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition w-full">
+                ➕ Ajouter un Bloc
+            </button>
         </div>
 
         <!-- Submit Button -->
@@ -482,30 +478,19 @@
             
             // Reset all dependent dropdowns
             yearSelect.innerHTML = '<option value="">Sélectionner l\'année...</option>';
+             fieldSelect.innerHTML = '<option value="">Sélectionner la filière...</option>';
             subjectSelect.innerHTML = '<option value="">Sélectionner la matière...</option>';
             
-            // Disable all dependent dropdowns
-            fieldSelect.disabled = true;
-            fieldSelect.classList.add('bg-gray-100', 'text-gray-500');
-            fieldSelect.classList.remove('bg-white', 'text-gray-900');
-            
-            subjectSelect.disabled = true;
-            subjectSelect.classList.add('bg-gray-100', 'text-gray-500');
-            subjectSelect.classList.remove('bg-white', 'text-gray-900');
-            
-            if (levelId) {
-                const selectedLevel = this.options[this.selectedIndex].text.toLowerCase();
-                if (selectedLevel.includes('lycée') || selectedLevel.includes('lycee')) {
-                    fieldSelect.disabled = false;
-                    fieldSelect.classList.remove('bg-gray-100', 'text-gray-500');
-                    fieldSelect.classList.add('bg-white', 'text-gray-900');
-                } else {
-                    // For non-Lycée levels, load subjects directly
-                    subjectSelect.disabled = false;
-                    subjectSelect.classList.remove('bg-gray-100', 'text-gray-500');
-                    subjectSelect.classList.add('bg-white', 'text-gray-900');
-                }
-                
+             // Disable all dependent dropdowns
+             fieldSelect.disabled = true;
+             fieldSelect.classList.add('bg-gray-100', 'text-gray-500');
+             fieldSelect.classList.remove('bg-white', 'text-gray-900');
+
+             subjectSelect.disabled = true;
+             subjectSelect.classList.add('bg-gray-100', 'text-gray-500');
+             subjectSelect.classList.remove('bg-white', 'text-gray-900');
+
+             if (levelId) {
                 // Load years for selected level
                 fetch(`/teacher/materials/years/${levelId}`)
                     .then(response => response.json())
@@ -531,6 +516,8 @@
             
             // Reset subject dropdown
             subjectSelect.innerHTML = '<option value="">Sélectionner la matière...</option>';
+             // Reset field dropdown
+             fieldSelect.innerHTML = '<option value="">Sélectionner la filière...</option>';
             
             if (levelId && yearId) {
                 const selectedLevel = document.getElementById('level_id').options[document.getElementById('level_id').selectedIndex].text.toLowerCase();
@@ -589,9 +576,14 @@
                         });
                 }
             } else {
+                 // If year not selected, keep field and subject disabled and reset
                 fieldSelect.disabled = true;
                 fieldSelect.classList.add('bg-gray-100', 'text-gray-500');
                 fieldSelect.classList.remove('bg-white', 'text-gray-900');
+                 fieldSelect.innerHTML = '<option value="">Sélectionner la filière...</option>';
+                 subjectSelect.disabled = true;
+                 subjectSelect.classList.add('bg-gray-100', 'text-gray-500');
+                 subjectSelect.classList.remove('bg-white', 'text-gray-900');
             }
         });
 

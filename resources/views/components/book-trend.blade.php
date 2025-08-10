@@ -60,9 +60,7 @@
                     </div>
 
                     <div class="mt-6 flex flex-wrap gap-3">
-                        <a href="{{ route('books.show', $book->slug) }}" class="px-5 py-2.5 rounded-lg bg-[#001226] text-white hover:bg-[#0a1a2e] transition">
-                            Voir le livre
-                        </a>
+                        
                         @if($whatsappNumber)
                             <a href="{{ $whatsappNumber->whatsapp_url }}?text={{ urlencode('Bonjour, je suis intéressé par le livre: ' . $book->name) }}" target="_blank" class="px-5 py-2.5 rounded-lg border border-green-600 text-green-700 hover:bg-green-50 transition">
                                 Acheter via WhatsApp

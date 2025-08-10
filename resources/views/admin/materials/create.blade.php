@@ -115,17 +115,18 @@
 
         <!-- Material Blocks -->
         <div class="bg-white rounded-lg shadow p-4 md:p-6">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
+            <div class="mb-4">
                 <h3 class="text-lg font-semibold text-gray-900">📚 Blocs de Matériel</h3>
-                <button type="button" onclick="addBlock()" 
-                        class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition w-full sm:w-auto">
-                    ➕ Ajouter un Bloc
-                </button>
             </div>
 
             <div id="blocks-container" class="space-y-4 md:space-y-6">
                 <!-- Block template will be added here -->
             </div>
+
+            <button type="button" onclick="addBlock()" 
+                    class="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition w-full">
+                ➕ Ajouter un Bloc
+            </button>
         </div>
 
         <!-- Submit Button -->

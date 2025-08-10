@@ -18,7 +18,7 @@
     </div>
 
     <!-- Sidebar -->
-    <aside id="sidebar" class="w-64 bg-white shadow h-screen p-4 space-y-4 sticky top-0 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-40">
+    <aside id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-white shadow p-4 space-y-4 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-40 lg:relative lg:h-screen lg:sticky lg:top-0">
         <h2 class="text-xl font-bold text-green-600 mb-6">Panneau d'Administration</h2>
         
         <nav class="space-y-2">
@@ -142,7 +142,7 @@
     <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden hidden" onclick="toggleSidebar()"></div>
 
     <!-- Main Content -->
-    <main class="flex-1 p-4 lg:p-6 overflow-auto">
+    <main class="flex-1 p-4 lg:p-6 overflow-auto w-full">
         <!-- Page Header -->
         <div class="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <h1 class="text-2xl font-bold">@yield('title')</h1>

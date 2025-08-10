@@ -28,7 +28,7 @@
 
 <nav id="navbar" class="  bg-gray-900 transition-all duration-300">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-    <a href="{{ url('/') }}" class="flex pr-24 items-center space-x-3 rtl:space-x-reverse">
+    <a href="{{ url('/') }}" class="flex  items-center space-x-3 rtl:space-x-reverse">
       <img src="{{ asset('images/logocam.png') }}" class="h-8" alt="Elmoumen Academye Logo" />
       
     </a>
@@ -153,7 +153,7 @@
 </nav>
 
     <!-- Page Content -->
-    <main class="min-h-screen">
+    <main class="h-1/2">
         @yield('content')
     </main>
 
