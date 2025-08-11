@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Year;
 use App\Models\Level;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class YearController extends Controller
 {
@@ -40,9 +42,10 @@ class YearController extends Controller
         
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('images/years'), $imageName);
-            $data['image'] = 'images/years/' . $imageName;
+            $imageName = time() . '_' . preg_replace('/[^A-Za-z0-9_.-]/', '_', $image->getClientOriginalName());
+            // Store in storage/app/public/years and expose via /storage/years symlink
+            Storage::disk('public')->putFileAs('years', $image, $imageName);
+            $data['image'] = 'storage/years/' . $imageName;
         }
         
         Year::create($data);
@@ -80,15 +83,20 @@ class YearController extends Controller
         $data = $request->only('name', 'level_id');
         
         if ($request->hasFile('image')) {
-            // Delete old image if exists
-            if ($year->image && file_exists(public_path($year->image))) {
-                unlink(public_path($year->image));
+            // Delete old image if exists (supports both old public path and new storage path)
+            if (!empty($year->image)) {
+                if (Str::startsWith($year->image, 'storage/')) {
+                    $oldPath = Str::replaceFirst('storage/', '', $year->image); // years/...
+                    Storage::disk('public')->delete($oldPath);
+                } elseif (file_exists(public_path($year->image))) {
+                    @unlink(public_path($year->image));
+                }
             }
-            
+
             $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('images/years'), $imageName);
-            $data['image'] = 'images/years/' . $imageName;
+            $imageName = time() . '_' . preg_replace('/[^A-Za-z0-9_.-]/', '_', $image->getClientOriginalName());
+            Storage::disk('public')->putFileAs('years', $image, $imageName);
+            $data['image'] = 'storage/years/' . $imageName;
         }
         
         $year->update($data);
@@ -100,6 +108,15 @@ class YearController extends Controller
      */
     public function destroy(Year $year)
     {
+         // Delete image file if exists
+         if (!empty($year->image)) {
+            if (Str::startsWith($year->image, 'storage/')) {
+                $oldPath = Str::replaceFirst('storage/', '', $year->image);
+                Storage::disk('public')->delete($oldPath);
+            } elseif (file_exists(public_path($year->image))) {
+                @unlink(public_path($year->image));
+            }
+         }
          $year->delete();
         return back()->with('success', 'Year deleted successfully');
     }
