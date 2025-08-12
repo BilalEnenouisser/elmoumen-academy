@@ -1,66 +1,106 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Elmoumen Academy
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Modern Laravel 10 platform for managing academic content: levels, years (années), filières, subjects, videos, PDFs, teachers, sessions, testimonials, and more.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Overview
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Elmoumen Academy is a full-featured educational portal built with Laravel 10 and Tailwind CSS. It provides an admin back-office to manage the academic structure (Levels, Years, Fields), learning content (Subjects, Study Materials, Videos, PDFs), and the public-facing pages for students and visitors. Role-based access control is powered by Spatie Permissions.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Key highlights:
 
-## Learning Laravel
+- Admin “Structure” screen to create/manage Levels, Années (Years), Filières (Fields), and Subjects.
+- Teacher workflow for uploading and organizing course materials (videos, PDFs), with click/download tracking.
+- Public catalog pages for browsing levels/years, subjects, testimonials, and videos.
+- Analytics service and activity/session tracking for teachers and users.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Tech Stack
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- Backend: PHP 8.1+, Laravel Framework ^10
+- Auth: Laravel Breeze + Sanctum
+- RBAC: spatie/laravel-permission ^6
+- Frontend tooling: Vite, Tailwind CSS, PostCSS
+- Testing: PHPUnit 10
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Core Features
 
-## Laravel Sponsors
+- Academic structure management
+	- Levels (e.g., Collège, Lycée, etc.)
+	- Years (Années) per Level with optional cover image
+	- Fields (Filières) for Lycée years
+	- Subjects bound to Level/Year/(Field)
+- Learning content
+	- Study materials grouped into blocks (videos, PDFs)
+	- Video/PDF click and download tracking
+	- Categories for videos
+- Teacher portal
+	- Material creation, editing, and organization
+	- Teacher sessions and activity tracking
+- Marketing and UX
+	- Testimonials, marquee, WhatsApp contacts, landing pages
+	- Page view analytics
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Project Structure
 
-### Premium Partners
+Notable directories and what they contain:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- `app/Models`
+	- `Level`, `Year`, `Field`, `Subject` — academic structure
+	- `StudyMaterial`, `MaterialBlock`, `MaterialVideo`, `MaterialPdf`, and clicks/downloads — learning content
+	- `Video`, `VideoCategory`, `Book`, `BookCategory` — media and resources
+	- `Teacher`, `TeacherSession`, `TeacherActivity`, `UserSession` — engagement and sessions
+	- `Testimonial`, `Marquee`, `PageView`, `Message`, `WhatsAppNumber` — UX, communications, and analytics
+- `app/Http/Controllers`
+	- Public pages, admin resources (e.g., `Admin/YearController`), teacher area
+- `app/Services/AnalyticsService.php`
+	- Encapsulated analytics-related logic
+- `resources/views`
+	- Tailwind-powered Blade views for public, admin, teacher interfaces
+- `routes`
+	- Key entry points: `web.php`, `auth.php`, `api.php` and the Admin/Teacher routes
+
+## Data Model (at a glance)
+
+- Level has many Years
+- Year belongs to Level; has many Subjects and Study Materials
+- Field belongs to a Level, often associated with Lycée Years
+- Subject belongs to a Level and a Year, and optionally to a Field
+- Study Materials group PDFs and Videos via Material Blocks
+
+## Media & Storage
+
+- Year images are stored on the public storage disk at `storage/years/...` (served via the `/storage` URL).
+- Legacy entries that used `public/images/years/...` continue to display and are cleaned up on updates/deletes.
+- Other assets (videos, PDFs) are managed via their respective models and blocks.
+
+## Key Screens & URLs
+
+- Admin Structure: `/admin/structure`
+	- Create/edit Levels, Années (Years), Fields, and Subjects
+- Courses catalog: `/courses/*` (e.g., `level`, `lycee`)
+- Teacher dashboard and materials: `/teacher/*`
+- Videos by category: `/videos/category/*`
+
+## Configuration Notes
+
+- Set `APP_URL` appropriately for correct asset and storage URLs.
+- The default `public` filesystem disk serves files from `storage/app/public` via the `/storage` path.
+- RBAC is provided by `spatie/laravel-permission`; define roles/permissions according to your needs.
+
+## Testing
+
+- PHPUnit test scaffolding is available in `tests/` with `phpunit.xml` configured.
+
+## Security
+
+- Authentication uses Laravel Breeze and Sanctum.
+- Validate and sanitize all uploaded files (this project validates image uploads for years).
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Contributions are welcome. Please open an issue or pull request describing your change and rationale.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+See the repository’s LICENSE file (if provided) for licensing details.
