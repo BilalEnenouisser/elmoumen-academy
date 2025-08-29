@@ -22,7 +22,7 @@ class MaterialController extends Controller
      */
     public function index()
     {
-        $materials = StudyMaterial::with(['level', 'blocks.pdfs.teacher', 'blocks.videos.teacher'])->latest()->get();
+        $materials = StudyMaterial::with(['level', 'year', 'field', 'subject', 'blocks.pdfs.teacher', 'blocks.videos.teacher'])->latest()->get();
         return view('admin.materials.index', compact('materials'));
     }
 

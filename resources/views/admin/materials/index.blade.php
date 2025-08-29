@@ -22,6 +22,7 @@
                 <div class="mb-3">
                     <h3 class="font-semibold text-gray-900 mb-1">{{ $material->title }}</h3>
                     <p class="text-sm text-gray-600">{{ $material->level->name }}</p>
+                    <p class="text-sm text-gray-600">{{ $material->year->name ?? 'N/A' }} - {{ $material->subject->name ?? 'N/A' }}</p>
                     <p class="text-sm text-gray-500">{{ $material->blocks->first()?->type ?? 'N/A' }}</p>
                 </div>
                 
@@ -69,6 +70,8 @@
                         <th class="p-4 text-left text-sm font-medium text-gray-900">Titre</th>
                         <th class="p-4 text-left text-sm font-medium text-gray-900">Ajouté par</th>
                         <th class="p-4 text-left text-sm font-medium text-gray-900">Niveau</th>
+                        <th class="p-4 text-left text-sm font-medium text-gray-900">Année</th>
+                        <th class="p-4 text-left text-sm font-medium text-gray-900">Matière</th>
                         <th class="p-4 text-left text-sm font-medium text-gray-900">Type</th>
                         <th class="p-4 text-center text-sm font-medium text-gray-900">PDFs</th>
                         <th class="p-4 text-center text-sm font-medium text-gray-900">Vidéos</th>
@@ -91,6 +94,8 @@
                                 @endif
                             </td>
                             <td class="p-4 text-sm text-gray-600">{{ $material->level->name }}</td>
+                            <td class="p-4 text-sm text-gray-600">{{ $material->year->name ?? 'N/A' }}</td>
+                            <td class="p-4 text-sm text-gray-600">{{ $material->subject->name ?? 'N/A' }}</td>
                             <td class="p-4 text-sm text-gray-600">{{ $material->blocks->first()?->type ?? 'N/A' }}</td>
                             <td class="p-4 text-center">
                                 @php

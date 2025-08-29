@@ -130,7 +130,7 @@
                                                 <div class="text-white font-semibold">{{ $pdf->title ?? 'PDF' }}</div>
                                                 <div class="text-sm text-blue-100">PDF • {{ $block->name ?? $block->material_type }}</div>
                                             </div>
-                                            <a href="{{ asset('storage/' . $pdf->pdf_path) }}" target="_blank" class="ml-2 p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors" onclick="trackPdfDownload({{ $pdf->id }})">
+                                            <a href="{{ route('pdf.download', $pdf->id) }}" class="ml-2 p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                     <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
                                                     <path d="M7 11l5 5 5-5" />
@@ -245,7 +245,7 @@
                                                 <div class="text-white font-semibold">{{ $pdf->title ?? 'PDF' }}</div>
                                                 <div class="text-sm text-blue-100">PDF • {{ $block->name ?? $block->material_type }}</div>
                                             </div>
-                                            <a href="{{ asset('storage/' . $pdf->pdf_path) }}" target="_blank" class="ml-2 p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors" onclick="trackPdfDownload({{ $pdf->id }})">
+                                            <a href="{{ route('pdf.download', $pdf->id) }}" class="ml-2 p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                     <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
                                                     <path d="M7 11l5 5 5-5" />
@@ -354,7 +354,7 @@
                                                 <div class="text-white font-semibold">{{ $pdf->title ?? 'PDF' }}</div>
                                                 <div class="text-sm text-purple-100">PDF • {{ $block->name ?? $block->material_type }}</div>
                                             </div>
-                                            <a href="{{ asset('storage/' . $pdf->pdf_path) }}" target="_blank" class="ml-2 p-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors" onclick="trackPdfDownload({{ $pdf->id }})">
+                                            <a href="{{ route('pdf.download', $pdf->id) }}" class="ml-2 p-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                     <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
                                                     <path d="M7 11l5 5 5-5" />
@@ -403,16 +403,6 @@
 <script src="//unpkg.com/alpinejs" defer></script>
 
 <script>
-function trackPdfDownload(pdfId) {
-    fetch(`/track/pdf-download/${pdfId}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        }
-    });
-}
-
 function trackVideoClick(videoId) {
     fetch(`/track/material-video-click/${videoId}`, {
         method: 'POST',

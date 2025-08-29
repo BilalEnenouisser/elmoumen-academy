@@ -178,6 +178,9 @@ Route::prefix('books')->name('books.')->group(function () {
 // 📊 Analytics Tracking Routes
 // ==============================
 
+// PDF Download Route
+Route::get('download/pdf/{pdf}', [App\Http\Controllers\PdfDownloadController::class, 'download'])->name('pdf.download');
+
 Route::post('track/pdf-download/{pdf}', function (Request $request, $pdf) {
     \App\Services\AnalyticsService::trackPdfDownload($request, $pdf);
     return response()->json(['success' => true]);
